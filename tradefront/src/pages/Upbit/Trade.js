@@ -11,7 +11,7 @@ function UpTrade() {
       <br />
       <br />
       <Button />
-      <Chart />
+      {/* <Chart /> */}
     </div>
   );
 }

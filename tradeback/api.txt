@@ -1,4 +1,5 @@
 /upbit => 업비트 upbit_api
 /upbit/wallet => 지갑 잔고 확인(get)
+/upbit/tickers => krw, BTC, USDT market별 거래되고 있는 코인들
 /upbit/current_price => 현재 코인 가격 확인(post)
-/upbit/tickers => 
+/

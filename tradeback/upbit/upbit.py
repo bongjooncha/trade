@@ -12,25 +12,20 @@ def upbit_wallet():
     wallet = upbit.get_balances()
     return jsonify(wallet)
 
-# #krw-btc
-# @upbit_api.route("/current_price/krw-btc")
-# def btc():
-#     wallet = pyupbit.get_current_price("KRW-BTC")
-#     return jsonify(wallet)
-
-#현재 가격 확인
-@upbit_api.route('/current_price', methods=['POST'])
-def current_price():
-    market = request.form['market']
-    chance = pyupbit.get_current_price(market)
-    return jsonify(chance)
-
 #ticker 확인(KRW,BTC,USDT)
 @upbit_api.route('/tickers', methods=['POST'])
 def tickers():
-    market = request.json()['market']
-    tickers = pyupbit.get_tickers(fiat=market)
+    market = request.json['market']
+    tickers = pyupbit.get_tickers(market)
     return jsonify(tickers)
+
+#현재 가격 확인(ex. krw-btc)
+@upbit_api.route('/current_price', methods=['POST'])
+def current_price():
+    market = request.json['market']
+    chance = pyupbit.get_current_price(market)
+    return jsonify(chance)
+
 
 #Candle 확인    
 @upbit_api.route('/candles', methods=['POST'])
@@ -41,9 +36,10 @@ def candles():
     candles = pyupbit.get_ohlcv(market, interval=interval, count=count).reset_index().to_dict(orient='records')
     return jsonify(candles)
     
-@upbit_api.route("/like",methods=["PATCH"])
+@upbit_api.route("/try")
 def update_like():
-    return jsonify("good")
+    tickers = pyupbit.get_tickers("BTC")
+    return jsonify(tickers)
 
 
 
