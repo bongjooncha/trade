@@ -1,0 +1,4 @@
+/upbit => 업비트 upbit_api
+/upbit/wallet => 지갑 잔고 확인(get)
+/upbit/current_price => 현재 코인 가격 확인(post)
+/upbit/tickers => 
