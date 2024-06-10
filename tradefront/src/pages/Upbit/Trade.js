@@ -1,8 +1,9 @@
 import React from "react";
-import Headnav from "components/Nav/HeadNav";
+import Headnav from "components/Header/index";
 
-import Button from "components/Button/index";
+import CurrentMarket from "components/CurrnetMarket/index";
 import Chart from "components/Chart/index";
+import "styles/Uptrade.css";
 
 function UpTrade() {
   return (
@@ -10,8 +11,10 @@ function UpTrade() {
       <Headnav />
       <br />
       <br />
-      <Button />
-      {/* <Chart /> */}
+      <div className="trade_body">
+        <Chart />
+        <CurrentMarket />
+      </div>
     </div>
   );
 }

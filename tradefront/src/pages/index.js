@@ -1,6 +1,6 @@
 import React from "react";
 
-import Headnav from "components/Nav/HeadNav";
+import Headnav from "components/Header/index";
 
 function Home() {
   return (

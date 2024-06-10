@@ -27,3 +27,26 @@ export async function fetchPrice(coin) {
     throw error;
   }
 }
+
+// 캔들 데이터 가져오기
+export async function fetchCandle(market, interval) {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/upbit/candles`,
+      {
+        market: market,
+        interval: interval,
+        count: 200,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}

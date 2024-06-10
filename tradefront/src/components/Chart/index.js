@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts/highstock";
 import stockTools from "highcharts/modules/stock-tools";
-import axios from "axios";
+
+import { fetchCandle } from "api";
 
 // Stock Tools 모듈 초기화
 stockTools(Highcharts);
@@ -13,28 +14,16 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BUILD_BASE_URL}/upbit/candles`,
-        {
-          market: market,
-          interval: interval,
-          count: 200,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setData(response.data);
+      const candleData = await fetchCandle(market, interval);
+      setData(candleData);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching candle data:", error);
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [market, interval]);
 
   useEffect(() => {
     if (data.length === 0) return;
@@ -60,6 +49,7 @@ const App = () => {
     Highcharts.stockChart("container", {
       chart: {
         height: 800, // 차트 높이를 800px로 설정
+        width: 1600,
       },
       yAxis: [
         {

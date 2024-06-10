@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Headnav from "components/Nav/HeadNav";
+import Headnav from "components/Header/index";
 
 function Upbit() {
   return (
