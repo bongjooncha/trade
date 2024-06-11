@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Home from "pages/index";
+import Home from "pages/main";
 import Upbit from "pages/Upbit";
 import UpWallet from "pages/Upbit/Wallet";
 import UpTrade from "pages/Upbit/Trade";

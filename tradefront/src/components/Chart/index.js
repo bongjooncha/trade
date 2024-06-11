@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts/highstock";
 import stockTools from "highcharts/modules/stock-tools";
 
-import { fetchCandle } from "api";
+import { fetchCandle } from "api/Upbit_api"; // 경로를 실제 파일 경로로 대체하세요
 
 // Stock Tools 모듈 초기화
 stockTools(Highcharts);
 
 const App = () => {
   const [market, setMarket] = useState("KRW-BTC");
-  const [interval, setInterval] = useState("minute5");
+  const [intervalUnit, setIntervalUnit] = useState("minutes");
+  const [intervalValue, setIntervalValue] = useState(5);
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
     try {
+      const interval = `${intervalUnit}/${intervalValue}`;
       const candleData = await fetchCandle(market, interval);
       setData(candleData);
     } catch (error) {
@@ -23,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData();
-  }, [market, interval]);
+  }, [market, intervalUnit, intervalValue]);
 
   useEffect(() => {
     if (data.length === 0) return;
@@ -33,16 +35,16 @@ const App = () => {
 
     data.forEach((item) => {
       ohlc.push([
-        new Date(item.index).getTime(), // the date
-        item.open, // open
-        item.high, // high
-        item.low, // low
-        item.close, // close
+        new Date(item.candle_date_time_kst).getTime(), // the date
+        item.opening_price, // open
+        item.high_price, // high
+        item.low_price, // low
+        item.trade_price, // close
       ]);
 
       volume.push([
-        new Date(item.index).getTime(), // the date
-        item.volume, // the volume
+        new Date(item.candle_date_time_kst).getTime(), // the date
+        item.candle_acc_trade_volume, // the volume
       ]);
     });
 
@@ -157,11 +159,23 @@ const App = () => {
           />
         </label>
         <label>
-          Interval:
+          Interval Unit:
+          <select
+            value={intervalUnit}
+            onChange={(e) => setIntervalUnit(e.target.value)}
+          >
+            <option value="minutes">Minute</option>
+            <option value="days">Day</option>
+            <option value="weeks">Week</option>
+            <option value="months">Month</option>
+          </select>
+        </label>
+        <label>
+          Interval Value:
           <input
-            type="text"
-            value={interval}
-            onChange={(e) => setInterval(e.target.value)}
+            type="number"
+            value={intervalValue}
+            onChange={(e) => setIntervalValue(e.target.value)}
           />
         </label>
         <button onClick={fetchData}>Update</button>

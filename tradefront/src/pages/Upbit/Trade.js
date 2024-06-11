@@ -3,9 +3,11 @@ import Headnav from "components/Header/index";
 
 import CurrentMarket from "components/CurrnetMarket/index";
 import Chart from "components/Chart/index";
-import "styles/Uptrade.css";
+import "./style/Uptrade.css";
 
 function UpTrade() {
+  const current_markets = ["KRW", "BTC", "USDT"];
+
   return (
     <div className="Home">
       <Headnav />
@@ -13,7 +15,7 @@ function UpTrade() {
       <br />
       <div className="trade_body">
         <Chart />
-        <CurrentMarket />
+        {/* <CurrentMarket current_markets={current_markets} /> */}
       </div>
     </div>
   );
