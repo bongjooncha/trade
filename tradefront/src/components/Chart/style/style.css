@@ -1,0 +1,12 @@
+@import "https://code.highcharts.com/css/stocktools/gui.css";
+@import "https://code.highcharts.com/css/annotations/popup.css";
+
+#container {
+  height: 730px;
+}
+
+@media screen and (max-width: 600px) {
+  #container {
+    height: 400px;
+  }
+}

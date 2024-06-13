@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts/highstock";
-import stockTools from "highcharts/modules/stock-tools";
+// API 정보 받아오는 함수
+import { fetchCandle } from "api/Upbit_api";
 
-import { fetchCandle } from "api/Upbit_api"; // 경로를 실제 파일 경로로 대체하세요
+// 1. load high chart all indicators
+import Indicators from "highcharts/indicators/indicators-all.js";
+// 2. other modules in tool box
+import DragPanes from "highcharts/modules/drag-panes.js";
+import AnnotationsAdvanced from "highcharts/modules/annotations-advanced.js";
+import PriceIndicator from "highcharts/modules/price-indicator.js";
+import FullScreen from "highcharts/modules/full-screen.js";
+// 3.Stock Tools module
+import StockTools from "highcharts/modules/stock-tools.js";
+// 4. 이안에 css파일 load함
+import "./style/style.css";
 
 // Stock Tools 모듈 초기화
-stockTools(Highcharts);
+Indicators(Highcharts);
+DragPanes(Highcharts);
+AnnotationsAdvanced(Highcharts);
+PriceIndicator(Highcharts);
+FullScreen(Highcharts);
+StockTools(Highcharts);
 
 const App = () => {
   const [market, setMarket] = useState("KRW-BTC");
@@ -32,6 +48,7 @@ const App = () => {
 
     const ohlc = [];
     const volume = [];
+    console.log(ohlc);
 
     data.forEach((item) => {
       ohlc.push([
@@ -49,10 +66,6 @@ const App = () => {
     });
 
     Highcharts.stockChart("container", {
-      chart: {
-        height: 800, // 차트 높이를 800px로 설정
-        width: 1600,
-      },
       yAxis: [
         {
           labels: {
@@ -73,14 +86,11 @@ const App = () => {
         },
       ],
       tooltip: {
-        shape: "square",
-        headerShape: "callout",
         borderWidth: 0,
         shadow: false,
         positioner: function (width, height, point) {
           const chart = this.chart;
           let position;
-
           if (point.isHeader) {
             position = {
               x: Math.max(
@@ -89,7 +99,7 @@ const App = () => {
                 Math.min(
                   point.plotX + chart.plotLeft - width / 2,
                   // Right side limit
-                  chart.chartWidth - width - chart.marginRight
+                  chart.chartWidth - width - chart.margin
                 )
               ),
               y: point.plotY,
@@ -100,16 +110,48 @@ const App = () => {
               y: point.series.yAxis.top - chart.plotTop,
             };
           }
-
           return position;
         },
+        formatter: function () {
+          var tooltipContent =
+            "<b>" +
+            this.series.name +
+            "</b><br/>" +
+            "Date: " +
+            Highcharts.dateFormat("%Y-%m-%d", this.x) +
+            "<br/>" +
+            "Open: " +
+            this.point.open +
+            "<br/>" +
+            "High: " +
+            this.point.high +
+            "<br/>" +
+            "Low: " +
+            this.point.low +
+            "<br/>" +
+            "Close: " +
+            this.point.close +
+            "<br/>";
+
+          if (this.series.options.id === "volume") {
+            tooltipContent += "Volume: " + this.point.y + "<br/>";
+          }
+
+          return tooltipContent;
+        },
       },
+      // 초기설정
       series: [
         {
           type: "candlestick",
-          id: "ohlc",
+          id: "price",
           name: `${market} Price`,
           data: ohlc,
+          pointWidth: 10,
+          tooltip: {
+            valueDecimals: 2, // 소수점 이하 두 자리까지 표시
+          },
+          turboThreshold: 2000, // 터보 임계값 증가
         },
         {
           type: "column",
@@ -117,32 +159,35 @@ const App = () => {
           name: `${market} Volume`,
           data: volume,
           yAxis: 1,
+          pointWidth: 10,
+          tooltip: {
+            valueDecimals: 2, // 소수점 이하 두 자리까지 표시
+          },
+          turboThreshold: 2000, // 터보 임계값 증가
         },
       ],
-      responsive: {
-        rules: [
-          {
-            condition: {
-              maxWidth: 800,
-            },
-            chartOptions: {
-              rangeSelector: {
-                inputEnabled: false,
-              },
-            },
-          },
-        ],
+      // plot 색설정
+      plotOptions: {
+        candlestick: {
+          color: "darkblue",
+          lineColor: "blue",
+          upColor: "red",
+          upLineColor: "red",
+        },
+        ohlc: { color: "blue", upColor: "red" },
+      },
+      chart: {
+        height: 800, // 차트 높이를 800px로 설정
+        width: 1500,
       },
       accessibility: {
-        enabled: true, // 접근성 모듈 경고를 비활성화
+        enabled: false, // 접근성 모듈 경고를 비활성화
       },
+      // Stock Tools GUI를 활성화
       stockTools: {
         gui: {
-          enabled: true, // Stock Tools GUI를 활성화
+          enabled: true,
         },
-      },
-      navigation: {
-        bindingsClassName: "highcharts-bindings-wrapper", // 필수적인 기본 설정
       },
     });
   }, [data]);
@@ -180,7 +225,11 @@ const App = () => {
         </label>
         <button onClick={fetchData}>Update</button>
       </div>
-      <div id="container" />
+      <div
+        id="container"
+        className="chart"
+        style={{ height: "800px", minWidth: "1000px" }}
+      />
     </div>
   );
 };

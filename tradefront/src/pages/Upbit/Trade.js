@@ -1,12 +1,13 @@
 import React from "react";
 import Headnav from "components/Header/index";
 
-import CurrentMarket from "components/CurrnetMarket/index";
-import Chart from "components/Chart/index";
+// import CurrentMarket from "components/CurrnetMarket/index";
+import Trychart from "components/Chart/index";
+
 import "./style/Uptrade.css";
 
 function UpTrade() {
-  const current_markets = ["KRW", "BTC", "USDT"];
+  // const current_markets = ["KRW", "BTC", "USDT"];
 
   return (
     <div className="Home">
@@ -14,7 +15,7 @@ function UpTrade() {
       <br />
       <br />
       <div className="trade_body">
-        <Chart />
+        <Trychart />
         {/* <CurrentMarket current_markets={current_markets} /> */}
       </div>
     </div>
