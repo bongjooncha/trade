@@ -13,7 +13,7 @@ import FullScreen from "highcharts/modules/full-screen.js";
 // 3.Stock Tools module
 import StockTools from "highcharts/modules/stock-tools.js";
 // 4. 이안에 css파일 load함
-import "./style/style.css";
+import style from "./style/chart.module.css";
 
 // Stock Tools 모듈 초기화
 Indicators(Highcharts);
@@ -23,15 +23,28 @@ PriceIndicator(Highcharts);
 FullScreen(Highcharts);
 StockTools(Highcharts);
 
-const App = () => {
-  const [market, setMarket] = useState("KRW-BTC");
-  const [intervalUnit, setIntervalUnit] = useState("minutes");
-  const [intervalValue, setIntervalValue] = useState(5);
+const Trychart = ({ market }) => {
+  const [intervalUnit, setIntervalUnit] = useState("minutes/5");
   const [data, setData] = useState([]);
+  const [price, setPrice] = useState(null);
+
+  const intervals = [
+    { value: "minutes/1", label: "1분" },
+    { value: "minutes/3", label: "3분" },
+    { value: "minutes/5", label: "5분" },
+    { value: "minutes/10", label: "10분" },
+    { value: "minutes/15", label: "15분" },
+    { value: "minutes/30", label: "30분" },
+    { value: "minutes/60", label: "1시간" },
+    { value: "minutes/240", label: "4시간" },
+    { value: "days/", label: "1일" },
+    { value: "weeks/", label: "1주" },
+    { value: "months/", label: "한 달" },
+  ];
 
   const fetchData = async () => {
     try {
-      const interval = `${intervalUnit}/${intervalValue}`;
+      const interval = `${intervalUnit}`;
       const candleData = await fetchCandle(market, interval);
       setData(candleData);
     } catch (error) {
@@ -41,14 +54,17 @@ const App = () => {
 
   useEffect(() => {
     fetchData();
-  }, [market, intervalUnit, intervalValue]);
+
+    // const interval = setInterval(fetchData, 1000);
+
+    // return () => clearInterval(interval);
+  }, [market, intervalUnit]);
 
   useEffect(() => {
     if (data.length === 0) return;
 
     const ohlc = [];
     const volume = [];
-    console.log(ohlc);
 
     data.forEach((item) => {
       ohlc.push([
@@ -65,7 +81,15 @@ const App = () => {
       ]);
     });
 
+    ohlc.sort((a, b) => a[0] - b[0]);
+    volume.sort((a, b) => a[0] - b[0]);
+
+    if (ohlc.length > 0) {
+      setPrice(ohlc[0][4]); // ohlc 배열의 첫 번째 항목에서 trade_price를 가져옴
+    }
+
     Highcharts.stockChart("container", {
+      // 차트 종류
       yAxis: [
         {
           labels: {
@@ -85,6 +109,7 @@ const App = () => {
           offset: 0,
         },
       ],
+      // 위 네모
       tooltip: {
         borderWidth: 0,
         shadow: false,
@@ -147,11 +172,9 @@ const App = () => {
           id: "price",
           name: `${market} Price`,
           data: ohlc,
-          pointWidth: 10,
           tooltip: {
             valueDecimals: 2, // 소수점 이하 두 자리까지 표시
           },
-          turboThreshold: 2000, // 터보 임계값 증가
         },
         {
           type: "column",
@@ -159,11 +182,12 @@ const App = () => {
           name: `${market} Volume`,
           data: volume,
           yAxis: 1,
-          pointWidth: 10,
           tooltip: {
             valueDecimals: 2, // 소수점 이하 두 자리까지 표시
           },
-          turboThreshold: 2000, // 터보 임계값 증가
+        },
+        {
+          showInNavigator: true,
         },
       ],
       // plot 색설정
@@ -181,7 +205,7 @@ const App = () => {
         width: 1500,
       },
       accessibility: {
-        enabled: false, // 접근성 모듈 경고를 비활성화
+        enabled: true, // 접근성 모듈 경고를 비활성화
       },
       // Stock Tools GUI를 활성화
       stockTools: {
@@ -189,49 +213,56 @@ const App = () => {
           enabled: true,
         },
       },
+      responsive: {
+        rules: [
+          {
+            condition: {
+              // maxWidth: 1500,
+            },
+            chartOptions: {
+              rangeSelector: {
+                inputEnabled: false,
+              },
+            },
+          },
+        ],
+      },
+      rangeSelector: {
+        verticalAlign: "top",
+        x: 0,
+        y: 0,
+      },
     });
   }, [data]);
 
   return (
     <div>
-      <div>
-        <label>
-          Market:
-          <input
-            type="text"
-            value={market}
-            onChange={(e) => setMarket(e.target.value)}
-          />
-        </label>
+      <div className={style.head}>
+        <div>
+          <h2>{market}</h2>
+          <h3>
+            {price !== null
+              ? `₩${Number(price).toLocaleString()}`
+              : "Loading..."}
+          </h3>
+        </div>
         <label>
           Interval Unit:
           <select
             value={intervalUnit}
             onChange={(e) => setIntervalUnit(e.target.value)}
           >
-            <option value="minutes">Minute</option>
-            <option value="days">Day</option>
-            <option value="weeks">Week</option>
-            <option value="months">Month</option>
+            {intervals.map((interval, index) => (
+              <option key={index} value={interval.value}>
+                {interval.label}
+              </option>
+            ))}
           </select>
         </label>
-        <label>
-          Interval Value:
-          <input
-            type="number"
-            value={intervalValue}
-            onChange={(e) => setIntervalValue(e.target.value)}
-          />
-        </label>
-        <button onClick={fetchData}>Update</button>
       </div>
-      <div
-        id="container"
-        className="chart"
-        style={{ height: "800px", minWidth: "1000px" }}
-      />
+      <div id="container" className="chart" />
     </div>
   );
 };
 
-export default App;
+export default Trychart;

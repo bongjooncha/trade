@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { fetchTickers, fetchPrice } from "api/Upbit_api";
-
 import styles from "./style/currentMarket.module.css";
 
-function MarketButton({ current_markets }) {
+function CurrentMarket({ current_markets, onMarketChange }) {
   const markets = current_markets;
   const [selectedMarket, setSelectedMarket] = useState("KRW");
   const [prices, setPrices] = useState({});
@@ -17,18 +16,20 @@ function MarketButton({ current_markets }) {
       setPrices(priceDatas);
     };
 
-    // 초기 데이터를 불러오기 위해 한 번 실행
     loadTickers();
-
     // 1초마다 데이터를 불러오기 위한 interval 설정
-    // const interval = setInterval(loadTickers, 1000);
+    const interval = setInterval(loadTickers, 1000);
 
     // 컴포넌트가 언마운트될 때 interval을 정리
-    // return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, [selectedMarket]);
 
   const handleMarketChange = (market) => {
     setSelectedMarket(market);
+  };
+
+  const handleCoinClick = (market, ticker) => {
+    onMarketChange(`${market}-${ticker}`);
   };
 
   return (
@@ -44,7 +45,17 @@ function MarketButton({ current_markets }) {
             {Object.entries(prices)
               .sort(([, price1], [, price2]) => price2 - price1)
               .map(([ticker, price]) => (
-                <div key={ticker} id={styles.box}>
+                <div
+                  key={ticker}
+                  id={styles.box}
+                  onClick={() =>
+                    handleCoinClick(
+                      selectedMarket,
+                      ticker.replace(`${selectedMarket}-`, "")
+                    )
+                  }
+                  style={{ cursor: "pointer" }} // 마우스를 포인터로 변경
+                >
                   {price >= 0 ? (
                     <div>
                       {ticker.replace(`${selectedMarket}-`, "")}:
@@ -64,4 +75,4 @@ function MarketButton({ current_markets }) {
   );
 }
 
-export default MarketButton;
+export default CurrentMarket;

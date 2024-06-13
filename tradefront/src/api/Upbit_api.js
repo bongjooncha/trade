@@ -54,7 +54,7 @@ export async function fetchCandle(market, interval) {
 
   try {
     const response = await axios.get(
-      `${UPBIT_URL}v1/candles/${intervalUnit}/${intervalValue}?market=${market}&count=100`,
+      `${UPBIT_URL}v1/candles/${intervalUnit}/${intervalValue}?market=${market}&count=200`,
       options
     );
     if (response.status !== 200) {

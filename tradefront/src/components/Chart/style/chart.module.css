@@ -2,11 +2,15 @@
 @import "https://code.highcharts.com/css/annotations/popup.css";
 
 #container {
-  height: 730px;
+  height: 10000px;
 }
 
 @media screen and (max-width: 600px) {
   #container {
-    height: 400px;
+    height: 10000px;
   }
+}
+
+.head {
+  display: flex;
 }
