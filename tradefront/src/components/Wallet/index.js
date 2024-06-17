@@ -3,16 +3,15 @@ import axios from "axios";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
+import { fetchAccount } from "api/Upbit_api";
+
 const Wallet = () => {
   const [data, setData] = useState(null);
   const [assetData, setAssetData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BUILD_BASE_URL}/upbit/wallet`
-      );
-      const rawData = response.data;
+      const rawData = await fetchAccount();
 
       // 총 자산(KRW 기준)을 계산
       let totalAsset = rawData.reduce((acc, item) => {

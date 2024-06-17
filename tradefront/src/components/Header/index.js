@@ -18,9 +18,9 @@ function Headnav() {
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <NavDropdown title="Stock" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">키움</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
+              <NavDropdown.Item href="/kiwoom">키움</NavDropdown.Item>
+              <NavDropdown.Item href="/kiwoom/wallet">
+                키움 계좌 조회
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />

@@ -12,26 +12,26 @@ def loginInfo():
     user_name = kiwoom.GetLoginInfo("USER_NAME")            # 사용자명
     keyboard = kiwoom.GetLoginInfo("KEY_BSECGB")            # 키보드보안 해지여부
     firewall = kiwoom.GetLoginInfo("FIREW_SECGB")           # 방화벽 설정 여부
+    surber = kiwoom.GetLoginInfo("GetServerGubun")
 
-    print(account_num)
+    print(surber)
     print(accounts)
     print(user_id)
     print(user_name)
     print(keyboard)
     print(firewall)
+loginInfo()
 
 
 # 마켓내 번호 호출 GetCodeListByMarket(ticker)
 # 0: 코스피, 10:코스닥, 8: ETF
 def codeListByMarket():
-    kospi = kiwoom.GetCodeListByMarket('0')
-    kosdaq = kiwoom.GetCodeListByMarket('10')
-    etf = kiwoom.GetCodeListByMarket('8')
-
-    print(len(kospi), kospi)
-    print(len(kosdaq), kosdaq)
-    print(len(etf), etf)
-
+    codes = kiwoom.GetCodeListByMarket("0")
+    names = []
+    for code in codes:
+        names.append(kiwoom.GetMasterCodeName(code))
+    result_dict = dict(zip(codes, names))
+    print(result_dict)
 
 # 코드로 이름 받아오기 GetMasterCodeName
 def masterCodeName():
@@ -46,6 +46,14 @@ def TR():
     df = kiwoom.block_request("opt10001",
                             종목코드="005930",
                             output="주식기본정보",
-                            next=0)
+                            next=1)
     print(df)
-TR()
+
+def candle():
+    df = kiwoom.block_request("opt10081",
+                          종목코드="005930",
+                          기준일자="20200424",
+                          수정주가구분=1,
+                          output="주식일봉차트조회",
+                          next=0)
+    print(df)

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request
+from flask import Blueprint, jsonify, request
 from .auth import authen
 import pyupbit
 
@@ -14,14 +14,14 @@ def upbit_wallet():
 
 #ticker 확인(KRW,BTC,USDT)
 @upbit_api.route('/tickers', methods=['POST'])
-def tickers():
+def upbit_tickers():
     market = request.json['market']
     tickers = pyupbit.get_tickers(market)
     return jsonify(tickers)
 
 #현재 가격 확인(ex. krw-btc)
 @upbit_api.route('/current_price', methods=['POST'])
-def current_price():
+def ubpit_current_price():
     market = request.json['market']
     chance = pyupbit.get_current_price(market)
     return jsonify(chance)
@@ -29,7 +29,7 @@ def current_price():
 
 #Candle 확인    
 @upbit_api.route('/candles', methods=['POST'])
-def candles():
+def upbit_candles():
     market = request.json['market']
     interval = request.json['interval']  # e.g., 'minute1', 'day', etc.
     count = request.json['count']
