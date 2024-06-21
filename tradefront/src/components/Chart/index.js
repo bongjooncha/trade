@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts/highstock";
 // API 정보 받아오는 함수
-import { fetchCandle } from "api/Upbit_api";
+import { fetchCandle } from "api/Upbit/Upbit_api";
 
 // 1. load high chart all indicators
 import Indicators from "highcharts/indicators/indicators-all.js";
@@ -10,6 +10,7 @@ import DragPanes from "highcharts/modules/drag-panes.js";
 import AnnotationsAdvanced from "highcharts/modules/annotations-advanced.js";
 import PriceIndicator from "highcharts/modules/price-indicator.js";
 import FullScreen from "highcharts/modules/full-screen.js";
+import Accessibility from "highcharts/modules/accessibility";
 // 3.Stock Tools module
 import StockTools from "highcharts/modules/stock-tools.js";
 // 4. 이안에 css파일 load함
@@ -20,6 +21,7 @@ Indicators(Highcharts);
 DragPanes(Highcharts);
 AnnotationsAdvanced(Highcharts);
 PriceIndicator(Highcharts);
+Accessibility(Highcharts);
 FullScreen(Highcharts);
 StockTools(Highcharts);
 
@@ -55,9 +57,8 @@ const Trychart = ({ market }) => {
   useEffect(() => {
     fetchData();
 
-    // const interval = setInterval(fetchData, 1000);
-
-    // return () => clearInterval(interval);
+    const interval = setInterval(fetchData, 5000);
+    return () => clearInterval(interval);
   }, [market, intervalUnit]);
 
   useEffect(() => {
@@ -88,7 +89,7 @@ const Trychart = ({ market }) => {
       setPrice(ohlc[0][4]); // ohlc 배열의 첫 번째 항목에서 trade_price를 가져옴
     }
 
-    Highcharts.stockChart("container", {
+    Highcharts.stockChart(style.container, {
       // 차트 종류
       yAxis: [
         {
@@ -192,6 +193,11 @@ const Trychart = ({ market }) => {
       ],
       // plot 색설정
       plotOptions: {
+        series: {
+          animation: {
+            duration: 0,
+          },
+        },
         candlestick: {
           color: "darkblue",
           lineColor: "blue",
@@ -202,7 +208,7 @@ const Trychart = ({ market }) => {
       },
       chart: {
         height: 800, // 차트 높이를 800px로 설정
-        width: 1500,
+        width: 1300,
       },
       accessibility: {
         enabled: true, // 접근성 모듈 경고를 비활성화
@@ -236,7 +242,7 @@ const Trychart = ({ market }) => {
   }, [data]);
 
   return (
-    <div>
+    <div className={style.chartMain}>
       <div className={style.head}>
         <div>
           <h2>{market}</h2>
@@ -260,7 +266,7 @@ const Trychart = ({ market }) => {
           </select>
         </label>
       </div>
-      <div id="container" className="chart" />
+      <div id={style.container} className="chart" />
     </div>
   );
 };

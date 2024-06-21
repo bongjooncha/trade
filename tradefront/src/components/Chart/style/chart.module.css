@@ -1,16 +1,25 @@
 @import "https://code.highcharts.com/css/stocktools/gui.css";
 @import "https://code.highcharts.com/css/annotations/popup.css";
 
-#container {
-  height: 10000px;
+.chartMain {
+  margin-left: 2vw;
 }
 
-@media screen and (max-width: 600px) {
+@media screen {
   #container {
-    height: 10000px;
+    height: 80vh;
+    overflow: visible;
   }
 }
 
+/* 머리부분 */
 .head {
   display: flex;
+  align-items: end;
+  margin-bottom: 2vh;
+}
+
+.head h2,
+h3 {
+  margin: 0 3vw;
 }

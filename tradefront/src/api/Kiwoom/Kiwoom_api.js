@@ -29,3 +29,15 @@ export async function fetchAccount(account) {
     throw error;
   }
 }
+
+// export async function fetchAccount() {
+//   try {
+//     const response = await axios.get(
+//       `${process.env.REACT_APP_BUILD_BASE_URL}/kiwoom/account`
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     throw error;
+//   }
+// }

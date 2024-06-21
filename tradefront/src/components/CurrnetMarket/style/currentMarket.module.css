@@ -1,3 +1,19 @@
+#currentMarket {
+  margin-left: 2vw;
+  width: 20vw;
+}
+
+#currentMarket div {
+  margin-bottom: 2vh;
+}
+
 #box {
   border-bottom: 1px black solid;
+  margin: 2vh;
+}
+
+.tabContent {
+  max-height: 80vh;
+  overflow-y: auto;
+  color: black;
 }

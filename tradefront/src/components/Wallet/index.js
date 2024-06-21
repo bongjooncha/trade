@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-import { fetchAccount } from "api/Upbit_api";
+import { fetchAccount } from "api/Upbit/Upbit_api";
 
 const Wallet = () => {
   const [data, setData] = useState(null);

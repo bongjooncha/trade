@@ -1,0 +1,19 @@
+/upbit => 업비트 upbit_api
+ ---flask---
+ ___get___
+/upbit/wallet => 지갑 잔고 확인
+ ___post___
+/upbit/sell_limit_order => 지정가 매도
+/upbit/buy_limit_order => 지정가 매수
+/upbit/sell_market_order => 시장가 매도
+/upbit/buy_market_order => 시장가 매수
+/upbit/current_order => 시장가 
+/upbit/finished_order => 
+/upbit/cancel_order => 주문취소
+
+---upbit---
+/upbit/candles => 각 코인 가격
+__변경필요___
+/upbit/tickers => krw, BTC, USDT market별 거래되고 있는 코인들
+/upbit/current_price => 현재 코인 가격 확인(post)
+

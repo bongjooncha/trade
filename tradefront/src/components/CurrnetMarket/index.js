@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import { fetchTickers, fetchPrice } from "api/Upbit_api";
+import { fetchTickers, fetchPrice } from "api/Upbit/Upbit_api";
 import styles from "./style/currentMarket.module.css";
 
 function CurrentMarket({ current_markets, onMarketChange }) {
@@ -33,15 +33,21 @@ function CurrentMarket({ current_markets, onMarketChange }) {
   };
 
   return (
-    <div>
+    <div id={styles.currentMarket}>
       <Tabs
         id="market-tabs"
         activeKey={selectedMarket}
         onSelect={handleMarketChange}
-        className="mb-3"
+        className={`mb-3 ${styles.tabContainer}`}
       >
         {markets.map((market) => (
-          <Tab key={market} eventKey={market} title={market} id={styles.box}>
+          <Tab
+            key={market}
+            eventKey={market}
+            title={market}
+            id={styles.box}
+            className={styles.tabContent}
+          >
             {Object.entries(prices)
               .sort(([, price1], [, price2]) => price2 - price1)
               .map(([ticker, price]) => (

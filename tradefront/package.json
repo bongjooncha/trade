@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^5.45.1",
     "apexcharts": "^3.49.1",
     "axios": "^1.7.2",
     "d3": "^7.9.0",

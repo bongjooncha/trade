@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
-import { fetchAccountsNum, fetchAccount } from "api/Kiwoom_api";
+import { fetchAccountsNum, fetchAccount } from "api/Kiwoom/Kiwoom_api";
 
 const Wallet = () => {
   const [data, setData] = useState([]); // 전체 계좌 data
@@ -35,6 +35,7 @@ const Wallet = () => {
   useEffect(() => {
     if (selectedAccount) {
       fetchAccountData(selectedAccount);
+      console.log(fetchAccountData(selectedAccount));
     }
   }, [selectedAccount]);
 
