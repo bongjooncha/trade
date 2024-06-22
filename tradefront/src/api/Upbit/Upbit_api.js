@@ -42,16 +42,35 @@ export async function fetchPrice(coin) {
   }
 }
 
-// 캔들 데이터 가져오기
-export async function fetchCandle(market, interval) {
+// // 캔들 데이터 가져오기
+// export async function fetchCandle(market, interval) {
+//   const options = { method: "GET", headers: { accept: "application/json" } };
+//   const [intervalUnit, intervalValue] = interval.split("/");
+
+//   try {
+//     const response = await axios.get(
+//       `${UPBIT_URL}v1/candles/${intervalUnit}/${intervalValue}?market=${market}&count=200`,
+//       options
+//     );
+//     if (response.status !== 200) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching candle data:", error);
+//     throw error;
+//   }
+// }
+
+export async function fetchCandle(market, intervalUnit, to = null) {
   const options = { method: "GET", headers: { accept: "application/json" } };
-  const [intervalUnit, intervalValue] = interval.split("/");
+  let url = `${UPBIT_URL}v1/candles/${intervalUnit}?market=${market}&count=200`;
+  if (to) {
+    url += `&to=${to}`;
+  }
 
   try {
-    const response = await axios.get(
-      `${UPBIT_URL}v1/candles/${intervalUnit}/${intervalValue}?market=${market}&count=200`,
-      options
-    );
+    const response = await axios.get(url, options);
     if (response.status !== 200) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

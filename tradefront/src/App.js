@@ -10,8 +10,6 @@ import UpTrade from "pages/Upbit/Trade";
 import Kiwoom from "pages/Kiwoom";
 import KiWallet from "pages/Kiwoom/Wallet";
 
-import { QueryClientProvider } from "@tanstack/react-query";
-
 function App() {
   return (
     <div className="App">

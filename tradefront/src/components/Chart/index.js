@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Highcharts from "highcharts/highstock";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+
 // API 정보 받아오는 함수
 import { fetchCandle } from "api/Upbit/Upbit_api";
 
@@ -15,6 +17,7 @@ import Accessibility from "highcharts/modules/accessibility";
 import StockTools from "highcharts/modules/stock-tools.js";
 // 4. 이안에 css파일 load함
 import style from "./style/chart.module.css";
+import { intervals } from "./index.utils";
 
 // Stock Tools 모듈 초기화
 Indicators(Highcharts);
@@ -29,45 +32,24 @@ const Trychart = ({ market }) => {
   const [intervalUnit, setIntervalUnit] = useState("minutes/5");
   const [data, setData] = useState([]);
   const [price, setPrice] = useState(null);
+  const loadMoreRef = useRef(null);
 
-  const intervals = [
-    { value: "minutes/1", label: "1분" },
-    { value: "minutes/3", label: "3분" },
-    { value: "minutes/5", label: "5분" },
-    { value: "minutes/10", label: "10분" },
-    { value: "minutes/15", label: "15분" },
-    { value: "minutes/30", label: "30분" },
-    { value: "minutes/60", label: "1시간" },
-    { value: "minutes/240", label: "4시간" },
-    { value: "days/", label: "1일" },
-    { value: "weeks/", label: "1주" },
-    { value: "months/", label: "한 달" },
-  ];
-
-  const fetchData = async () => {
-    try {
-      const interval = `${intervalUnit}`;
-      const candleData = await fetchCandle(market, interval);
-      setData(candleData);
-    } catch (error) {
-      console.error("Error fetching candle data:", error);
-    }
-  };
+  const { data: candleData, refetch } = useQuery({
+    queryKey: ["candles", market, intervalUnit],
+    queryFn: () => fetchCandle(market, intervalUnit),
+  });
 
   useEffect(() => {
-    fetchData();
+    refetch();
+  }, [intervalUnit]);
 
-    const interval = setInterval(fetchData, 5000);
-    return () => clearInterval(interval);
-  }, [market, intervalUnit]);
+  const ohlc = [];
+  const volume = [];
 
   useEffect(() => {
-    if (data.length === 0) return;
+    if (!candleData) return;
 
-    const ohlc = [];
-    const volume = [];
-
-    data.forEach((item) => {
+    candleData.forEach((item) => {
       ohlc.push([
         new Date(item.candle_date_time_kst).getTime(), // the date
         item.opening_price, // open
@@ -89,7 +71,21 @@ const Trychart = ({ market }) => {
       setPrice(ohlc[0][4]); // ohlc 배열의 첫 번째 항목에서 trade_price를 가져옴
     }
 
+    setData(ohlc);
+    console.log(ohlc[ohlc.length - 1][0]);
+
     Highcharts.stockChart(style.container, {
+      // 이벤트 감지
+      xAxis: {
+        events: {
+          afterSetExtremes: function (event) {
+            if (event.min == ohlc[ohlc.length - 1][0]) {
+              // data =
+            }
+          },
+        },
+      },
+
       // 차트 종류
       yAxis: [
         {
@@ -239,7 +235,7 @@ const Trychart = ({ market }) => {
         y: 0,
       },
     });
-  }, [data]);
+  }, [candleData]);
 
   return (
     <div className={style.chartMain}>
@@ -252,21 +248,20 @@ const Trychart = ({ market }) => {
               : "Loading..."}
           </h3>
         </div>
-        <label>
-          Interval Unit:
+        <div>
           <select
             value={intervalUnit}
             onChange={(e) => setIntervalUnit(e.target.value)}
           >
-            {intervals.map((interval, index) => (
-              <option key={index} value={interval.value}>
+            {intervals.map((interval) => (
+              <option key={interval.value} value={interval.value}>
                 {interval.label}
               </option>
             ))}
           </select>
-        </label>
+        </div>
       </div>
-      <div id={style.container} className="chart" />
+      <div id={style.container} ref={loadMoreRef}></div>
     </div>
   );
 };
