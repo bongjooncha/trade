@@ -5,25 +5,33 @@ import { fetchTickers, fetchPrice } from "api/Upbit/Upbit_api";
 import styles from "./style/currentMarket.module.css";
 
 function CurrentMarket({ current_markets, onMarketChange }) {
-  const markets = current_markets;
   const [selectedMarket, setSelectedMarket] = useState("KRW");
+  const [tickers, setTickers] = useState([]);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const loadTickers = async () => {
       const response = await fetchTickers(selectedMarket);
-      const priceDatas = await fetchPrice(response);
-      setData(priceDatas);
+      setTickers(response);
     };
 
     loadTickers();
-    // 1초마다 데이터를 불러오기 위한 interval 설정
-    const interval = setInterval(loadTickers, 5000);
-
-    // 컴포넌트가 언마운트될 때 interval을 정리
-    return () => clearInterval(interval);
   }, [selectedMarket]);
 
+  useEffect(() => {
+    const loadPrice = async () => {
+      if (tickers.length > 0) {
+        const priceDatas = await fetchPrice(tickers);
+        setData(priceDatas);
+      }
+    };
+
+    loadPrice();
+    const interval = setInterval(loadPrice, 1000);
+
+    return () => clearInterval(interval);
+  }, [tickers]);
+  console.log(data);
   const handleMarketChange = (market) => {
     setSelectedMarket(market);
   };
@@ -40,7 +48,7 @@ function CurrentMarket({ current_markets, onMarketChange }) {
         onSelect={handleMarketChange}
         className={`mb-3 ${styles.tabContainer}`}
       >
-        {markets.map((market) => (
+        {current_markets.map((market) => (
           <Tab
             key={market}
             eventKey={market}
@@ -48,26 +56,58 @@ function CurrentMarket({ current_markets, onMarketChange }) {
             id={styles.box}
             className={styles.tabContent}
           >
-            {data ? (
-              data.map((coin) => (
-                <div
-                  key={coin.market}
-                  id={styles.box}
-                  onClick={() =>
-                    handleCoinClick(
-                      selectedMarket,
-                      coin.market.replace(`${selectedMarket}-`, "")
-                    )
-                  }
-                  style={{ cursor: "pointer" }} // 마우스를 포인터로 변경
-                >
-                  <p>
-                    {coin.market}: {coin.trade_price}
-                    <br />
-                    {coin.signed_change_rate * 100}
-                  </p>
-                </div>
-              ))
+            {data.length > 0 ? (
+              <table className={styles.table}>
+                <tbody>
+                  {data.map((coin) => (
+                    <tr
+                      key={coin.market}
+                      id={styles.box}
+                      onClick={() =>
+                        handleCoinClick(
+                          selectedMarket,
+                          coin.market.replace(`${selectedMarket}-`, "")
+                        )
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      <td className={styles.coinName}>
+                        <strong>{coin.market.replace(market + "-", "")}</strong>
+                      </td>
+                      <td className={styles.coinPrice}>
+                        <strong>
+                          {parseFloat(coin.trade_price).toLocaleString(
+                            undefined,
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}
+                        </strong>
+                        <span className="up highlight"></span>
+                      </td>
+                      <td
+                        className={styles.percent}
+                        style={{
+                          color: coin.signed_change_rate >= 0 ? "red" : "blue",
+                        }}
+                      >
+                        <div>
+                          <p>{(coin.signed_change_rate * 100).toFixed(2)}%</p>
+                          <em>
+                            {parseFloat(
+                              coin.signed_change_price
+                            ).toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                          </em>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             ) : (
               <p>데이터 로딩 중...</p>
             )}

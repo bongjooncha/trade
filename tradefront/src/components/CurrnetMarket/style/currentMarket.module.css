@@ -1,15 +1,39 @@
+.tabContainer li {
+  width: 33.3%;
+}
+.tabContainer button {
+  width: 100%;
+}
+
 #currentMarket {
   margin-left: 2vw;
   width: 20vw;
 }
 
-#currentMarket div {
-  margin-bottom: 2vh;
-}
-
 #box {
   border-bottom: 1px black solid;
   margin: 2vh;
+}
+
+.table {
+  width: 100%;
+}
+
+.table tr td {
+  border-right: rgba(128, 128, 128, 0.423) 1px solid;
+}
+
+.table tr .coinName {
+  width: 33%;
+}
+.table tr .coinPrice {
+  width: 33%;
+}
+.table tr .percent {
+  width: 33%;
+}
+.table tr .percent div {
+  margin: 10%;
 }
 
 .tabContent {

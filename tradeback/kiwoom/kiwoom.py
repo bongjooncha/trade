@@ -33,8 +33,8 @@ def kiwoom_accounts_number():
 "전일매도수량", "금일매수수량", "금일매도수량", "매입금액",
 "매입수수료", "평가금액", "평가수수료", "세금", "수수료합",
 "보유비중(%)", "신용구분", "신용구분명", "대출일"]'''
-async def get_account_data(account):
-    df = await kiwoom.block_request("opw00018",
+def get_account_data(account):
+    df = kiwoom.block_request("opw00018",
     계좌번호=account,
     비밀번호="",
     비밀번호입력매체구분="00",
@@ -65,8 +65,6 @@ async def kiwoom_taccount():
     data = await get_data_async(get_account_data, account)
     return jsonify(data)
 
-
-
 #시장별 코드명 + 이름
 @kiwoom_api.route("/tickers", methods = ['POST'])
 def kiwoom_ticker():
@@ -89,103 +87,109 @@ def kiwoom_candles():
                             next=0)
     return jsonify(df)
 
+@kiwoom_api.route("please")
+def please():
+    d
 
-""""""
-# from flask import Blueprint, jsonify, request
-# import json
-# from pykiwoom.kiwoom import Kiwoom
-# from concurrent.futures import ThreadPoolExecutor, TimeoutError
-# import pandas as pd
-# import multiprocessing
-# import threading
 
-# kiwoom_api = Blueprint('kiwoom_api', __name__)
-# kiwoom = Kiwoom()
 
-# # 전역 락
-# kiwoom_lock = threading.Lock()
+"""
+from flask import Blueprint, jsonify, request
+import json
+from pykiwoom.kiwoom import Kiwoom
+from concurrent.futures import ThreadPoolExecutor, TimeoutError
+import pandas as pd
+import multiprocessing
+import threading
 
-# # Kiwoom 로그인
-# with kiwoom_lock:
-#     kiwoom.CommConnect(block=True)
+kiwoom_api = Blueprint('kiwoom_api', __name__)
+kiwoom = Kiwoom()
 
-# executor = ThreadPoolExecutor(max_workers=4)
+# 전역 락
+kiwoom_lock = threading.Lock()
 
-# def to_int(value):
-#     try:
-#         return int(value)
-#     except ValueError:
-#         return value
+# Kiwoom 로그인
+with kiwoom_lock:
+    kiwoom.CommConnect(block=True)
 
-# @kiwoom_api.route("/accounts_num")
-# def kiwoom_accounts_number():
-#     with kiwoom_lock:
-#         accounts = kiwoom.GetLoginInfo("ACCNO")
-#     return jsonify(accounts)
+executor = ThreadPoolExecutor(max_workers=4)
 
-# def fetch_account_data(account):
-#     print(f"Fetching account data for: {account}")
-#     try:
-#         with kiwoom_lock:
-#             df = kiwoom.block_request("opw00018",
-#                                       계좌번호=account,
-#                                       비밀번호="",
-#                                       비밀번호입력매체구분="00",
-#                                       조회구분=2,
-#                                       output="계좌평가잔고개별합산",
-#                                       next=0)
-#         print(f"Data fetched for account {account}: {df.head()}")
-#         selected_columns = ["종목명", "평가손익", "수익률(%)", "매입가", "현재가", "매입금액", "매입수수료", "평가금액"]
-#         df[selected_columns] = df[selected_columns].applymap(to_int)
-#         json_str = df.to_json(orient='records', force_ascii=False)
-#         return json.loads(json_str)
-#     except Exception as e:
-#         print(f"Error fetching account data: {e}")
-#         return {"error": str(e)}
+def to_int(value):
+    try:
+        return int(value)
+    except ValueError:
+        return value
 
-# def get_account_data(account):
-#     with multiprocessing.Pool(1) as pool:
-#         result = pool.apply_async(fetch_account_data, (account,))
-#         try:
-#             return result.get(timeout=30)  # 30초 제한 시간 설정
-#         except multiprocessing.TimeoutError:
-#             print("Task timed out")
-#             return {"error": "Task timed out"}
-#         except Exception as e:
-#             print(f"Error in async task: {e}")
-#             return {"error": str(e)}
+@kiwoom_api.route("/accounts_num")
+def kiwoom_accounts_number():
+    with kiwoom_lock:
+        accounts = kiwoom.GetLoginInfo("ACCNO")
+    return jsonify(accounts)
 
-# def get_data_async(func, *args):
-#     print(f"Submitting async task for: {func.__name__}")
-#     future = executor.submit(func, *args)
-#     return future
+def fetch_account_data(account):
+    print(f"Fetching account data for: {account}")
+    try:
+        with kiwoom_lock:
+            df = kiwoom.block_request("opw00018",
+                                      계좌번호=account,
+                                      비밀번호="",
+                                      비밀번호입력매체구분="00",
+                                      조회구분=2,
+                                      output="계좌평가잔고개별합산",
+                                      next=0)
+        print(f"Data fetched for account {account}: {df.head()}")
+        selected_columns = ["종목명", "평가손익", "수익률(%)", "매입가", "현재가", "매입금액", "매입수수료", "평가금액"]
+        df[selected_columns] = df[selected_columns].applymap(to_int)
+        json_str = df.to_json(orient='records', force_ascii=False)
+        return json.loads(json_str)
+    except Exception as e:
+        print(f"Error fetching account data: {e}")
+        return {"error": str(e)}
 
-# @kiwoom_api.route("/account", methods=['POST'])
-# def kiwoom_account():
-#     account = request.json['account']
-#     print(f"Received request for account: {account}")
-#     future = get_data_async(get_account_data, account)
-#     try:
-#         data = future.result(timeout=60)  # 60초 제한 시간 설정
-#         return jsonify(data)
-#     except TimeoutError:
-#         print("Task timed out")
-#         return jsonify({"error": "Task timed out"}), 504
-#     except Exception as e:
-#         print(f"Error in async task: {e}")
-#         return jsonify({"error": str(e)}), 500
+def get_account_data(account):
+    with multiprocessing.Pool(1) as pool:
+        result = pool.apply_async(fetch_account_data, (account,))
+        try:
+            return result.get(timeout=30)  # 30초 제한 시간 설정
+        except multiprocessing.TimeoutError:
+            print("Task timed out")
+            return {"error": "Task timed out"}
+        except Exception as e:
+            print(f"Error in async task: {e}")
+            return {"error": str(e)}
 
-# @kiwoom_api.route("/taccount")
-# def kiwoom_taccount():
-#     account = '5234695511'
-#     print("Fetching taccount data")
-#     future = get_data_async(get_account_data, account)
-#     try:
-#         data = future.result(timeout=60)  # 60초 제한 시간 설정
-#         return jsonify(data)
-#     except TimeoutError:
-#         print("Task timed out")
-#         return jsonify({"error": "Task timed out"}), 504
-#     except Exception as e:
-#         print(f"Error in async task: {e}")
-#         return jsonify({"error": str(e)}), 500
+def get_data_async(func, *args):
+    print(f"Submitting async task for: {func.__name__}")
+    future = executor.submit(func, *args)
+    return future
+
+@kiwoom_api.route("/account", methods=['POST'])
+def kiwoom_account():
+    account = request.json['account']
+    print(f"Received request for account: {account}")
+    future = get_data_async(get_account_data, account)
+    try:
+        data = future.result(timeout=60)  # 60초 제한 시간 설정
+        return jsonify(data)
+    except TimeoutError:
+        print("Task timed out")
+        return jsonify({"error": "Task timed out"}), 504
+    except Exception as e:
+        print(f"Error in async task: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@kiwoom_api.route("/taccount")
+def kiwoom_taccount():
+    account = '5234695511'
+    print("Fetching taccount data")
+    future = get_data_async(get_account_data, account)
+    try:
+        data = future.result(timeout=60)  # 60초 제한 시간 설정
+        return jsonify(data)
+    except TimeoutError:
+        print("Task timed out")
+        return jsonify({"error": "Task timed out"}), 504
+    except Exception as e:
+        print(f"Error in async task: {e}")
+        return jsonify({"error": str(e)}), 500
+"""
