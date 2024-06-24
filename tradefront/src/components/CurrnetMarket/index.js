@@ -7,18 +7,18 @@ import styles from "./style/currentMarket.module.css";
 function CurrentMarket({ current_markets, onMarketChange }) {
   const markets = current_markets;
   const [selectedMarket, setSelectedMarket] = useState("KRW");
-  const [prices, setPrices] = useState({});
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const loadTickers = async () => {
       const response = await fetchTickers(selectedMarket);
       const priceDatas = await fetchPrice(response);
-      setPrices(priceDatas);
+      setData(priceDatas);
     };
 
     loadTickers();
     // 1초마다 데이터를 불러오기 위한 interval 설정
-    const interval = setInterval(loadTickers, 1000);
+    const interval = setInterval(loadTickers, 5000);
 
     // 컴포넌트가 언마운트될 때 interval을 정리
     return () => clearInterval(interval);
@@ -48,32 +48,29 @@ function CurrentMarket({ current_markets, onMarketChange }) {
             id={styles.box}
             className={styles.tabContent}
           >
-            {Object.entries(prices)
-              .sort(([, price1], [, price2]) => price2 - price1)
-              .map(([ticker, price]) => (
+            {data ? (
+              data.map((coin) => (
                 <div
-                  key={ticker}
+                  key={coin.market}
                   id={styles.box}
                   onClick={() =>
                     handleCoinClick(
                       selectedMarket,
-                      ticker.replace(`${selectedMarket}-`, "")
+                      coin.market.replace(`${selectedMarket}-`, "")
                     )
                   }
                   style={{ cursor: "pointer" }} // 마우스를 포인터로 변경
                 >
-                  {price >= 0 ? (
-                    <div>
-                      {ticker.replace(`${selectedMarket}-`, "")}:
-                      {Number(price).toLocaleString()}
-                    </div>
-                  ) : (
-                    <>
-                      {ticker.replace(`${selectedMarket}-`, "")}: {price}
-                    </>
-                  )}
+                  <p>
+                    {coin.market}: {coin.trade_price}
+                    <br />
+                    {coin.signed_change_rate * 100}
+                  </p>
                 </div>
-              ))}
+              ))
+            ) : (
+              <p>데이터 로딩 중...</p>
+            )}
           </Tab>
         ))}
       </Tabs>

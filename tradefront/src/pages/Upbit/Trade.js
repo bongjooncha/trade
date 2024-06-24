@@ -20,10 +20,10 @@ function UpTrade() {
       <br />
       <div className="trade_body">
         <Trychart market={selectedMarket} />
-        {/* <CurrentMarket
+        <CurrentMarket
           current_markets={current_markets}
           onMarketChange={handleMarketChange}
-        /> */}
+        />
       </div>
     </div>
   );

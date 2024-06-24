@@ -5,12 +5,13 @@ const BASE_URL = process.env.REACT_APP_BUILD_BASE_URL;
 // 업비트에서 받아올때
 const UPBIT_URL = "https://api.upbit.com/";
 
+// 자산 확인 api(flask)
 export async function fetchAccount() {
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_BUILD_BASE_URL}/upbit/wallet`
     );
-    const rawData = response.data;
+    return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -29,39 +30,23 @@ export async function fetchTickers(market) {
   }
 }
 
-// 현재 코인 가격(flask -> upbit로 바꿔야함)
+// 현재 코인 가격(upbit)
 export async function fetchPrice(coin) {
+  const options = { method: "GET", headers: { accept: "application/json" } };
+  let url = `${UPBIT_URL}v1/ticker?markets=${coin}`;
   try {
-    const response = await axios.post(`${BASE_URL}/upbit/current_price`, {
-      market: coin,
-    });
+    const response = await axios.get(url, options);
+    if (response.status !== 200) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     return response.data;
   } catch (error) {
-    console.error("Error fetching price:", error);
+    console.error("Error fetching price data:", error);
     throw error;
   }
 }
 
-// // 캔들 데이터 가져오기
-// export async function fetchCandle(market, interval) {
-//   const options = { method: "GET", headers: { accept: "application/json" } };
-//   const [intervalUnit, intervalValue] = interval.split("/");
-
-//   try {
-//     const response = await axios.get(
-//       `${UPBIT_URL}v1/candles/${intervalUnit}/${intervalValue}?market=${market}&count=200`,
-//       options
-//     );
-//     if (response.status !== 200) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching candle data:", error);
-//     throw error;
-//   }
-// }
-
+// 코인 캔들(upbit)
 export async function fetchCandle(market, intervalUnit, to = null) {
   const options = { method: "GET", headers: { accept: "application/json" } };
   let url = `${UPBIT_URL}v1/candles/${intervalUnit}?market=${market}&count=200`;
