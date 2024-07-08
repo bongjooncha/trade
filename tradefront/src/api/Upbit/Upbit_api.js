@@ -93,3 +93,40 @@ export async function fetchCandle(market, intervalUnit, to = null) {
     throw error;
   }
 }
+
+// 매수 매도 function
+// orderType: 시장, 지정, market: 코인-시장, price:가격 , number:갯수
+async function sendOrder(orderType, market, price, number) {
+  try {
+    const endpoint = `${BASE_URL}/upbit/${orderType}_order`;
+    const data = { market, number };
+    if (orderType === "limit") {
+      data.price = price;
+    }
+    const response = await axios.post(endpoint, data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error sending ${orderType} order:`, error);
+    throw error;
+  }
+}
+
+// 지정가 매수(flask)
+export async function orderLimitBuy(market, price, number) {
+  return sendOrder("buy_limit", market, price, number);
+}
+
+// 시장가 매수(flask)
+export async function orderMarketBuy(market, number) {
+  return sendOrder("buy_market", market, null, number);
+}
+
+// 지정가 매도(flask)
+export async function orderLimitSell(market, price, number) {
+  return sendOrder("sell_limit", market, price, number);
+}
+
+// 시장가 매도(flask)
+export async function orderMarketSell(market, number) {
+  return sendOrder("sell_market", market, null, number);
+}

@@ -1,0 +1,29 @@
+.orderParent {
+  border: 2px black solid;
+  height: max-content;
+}
+
+.orderParent ul {
+  width: 480px;
+}
+.orderParent li {
+  width: 33%;
+}
+.orderParent li button {
+  width: 100%;
+}
+
+.orderBook {
+  height: 420px;
+}
+
+.orderBook div {
+  margin: 10px;
+  border: black 1px solid;
+}
+.orderBook div a {
+  margin-right: 40px;
+}
+.orderBook div input {
+  margin-left: 40px;
+}
