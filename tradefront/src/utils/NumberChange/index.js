@@ -13,7 +13,15 @@ export const numberWriter = (value) => {
 // 컴마 추가(string => string)
 export const addCommas = (value) => {
   if (!value) return "0";
-  const parts = value.toString().split(".");
+  let roundedValue;
+  if (value >= 1000) {
+    roundedValue = value.toFixed(0);
+  } else if (value >= 10) {
+    roundedValue = value.toFixed(2);
+  } else {
+    roundedValue = value.toFixed(6);
+  }
+  const parts = roundedValue.toString().split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return parts.join(".");
 };

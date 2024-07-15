@@ -26,10 +26,10 @@ export async function fetchAccount() {
         avg_buy_price: parseFloat(item.avg_buy_price),
         unit_currency: item.unit_currency,
         current_price: parseFloat(current_price),
+        total_price: parseFloat(item.balance) * parseFloat(current_price),
       };
     });
     const wallet = await Promise.all(walletPromises);
-    console.log(wallet);
     return wallet;
   } catch (error) {
     console.error("Error fetchAccount data:", error);
