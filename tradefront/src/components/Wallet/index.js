@@ -1,75 +1,9 @@
-import React, { useEffect, useState } from "react";
+// Wallet.js
+import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-import { fetchAccount } from "api/Upbit/Upbit_api";
-
-const Wallet = () => {
-  const [data, setData] = useState(null);
-  const [assetData, setAssetData] = useState([]);
-
-  const fetchData = async () => {
-    try {
-      const rawData = await fetchAccount();
-
-      // 총 자산(KRW 기준)을 계산
-      let totalAsset = rawData.reduce((acc, item) => {
-        return (
-          acc +
-          (parseFloat(item.balance) + parseFloat(item.locked)) *
-            parseFloat(item.avg_buy_price)
-        );
-      }, 0);
-
-      // KRW 자산 추가
-      const krwData = rawData.find((item) => item.currency === "KRW");
-      if (krwData) {
-        totalAsset += parseFloat(krwData.balance);
-      }
-
-      // 자산 비율 계산
-      const transformedData = rawData
-        .map((item) => ({
-          name: item.currency,
-          y:
-            (parseFloat(item.balance) + parseFloat(item.locked)) *
-            parseFloat(item.avg_buy_price),
-          balance: item.balance,
-          locked: item.locked,
-          avg_buy_price: item.avg_buy_price,
-          unit_currency: item.unit_currency,
-        }))
-        .filter((item) => item.y > 0);
-
-      // KRW 자산 추가
-      if (krwData) {
-        transformedData.push({
-          name: "KRW",
-          y: parseFloat(krwData.balance),
-          balance: krwData.balance,
-          locked: 0,
-          avg_buy_price: 1,
-          unit_currency: "KRW",
-        });
-      }
-
-      // 자산 비율에 따른 퍼센티지 계산
-      const assetPercentages = transformedData.map((item) => ({
-        ...item,
-        percentage: ((item.y / totalAsset) * 100).toFixed(2),
-      }));
-
-      setData(assetPercentages);
-      setAssetData(assetPercentages);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+const Wallet = ({ data }) => {
   const options = {
     chart: {
       type: "pie",
@@ -113,7 +47,7 @@ const Wallet = () => {
             <HighchartsReact highcharts={Highcharts} options={options} />
             <div style={{ marginTop: "20px" }}>
               <h2>보유 자산 목록</h2>
-              {assetData.map((item, index) => (
+              {data.map((item, index) => (
                 <div
                   key={index}
                   style={{

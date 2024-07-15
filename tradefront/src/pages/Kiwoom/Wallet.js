@@ -1,7 +1,7 @@
 import React from "react";
 import Headnav from "components/Header/index";
 
-import Wallet2 from "components/Wallet/index2";
+import Wallet from "components/Wallet/index";
 
 function KiWallet() {
   return (
@@ -9,7 +9,7 @@ function KiWallet() {
       <Headnav />
       <br />
       <br />
-      <Wallet2 />
+      <Wallet />
     </div>
   );
 }

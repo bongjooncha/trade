@@ -22,13 +22,13 @@ function UpTrade() {
       <div className={style.trade_body}>
         <div className={style.trade_main}>
           <Trychart market={selectedMarket} />
-          <Order market={selectedMarket} />
+          {/* <Order market={selectedMarket} /> */}
         </div>
 
-        {/* <CurrentMarket
+        <CurrentMarket
           current_markets={current_markets}
           onMarketChange={handleMarketChange}
-        /> */}
+        />
       </div>
     </div>
   );

@@ -10,50 +10,50 @@ const Trychart = ({ market }) => {
   const chartRef = useRef(null);
   const [price, setPrice] = useState(null);
   const loadMoreRef = useRef(null);
-
-  const { data: candleData, refetch } = useQuery({
-    queryKey: ["candles", market, intervalUnit],
-    queryFn: () => fetchCandle(market, intervalUnit),
-  });
-
-  useEffect(() => {
-    refetch();
-  }, [intervalUnit]);
-
-  const ohlc = [];
-  const volume = [];
-
-  useEffect(() => {
-    if (!candleData) return;
-
-    candleData.forEach((item) => {
-      ohlc.push([
-        new Date(item.candle_date_time_kst).getTime(), // the date
-        item.opening_price, // open
-        item.high_price, // high
-        item.low_price, // low
-        item.trade_price, // close
-      ]);
-
-      volume.push([
-        new Date(item.candle_date_time_kst).getTime(), // the date
-        item.candle_acc_trade_volume, // the volume
-      ]);
+  {
+    const { data: candleData, refetch } = useQuery({
+      queryKey: ["candles", market, intervalUnit],
+      queryFn: () => fetchCandle(market, intervalUnit),
     });
 
-    ohlc.sort((a, b) => a[0] - b[0]);
-    volume.sort((a, b) => a[0] - b[0]);
+    useEffect(() => {
+      refetch();
+    }, [intervalUnit]);
 
-    if (ohlc.length > 0) {
-      setPrice(ohlc[0][4]); // ohlc 배열의 첫 번째 항목에서 trade_price를 가져옴
-    }
-    if (!chartRef.current) {
-      chartRef.current = createChart(style.container, ohlc, volume, market);
-    } else {
-      updateChart(chartRef.current, ohlc, volume);
-    }
-  }, [candleData]);
+    const ohlc = [];
+    const volume = [];
 
+    useEffect(() => {
+      if (!candleData) return;
+
+      candleData.forEach((item) => {
+        ohlc.push([
+          new Date(item.candle_date_time_kst).getTime(), // the date
+          item.opening_price, // open
+          item.high_price, // high
+          item.low_price, // low
+          item.trade_price, // close
+        ]);
+
+        volume.push([
+          new Date(item.candle_date_time_kst).getTime(), // the date
+          item.candle_acc_trade_volume, // the volume
+        ]);
+      });
+
+      ohlc.sort((a, b) => a[0] - b[0]);
+      volume.sort((a, b) => a[0] - b[0]);
+
+      if (ohlc.length > 0) {
+        setPrice(ohlc[0][4]); // ohlc 배열의 첫 번째 항목에서 trade_price를 가져옴
+      }
+      if (!chartRef.current) {
+        chartRef.current = createChart(style.container, ohlc, volume, market);
+      } else {
+        updateChart(chartRef.current, ohlc, volume);
+      }
+    }, [candleData]);
+  }
   return (
     <div className={style.chartMain}>
       <div className={style.head}>

@@ -13,7 +13,6 @@ const Order = ({ market }) => {
     const getData = async () => {
       console.log(market);
       const data = await fetchPrice(market);
-      console.log(data);
       if (data) {
         setCoinData(data[0]);
       }
