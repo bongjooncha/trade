@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { numberWriter, delComma, addCommas } from "utils/NumberChange/index";
-import {
-  fetchAccount,
-  orderLimitBuy,
-  orderMarketBuy,
-} from "api/Upbit/Upbit_api";
+import { orderLimitBuy, orderMarketBuy } from "api/Upbit/Upbit_api";
 import style from "./style/style.module.css";
 
 // coin은 fetchPrice(market)으로 받아온 데이터
@@ -44,27 +40,14 @@ const OrderBuy = (coin) => {
     }
   };
 
-  // 내 잔고 불러오기
-  useEffect(() => {
-    const getBalance = async () => {
-      const data = await fetchAccount();
-      const krwAccount = data.find((account) => account.currency === "KRW");
-      if (krwAccount) {
-        setKrwBalance(krwAccount.balance);
-      }
-    };
-    getBalance();
-  }, []);
-
   return (
     <div className={style.orderBook}>
       <h2>{marketType}</h2>
       <div className={style.order_type}>
         <a>주문유형</a>
         {topRadioButton.map((item, index) => (
-          <label>
+          <label key={index}>
             <input
-              key={index}
               type="radio"
               name="options"
               value={item}
