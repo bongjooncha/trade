@@ -50,7 +50,7 @@ export async function fetchTickers(market) {
 }
 
 /*현재 코인 상태(upbit)
-example = {
+fetchPrice("KRW-ZRO") = {
   "market": "KRW-ZRO",
   "trade_date": "20240624",
   "trade_time": "081556",
@@ -81,6 +81,7 @@ example = {
 export async function fetchPrice(coin) {
   const options = { method: "GET", headers: { accept: "application/json" } };
   let url = `${UPBIT_URL}v1/ticker?markets=${coin}`;
+  console.log(url);
   try {
     const response = await axios.get(url, options);
     if (response.status !== 200) {

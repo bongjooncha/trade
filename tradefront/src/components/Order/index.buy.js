@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { numberWriter, delComma, addCommas } from "utils/NumberChange/index";
 import {
   fetchAccount,
@@ -9,6 +10,7 @@ import style from "./style/style.module.css";
 
 // coin은 fetchPrice(market)으로 받아온 데이터
 const OrderBuy = (coin) => {
+  const topRadioButton = ["지정가", "시장가", "자동매매"];
   // 현재 보고 있는 market
   const [marketType, setMarketType] = useState(coin.coin.market);
   //   주문type 변수
@@ -59,32 +61,24 @@ const OrderBuy = (coin) => {
       <h2>{marketType}</h2>
       <div className={style.order_type}>
         <a>주문유형</a>
-        <label>
-          <input
-            type="radio"
-            name="options"
-            value="지정가"
-            checked={orderType === "지정가"}
-            onChange={handleOrderType}
-          />
-          지정가
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="options"
-            value="시장가"
-            checked={orderType === "시장가"}
-            onChange={handleOrderType}
-          />
-          시장가
-        </label>
+        {topRadioButton.map((item, index) => (
+          <label>
+            <input
+              key={index}
+              type="radio"
+              name="options"
+              value={item}
+              checked={orderType === item}
+              onChange={handleOrderType}
+            ></input>
+            {item}
+          </label>
+        ))}
       </div>
       <div className={style.wallet_balance}>
         <a>주문 가능</a>
         <a>{addCommas(Math.round(krwBalance * 10) / 10)}원</a>
       </div>
-      {/* 지정가일 때만 매수가격 및 주문수량을 보여줌 */}
       {orderType === "지정가" && (
         <>
           <div className={style.order_price}>
@@ -109,7 +103,6 @@ const OrderBuy = (coin) => {
           </div>
         </>
       )}
-
       <div className={style.order_value}>
         <a>주문총액</a>
         {orderType === "지정가" ? (

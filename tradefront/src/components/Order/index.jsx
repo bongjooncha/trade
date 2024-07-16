@@ -5,13 +5,12 @@ import OrderBuy from "./index.buy";
 import style from "./style/style.module.css";
 import { fetchPrice } from "api/Upbit/Upbit_api";
 
-const Order = ({ market }) => {
+const Order = ({ market, wallet }) => {
   const [coinData, setCoinData] = useState(null);
   const [assetData, setAssetData] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
-      console.log(market);
       const data = await fetchPrice(market);
       if (data) {
         setCoinData(data[0]);
