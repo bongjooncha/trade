@@ -81,7 +81,6 @@ fetchPrice("KRW-ZRO") = {
 export async function fetchPrice(coin) {
   const options = { method: "GET", headers: { accept: "application/json" } };
   let url = `${UPBIT_URL}v1/ticker?markets=${coin}`;
-  console.log(url);
   try {
     const response = await axios.get(url, options);
     if (response.status !== 200) {

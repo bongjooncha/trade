@@ -31,7 +31,6 @@ function CurrentMarket({ current_markets, onMarketChange }) {
 
     return () => clearInterval(interval);
   }, [tickers]);
-  console.log(data);
   const handleMarketChange = (market) => {
     setSelectedMarket(market);
   };

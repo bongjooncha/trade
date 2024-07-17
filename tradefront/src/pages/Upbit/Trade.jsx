@@ -7,7 +7,7 @@ import Trychart from "components/Chart/index";
 import Order from "components/Order";
 
 import style from "./style/Uptrade.module.css";
-import { fetchAccount } from "api/Upbit/Upbit_api";
+import { fetchAccount, fetchPrice } from "api/Upbit/Upbit_api";
 
 function UpTrade() {
   const current_markets = ["KRW", "BTC", "USDT"];
@@ -19,6 +19,15 @@ function UpTrade() {
     queryKey: ["walletData"],
     queryFn: fetchAccount,
   });
+  const { data: marketData } = useQuery({
+    queryKey: ["marketData"],
+    queryFn: () => fetchPrice(selectedMarket),
+  });
+  let marketPrice;
+  if (marketData) {
+    const { market, trade_price } = marketData[0];
+    marketPrice = { market, trade_price };
+  }
 
   return (
     <div className="Home">
@@ -28,7 +37,7 @@ function UpTrade() {
       <div className={style.trade_body}>
         <div className={style.trade_main}>
           {/* <Trychart market={selectedMarket} /> */}
-          <Order market={selectedMarket} wallet={walletData} />
+          <Order market={marketPrice} wallet={walletData} />
         </div>
         {/* 
         <CurrentMarket
