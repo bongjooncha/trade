@@ -8,6 +8,37 @@
 | ----------- | -------------- | -------------------- | ------------ | ---------------- |
 | name(str)   | balance(float) | avg_buy_price(float) | price(float) | buy_price(float) |
 
+ex)
+
+```
+Wallet에 data = [
+    {
+        "name": "BTC",
+        "balance": 0.00339458,
+        "avg_buy_price": 87850000,
+        "unit_currency": "KRW",
+        "current_price": 90766000,
+        "total_price": 308112.44828
+    },
+    {
+        "name": "KRW",
+        "balance": 2029824.90483673,
+        "avg_buy_price": 0,
+        "unit_currency": "KRW",
+        "current_price": 1,
+        "total_price": 2029824.90483673
+    },
+    {
+        "name": "SOL",
+        "balance": 3.40419839,
+        "avg_buy_price": 205598.46374457,
+        "unit_currency": "KRW",
+        "current_price": 226600,
+        "total_price": 771391.355174
+    }
+]
+```
+
 <br>
 
 ## 차트

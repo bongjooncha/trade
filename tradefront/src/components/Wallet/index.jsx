@@ -10,6 +10,8 @@ import { addCommas } from "utils/NumberChange";
     "total_price": 300287.94138
 }]*/
 const Wallet = ({ data }) => {
+  if (!data) return null;
+  console.log(data);
   return (
     <div className="App">
       <header className="App-header">
