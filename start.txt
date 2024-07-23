@@ -1,0 +1,2 @@
+cd tradefront && npm start
+cd ../tradeback && python app.py

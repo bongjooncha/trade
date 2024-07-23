@@ -1,5 +1,7 @@
 venv
 .env
 
-#vs 캐쉬
+#pyc 캐쉬
 upbit/__pycache__/
+__pycache__/
+*.pyc
