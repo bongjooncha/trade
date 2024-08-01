@@ -104,7 +104,6 @@ export const createChart = (container, ohlc, volume, market) => {
         return tooltipContent;
       },
     },
-    // 초기설정
     series: [
       {
         type: "candlestick",
@@ -112,7 +111,7 @@ export const createChart = (container, ohlc, volume, market) => {
         name: `${market} Price`,
         data: ohlc,
         tooltip: {
-          valueDecimals: 2, // 소수점 이하 두 자리까지 표시
+          valueDecimals: 2,
         },
       },
       {
@@ -122,7 +121,7 @@ export const createChart = (container, ohlc, volume, market) => {
         data: volume,
         yAxis: 1,
         tooltip: {
-          valueDecimals: 2, // 소수점 이하 두 자리까지 표시
+          valueDecimals: 2,
         },
       },
       {
