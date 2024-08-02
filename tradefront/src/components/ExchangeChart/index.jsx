@@ -22,20 +22,49 @@ const ExchangeChart = () => {
       const seriesData = await Promise.all(
         selectedCurrencies.map(async (currency) => {
           if (currency === baseCurrency) return null; // 같은 통화일 경우 스킵
-          const currencyPair = `${currency}${baseCurrency}`;
-          try {
-            // 데이터를 가져오는 API 요청을 가정
-            const priceResponse = await fetchPrice(currencyPair);
-            const averageResponse = await fetchAverage(currencyPair);
-            const average = averageResponse[0]["AVG(Close)"];
-            const data = priceResponse.map((item) => [
-              Date.parse(item.Date), // 날짜를 파싱하여 타임스탬프로 변환
-              ((item.Close - average) * 100) / average, // 종가
-            ]);
-            return { name: currencyPair, data };
-          } catch (error) {
-            console.error(`Error fetching data for ${currencyPair}:`, error);
-            return null;
+          if (baseCurrency === "USD") {
+            const currencyPair = `${currency}${baseCurrency}`;
+            try {
+              // 데이터를 가져오는 API 요청을 가정
+              const priceResponse = await fetchPrice(currencyPair);
+              const averageResponse = await fetchAverage(currencyPair);
+              const average = averageResponse[0]["AVG(Close)"];
+              const data = priceResponse.map((item) => [
+                Date.parse(item.Date), // 날짜를 파싱하여 타임스탬프로 변환
+                ((item.Close - average) * 100) / average, // 종가
+              ]);
+              return { name: currencyPair, data };
+            } catch (error) {
+              console.error(`Error fetching data for ${currencyPair}:`, error);
+              return null;
+            }
+          } else {
+            const currencyPair = `${currency}USD`;
+            try {
+              const krwPriceResponse = await fetchPrice("KRWUSD");
+              const krwAverageResponse = await fetchAverage("KRWUSD");
+              const krwAverage = krwAverageResponse[0]["AVG(Close)"];
+              if (currency === "USD") {
+                const data = krwPriceResponse.map((item) => [
+                  Date.parse(item.Date),
+                  (krwAverage / item.Close - 1) * 100,
+                ]);
+                console.log({ name: "USDKRW", data });
+                return { name: "USDKRW", data };
+              }
+              const priceResponse = await fetchPrice(currencyPair);
+              const averageResponse = await fetchAverage(currencyPair);
+              const average = averageResponse[0]["AVG(Close)"] / krwAverage;
+              const data = priceResponse.map((item, index) => [
+                Date.parse(item.Date),
+                ((item.Close / krwPriceResponse[index].Close - average) * 100) /
+                  average, // 종가
+              ]);
+              return { name: `${currency}KRW`, data };
+            } catch (error) {
+              console.error(`Error fetching data for ${currencyPair}:`, error);
+              return null;
+            }
           }
         })
       );
