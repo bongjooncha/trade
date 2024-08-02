@@ -23,6 +23,16 @@ const ExchangeButton = ({
       );
     }
   };
+  const handleSelectAll = () => {
+    const allCurrencies = currency
+      .filter((item) => item.unit !== baseCurrency)
+      .map((item) => item.unit);
+    setSelectedCurrencies(allCurrencies);
+  };
+
+  const handleDeselectAll = () => {
+    setSelectedCurrencies([]);
+  };
 
   return (
     <div>
@@ -53,6 +63,8 @@ const ExchangeButton = ({
       <br />
       <div>
         <h5>COMPARE</h5>
+        <button onClick={handleSelectAll}>모두 선택</button>
+        <button onClick={handleDeselectAll}>선택 해제</button>
         <div className={styles.currencyGrid}>
           {currency
             .filter((item) => item.unit !== baseCurrency)

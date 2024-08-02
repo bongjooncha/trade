@@ -24,8 +24,8 @@ exes = [
 # 생성 및 정보 입력
 for ex in exes:
     currency_pair = ex+base+'=X'
-    start_date = '2020-01-01'
-    end_date = '2024-07-30'
+    start_date = '2024-07-01'
+    end_date = '2024-08-02'
     exchange_rate_data = get_exchange_rate(currency_pair,start_date,end_date)
     table_name = currency_pair.replace('=X', '')
     exchange.create_insert_to_table(exchange_rate_data['data'], table_name,"AWS")

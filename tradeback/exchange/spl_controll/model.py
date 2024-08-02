@@ -1,4 +1,6 @@
-from models import get_db_connection
+import sys
+sys.path.append('c:/Users/OWNER/Desktop/coding_project/autotrade_back_front/trade')
+from tradeback.models import get_db_connection
 import pymysql
 
 class exchange():
