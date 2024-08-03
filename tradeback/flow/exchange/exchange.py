@@ -9,7 +9,7 @@ exchange_api = Blueprint('exchange',__name__)
 @exchange_api.route("/average", methods=['POST'])
 def exchange_average():
     country = request.json['country']
-    conn = get_db_connection("AWS")
+    conn = get_db_connection("AWS","exchange_rate")
     try:
         with conn.cursor() as cursor:
             cursor.execute(f"SELECT AVG(Close) FROM {country}")
@@ -24,7 +24,7 @@ def exchange_average():
 @exchange_api.route("/price", methods=['POST'])
 def exchange_price():
     country = request.json['country']
-    conn = get_db_connection("AWS")
+    conn = get_db_connection("AWS","exchange_rate")
     try:
         with conn.cursor() as cursor:
             cursor.execute(f"SELECT Date,Close FROM {country}")

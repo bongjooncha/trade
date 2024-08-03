@@ -77,7 +77,7 @@ const ExchangeButton = ({
                     checked={selectedCurrencies.includes(item.unit)}
                     onChange={handleCheckboxChange}
                   />
-                  {`${item.unit}: ${item.country}`}
+                  {`${item.unit} : ${item.country}`}
                 </label>
               </div>
             ))}

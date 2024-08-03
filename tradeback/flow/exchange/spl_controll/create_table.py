@@ -5,7 +5,7 @@ import pymysql
 
 class exchange():
     def create_insert_to_table(data, table_name, place):
-        connection = get_db_connection(place)
+        connection = get_db_connection(place,"exchange_rate")
         try:
             with connection.cursor() as cursor:
                 # 테이블이 존재하지 않으면 생성
@@ -43,7 +43,7 @@ class exchange():
             connection.close()
 
     def delete_table(table_name,place):
-        connection = get_db_connection(place)
+        connection = get_db_connection(place,"exchange_rate")
         try:
             with connection.cursor() as cursor:
                 # 테이블 삭제 쿼리 실행

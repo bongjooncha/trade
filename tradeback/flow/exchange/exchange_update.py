@@ -1,5 +1,5 @@
-from tradeback.exchange.spl_controll.insert import get_exchange_rate
-from tradeback.exchange.spl_controll.create_table import exchange
+from tradeback.flow.exchange.spl_controll.insert import get_exchange_rate
+from tradeback.flow.exchange.spl_controll.create_table import exchange
 import datetime
 
 current_time = datetime.datetime.now()
