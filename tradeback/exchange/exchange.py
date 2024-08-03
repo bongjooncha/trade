@@ -1,5 +1,7 @@
+import sys
+sys.path.append('c:/Users/OWNER/Desktop/coding_project/autotrade_back_front/trade')
 from flask import Blueprint, jsonify, request
-from models import get_db_connection
+from tradeback.models import get_db_connection
 
 exchange_api = Blueprint('exchange',__name__)
 

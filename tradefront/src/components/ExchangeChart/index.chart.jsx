@@ -14,7 +14,7 @@ const Chart = ({ baseCurrency, data }) => {
       align: "left",
     },
     subtitle: {
-      text: "20년 1월1일 부터의 평균을 기준으로 함",
+      text: "18년 1월1일 부터의 평균을 기준으로 함",
       align: "left",
     },
     xAxis: {
