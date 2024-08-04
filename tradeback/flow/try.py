@@ -1,17 +1,17 @@
 import yfinance as yf
 
-# S&P 500 지수 데이터 가져오기
-sp500 = yf.Ticker("^GSPC")
-sp500_data = sp500.history(period="1mo")  # 최근 한 달 데이터
+def get_index(ticker, start, end):
+    data = yf.Ticker(ticker).history(start=start, end=end)
+    data.reset_index(inplace=True)
+    data['Date'] = data['Date'].dt.strftime('%Y-%m-%d')
+    response = {
+        'ticker': ticker,
+        'data': data.to_dict(orient='records')
+    }
+    return response
 
-# 다우 존스 지수 데이터 가져오기
-dow = yf.Ticker("^DJI")
-dow_data = dow.history(period="1mo")
+# 예시 티커로 함수 호출
+index_data = get_index("GC=F", "2018-01-01", "2024-08-04")
 
-# KOSPI 지수 데이터 가져오기
-kospi = yf.Ticker("^KS11")
-kospi_data = kospi.history(period="1mo")
-
-print(sp500_data)
-print(dow_data)
-print(kospi_data)
+# 반환된 데이터 구조 확인
+print(index_data)

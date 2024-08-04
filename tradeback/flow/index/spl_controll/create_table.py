@@ -3,9 +3,10 @@ sys.path.append('c:/Users/OWNER/Desktop/coding_project/autotrade_back_front/trad
 from tradeback.models import get_db_connection
 import pymysql
 
-class exchange():
-    def create_insert_to_table(data, table_name, place):
-        connection = get_db_connection(place,"exchange_rate")
+class index():
+    def create_insert_to_table(data, ta_name, place):
+        connection = get_db_connection(place,"index")
+        table_name = f"`{ta_name}`"
         try:
             with connection.cursor() as cursor:
                 # 테이블이 존재하지 않으면 생성
@@ -15,15 +16,16 @@ class exchange():
                     Open FLOAT,
                     High FLOAT,
                     Low FLOAT,
-                    Close FLOAT
+                    Close FLOAT,
+                    Volume FLOAT
                 );
                 """
                 cursor.execute(create_table_query)
 
                 # 데이터를 삽입
                 insert_query = f"""
-                INSERT INTO {table_name} (Date, Open, High, Low, Close)
-                VALUES (%s, %s, %s, %s, %s);
+                INSERT INTO {table_name} (Date, Open, High, Low, Close, Volume)
+                VALUES (%s, %s, %s, %s, %s, %s);
                 """
                 for record in data:
                     try:
@@ -33,10 +35,13 @@ class exchange():
                             record['High'], 
                             record['Low'], 
                             record['Close'], 
+                            record['Volume'], 
                         ))
                     except pymysql.MySQLError as e:
-                        pass
-                        # print(f"Error inserting record {record['Date']}: {e}")
+                        if e.args[0] == 1062:  # Duplicate entry for key
+                            continue  # 이 오류는 무시하고 계속 진행
+                        else:
+                            print(f"Error inserting record {record['Date']}: {e}")
             # 변경사항 커밋
             connection.commit()
         finally:
