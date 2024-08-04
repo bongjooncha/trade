@@ -17,6 +17,6 @@ def index_update():
         start_date = one_day_ago.strftime("%Y-%m-%d")
         end_date = current_time.strftime("%Y-%m-%d")
         index_data = get_index(ticker,start_date,end_date)
-        table_name = tickers[ticker]
+        table_name = ticker
         index.create_insert_to_table(index_data['data'], table_name, "AWS")
 

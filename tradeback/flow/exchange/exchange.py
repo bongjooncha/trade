@@ -9,6 +9,7 @@ exchange_api = Blueprint('exchange',__name__)
 @exchange_api.route("/average", methods=['POST'])
 def exchange_average():
     country = request.json['country']
+    print(country)
     conn = get_db_connection("AWS","exchange_rate")
     try:
         with conn.cursor() as cursor:

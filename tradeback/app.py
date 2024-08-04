@@ -35,4 +35,4 @@ if __name__ == '__main__':
     scheduler_thread = threading.Thread(target=run_schedule)
     scheduler_thread.start()
 
-    app.run(debug=False)
+    app.run(debug=True)

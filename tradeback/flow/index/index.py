@@ -12,7 +12,8 @@ def index_average():
     conn = get_db_connection("AWS","index")
     try:
         with conn.cursor() as cursor:
-            cursor.execute(f"SELECT AVG(Close) FROM {index}")
+            query = "SELECT AVG(Close) FROM `{}`".format(index)
+            cursor.execute(query)
             result = cursor.fetchall()
             return jsonify(result)
     except Exception as e:
@@ -27,7 +28,8 @@ def index_price():
     conn = get_db_connection("AWS","index")
     try:
         with conn.cursor() as cursor:
-            cursor.execute(f"SELECT Date,Close FROM {index}")
+            query = "SELECT Date,Close FROM `{}`".format(index)
+            cursor.execute(query)
             result = cursor.fetchall()
             return jsonify(result)
     except Exception as e:

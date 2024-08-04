@@ -22,13 +22,13 @@ exes = [
 ]
 
 # 생성 및 정보 입력
-for ex in exes:
-    currency_pair = ex+base+'=X'
-    start_date = '2018-01-01'
-    end_date = '2019-12-31'
-    exchange_rate_data = get_exchange_rate(currency_pair,start_date,end_date)
-    table_name = currency_pair.replace('=X', '')
-    exchange.create_insert_to_table(exchange_rate_data['data'], table_name,"AWS")
+# for ex in exes:
+#     currency_pair = ex+base+'=X'
+#     start_date = '2018-01-01'
+#     end_date = '2019-12-31'
+#     exchange_rate_data = get_exchange_rate(currency_pair,start_date,end_date)
+#     table_name = currency_pair.replace('=X', '')
+#     exchange.create_insert_to_table(exchange_rate_data['data'], table_name,"AWS")
 
 # 삭제
 # for ex in exes:
