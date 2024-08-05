@@ -8,6 +8,7 @@
   { "ticker": "^IXIC", "name": "나스닥(전체)" },
   { "ticker": "^RUT", "name": "러셀 2000" },
   { "ticker": "^DJI", "name": "다우 존스" },
+  { "ticker": "^VIX", "name": "VIX 지수" },
 
   { "ticker": "^KS11", "name": "코스피" },
   { "ticker": "^KQ11", "name": "코스닥" },

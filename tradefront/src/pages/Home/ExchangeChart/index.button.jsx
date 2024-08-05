@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 
 import { currency } from "./index.utils";
 import styles from "./style/exchangehart.module.css";
@@ -63,8 +63,6 @@ const ExchangeButton = ({
       <br />
       <div>
         <h5>COMPARE</h5>
-        <button onClick={handleSelectAll}>모두 선택</button>
-        <button onClick={handleDeselectAll}>선택 해제</button>
         <div className={styles.currencyGrid}>
           {currency
             .filter((item) => item.unit !== baseCurrency)
@@ -81,6 +79,10 @@ const ExchangeButton = ({
                 </label>
               </div>
             ))}
+        </div>
+        <div className={styles.dataControll}>
+          <button onClick={handleSelectAll}>모두 선택</button>
+          <button onClick={handleDeselectAll}>선택 해제</button>
         </div>
       </div>
     </div>

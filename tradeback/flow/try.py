@@ -11,7 +11,7 @@ def get_index(ticker, start, end):
     return response
 
 # 예시 티커로 함수 호출
-index_data = get_index("GC=F", "2018-01-01", "2024-08-04")
+index_data = get_index("^TOPX", "2022-01-01", "2024-08-04")
 
 # 반환된 데이터 구조 확인
 print(index_data)

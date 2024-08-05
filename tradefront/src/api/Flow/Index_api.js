@@ -2,11 +2,11 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BUILD_BASE_URL;
 
-// 환율 가격
-export async function fetchPrice(country) {
+// Index 가격
+export async function fetchIndexPrice(index) {
   try {
-    const response = await axios.post(`${BASE_URL}/exchange/price`, {
-      country: country,
+    const response = await axios.post(`${BASE_URL}/index/price`, {
+      index: index,
     });
     return response.data;
   } catch (error) {
@@ -15,11 +15,11 @@ export async function fetchPrice(country) {
   }
 }
 
-// 환율 평균
-export async function fetchAverage(country) {
+// Index 평균
+export async function fetchIndexAverage(index) {
   try {
-    const response = await axios.post(`${BASE_URL}/exchange/average`, {
-      country: country,
+    const response = await axios.post(`${BASE_URL}/index/average`, {
+      index: index,
     });
     return response.data;
   } catch (error) {

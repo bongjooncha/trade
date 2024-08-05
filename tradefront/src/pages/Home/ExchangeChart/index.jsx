@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { fetchAverage, fetchPrice } from "api/Exchange/Exchange_api";
+import {
+  fetchExchangeAverage,
+  fetchExchangePrice,
+} from "api/Flow/Exchange_api";
 import styles from "./style/exchangehart.module.css";
 
 import ExchangeButton from "./index.button";
@@ -26,8 +29,8 @@ const ExchangeChart = () => {
             const currencyPair = `${currency}${baseCurrency}`;
             try {
               // 데이터를 가져오는 API 요청을 가정
-              const priceResponse = await fetchPrice(currencyPair);
-              const averageResponse = await fetchAverage(currencyPair);
+              const priceResponse = await fetchExchangePrice(currencyPair);
+              const averageResponse = await fetchExchangeAverage(currencyPair);
               const average = averageResponse[0]["AVG(Close)"];
               const data = priceResponse.map((item) => [
                 Date.parse(item.Date), // 날짜를 파싱하여 타임스탬프로 변환
@@ -41,8 +44,8 @@ const ExchangeChart = () => {
           } else {
             const currencyPair = `${currency}USD`;
             try {
-              const krwPriceResponse = await fetchPrice("KRWUSD");
-              const krwAverageResponse = await fetchAverage("KRWUSD");
+              const krwPriceResponse = await fetchExchangePrice("KRWUSD");
+              const krwAverageResponse = await fetchExchangeAverage("KRWUSD");
               const krwAverage = krwAverageResponse[0]["AVG(Close)"];
               if (currency === "USD") {
                 const data = krwPriceResponse.map((item) => [
@@ -52,8 +55,8 @@ const ExchangeChart = () => {
                 console.log({ name: "USDKRW", data });
                 return { name: "USDKRW", data };
               }
-              const priceResponse = await fetchPrice(currencyPair);
-              const averageResponse = await fetchAverage(currencyPair);
+              const priceResponse = await fetchExchangePrice(currencyPair);
+              const averageResponse = await fetchExchangeAverage(currencyPair);
               const average = averageResponse[0]["AVG(Close)"] / krwAverage;
               const data = priceResponse.map((item, index) => [
                 Date.parse(item.Date),

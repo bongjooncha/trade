@@ -1,5 +1,5 @@
 /* main */
-.currency {
+.index {
   display: flex;
   justify-content: space-between; /* 내부 요소를 양쪽 끝으로 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
@@ -7,15 +7,15 @@
   margin-top: 50px;
 }
 
-.currencyButton {
+.indexButton {
   border: solid black 2px;
   border-radius: 1%;
   padding: 1%;
   font-size: 14px;
 }
 
-/* currencyChart */
-.currencyChart {
+/* indexChart */
+.indexChart {
   margin: 0 5vw;
   width: 50vw;
 }
@@ -23,18 +23,23 @@
   height: 100vh;
 }
 
-/* ExchangeButton. */
-.currencyButton {
+/* IndexButton. */
+.indexButton {
+  width: 29vw;
   margin: 0 5vw;
 }
 
-.currencyGrid {
+.indexGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3열로 설정 */
   gap: 10px; /* 각 항목 사이의 간격 설정 */
 }
 
-.currencyItem {
+.indexItem {
   display: flex;
   align-items: center; /* 체크박스와 레이블을 세로 중앙 정렬 */
+}
+
+.dataControll {
+  float: right;
 }
