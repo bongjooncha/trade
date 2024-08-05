@@ -1,6 +1,9 @@
 import yfinance as yf
 import sys
-sys.path.append('c:/Users/OWNER/Desktop/coding_project/autotrade_back_front/trade')
+import os
+from dotenv import load_dotenv
+sys.path.append(os.getenv('file_location'))
+load_dotenv()
 from tradeback.flow.index.spl_controll.create_table import index
 
 def get_index(ticker, start, end):
