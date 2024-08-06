@@ -8,6 +8,7 @@ const Chart = ({ baseCurrency, data }) => {
     chart: {
       type: "spline",
       zoomType: "x", // X축 기준으로 확대/축소 활성화
+      height: 50 + "%",
     },
     title: {
       text: `${baseCurrency} 기준 국가 별 환율 등락비`,

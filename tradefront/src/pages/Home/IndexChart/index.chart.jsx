@@ -8,6 +8,7 @@ const Chart = ({ baseCurrency, data }) => {
     chart: {
       type: "spline",
       zoomType: "x", // X축 기준으로 확대/축소 활성화
+      height: 60 + "%",
     },
     title: {
       text: `지수 및 선물 등락비`,
