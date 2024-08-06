@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   fetchExchangeAverage,
   fetchExchangePrice,
@@ -19,14 +19,20 @@ const ExchangeChart = () => {
     "EUR",
   ]);
   const [chartData, setChartData] = useState([]);
+  const [fetchedCurrencies, setFetchedCurrencies] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      const newCurrencies = selectedCurrencies.filter(
+        currency => !fetchedCurrencies.includes(currency)
+      );
+
       const seriesData = await Promise.all(
-        selectedCurrencies.map(async (currency) => {
+        newCurrencies.map(async (currency) => {
           if (currency === baseCurrency) return null; // 같은 통화일 경우 스킵
           if (baseCurrency === "USD") {
             const currencyPair = `${currency}${baseCurrency}`;
+            
             try {
               // 데이터를 가져오는 API 요청을 가정
               const priceResponse = await fetchExchangePrice(currencyPair);
@@ -72,17 +78,38 @@ const ExchangeChart = () => {
         })
       );
 
-      setChartData(seriesData.filter((series) => series !== null)); // null 값 제거
+      const newData = seriesData.reduce((acc, series) => {
+        if (series) {
+          acc[series.name] = series.data;
+        }
+        return acc;
+      }, {});
+
+
+      // setChartData(seriesData.filter((series) => series !== null)); // null 값 제거
+      setChartData(prevData => ({ ...prevData, ...newData }));
+      setFetchedCurrencies(prevCurrencies => [...prevCurrencies, ...newCurrencies]);
+
     };
 
     fetchData();
-  }, [baseCurrency, selectedCurrencies]);
+  }, [selectedCurrencies]);
+
+  const filteredChartData = useMemo(() => {
+    return Object.keys(chartData)
+      .filter(key => selectedCurrencies.includes(key.substring(0, key.length - baseCurrency.length)))
+      .map(key => ({
+        name: key,
+        data: chartData[key]
+      }));
+  }, [chartData, selectedCurrencies, baseCurrency]);
+
 
   return (
     <div>
       <div className={styles.currency}>
         <div>
-          <Chart baseCurrency={baseCurrency} data={chartData} />
+          <Chart baseCurrency={baseCurrency} data={filteredChartData} />
         </div>
         <div className={styles.currencyButton}>
           <ExchangeButton
