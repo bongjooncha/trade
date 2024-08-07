@@ -1,9 +1,4 @@
 import yfinance as yf
-import sys
-import os
-from dotenv import load_dotenv
-sys.path.append(os.getenv('file_location'))
-load_dotenv()
 from tradeback.flow.index.spl_controll.create_table import index
 
 def get_index(ticker, start, end):
@@ -29,6 +24,3 @@ tickers = {
 #     index_data = get_index(ticker,"2018-01-01", "2024-08-04")
 #     index.create_insert_to_table(index_data['data'], ticker, "AWS")
 #     print(ticker," 끝")
-
-index_data = get_index("^VIX","2024-08-01", "2024-08-05")
-index.create_insert_to_table(index_data['data'], "^VIX", "AWS")

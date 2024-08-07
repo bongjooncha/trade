@@ -1,8 +1,3 @@
-import sys
-import os
-from dotenv import load_dotenv
-sys.path.append(os.getenv('file_location'))
-load_dotenv()
 from tradeback.models import get_db_connection
 import pymysql
 

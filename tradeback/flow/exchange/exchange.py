@@ -1,8 +1,4 @@
-import sys
-import os
-from dotenv import load_dotenv
-sys.path.append(os.getenv('file_location'))
-load_dotenv()
+import back.config
 from flask import Blueprint, jsonify, request
 from tradeback.models import get_db_connection
 
@@ -13,7 +9,7 @@ exchange_api = Blueprint('exchange',__name__)
 def exchange_average():
     country = request.json['country']
     print(country)
-    conn = get_db_connection("AWS","exchange_rate")
+    conn = get_db_connection(back.config.DB,"exchange_rate")
     try:
         with conn.cursor() as cursor:
             cursor.execute(f"SELECT AVG(Close) FROM {country}")
@@ -28,7 +24,7 @@ def exchange_average():
 @exchange_api.route("/price", methods=['POST'])
 def exchange_price():
     country = request.json['country']
-    conn = get_db_connection("AWS","exchange_rate")
+    conn = get_db_connection(back.config.DB,"exchange_rate")
     try:
         with conn.cursor() as cursor:
             cursor.execute(f"SELECT Date,Close FROM {country}")

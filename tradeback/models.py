@@ -1,8 +1,5 @@
 import pymysql
-from dotenv import load_dotenv
 import os
-
-load_dotenv()
 
 #place = "local" or "AWS"
 def get_db_connection(place,schema_name):
