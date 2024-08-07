@@ -1,5 +1,5 @@
-from tradeback.flow.index.spl_controll.insert import get_index
-from tradeback.flow.index.spl_controll.create_table import index
+from flow.index.spl_controll.insert import get_index
+from flow.index.spl_controll.create_table import index
 
 
 def index_update(start_date,end_date,DB):

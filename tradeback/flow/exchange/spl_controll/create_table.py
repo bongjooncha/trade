@@ -1,4 +1,4 @@
-from tradeback.models import get_db_connection
+from models import get_db_connection
 import pymysql
 
 class exchange():

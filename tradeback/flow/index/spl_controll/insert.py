@@ -1,5 +1,5 @@
 import yfinance as yf
-from tradeback.flow.index.spl_controll.create_table import index
+from flow.index.spl_controll.create_table import index
 
 def get_index(ticker, start, end):
     data = yf.Ticker(ticker).history(start=start, end=end)
