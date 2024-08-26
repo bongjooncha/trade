@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import ORJSONResponse
 
-app = FastAPI()
+app = FastAPI(default_response_class=ORJSONResponse)
 
 # CORS 설정
 app.add_middleware(
@@ -12,6 +13,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/api/data")
+@app.get("/")
 async def get_data():
     return {"message": "Hello from FastAPI"}
