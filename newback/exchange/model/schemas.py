@@ -50,4 +50,3 @@ def find_env_file():
 
 env_path = find_env_file()
 
-env_path = find_env_file()

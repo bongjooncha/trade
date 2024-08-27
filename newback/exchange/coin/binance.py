@@ -1,4 +1,4 @@
-from exchange.pexchange import ccxt, ccxt_async, httpx
+from exchange.pexchange import ccxt, httpx
 from devtools import debug
 from exchange.model import MarketOrder
 import exchange.error as error
