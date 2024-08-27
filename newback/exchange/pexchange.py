@@ -3,14 +3,11 @@ import ccxt.async_support as ccxt_async
 import httpx
 from fastapi import HTTPException
 from pydantic import BaseModel
-from .binance import Binance
-from .upbit import Upbit
-from .bybit import Bybit
-from .bitget import Bitget
-from .okx import Okx
-from .stock import KoreaInvestment
-from exchange.utility import settings, log_message
-from .database import db
+from .coin.binance import Binance
+from .coin.bitget import Bitget
+from .coin.okx import Okx
+from .krcoin.upbit import Upbit
+from .krcoin.bybit import Bybit
 from typing import Literal
 import pendulum
 import time
@@ -27,17 +24,11 @@ class Exchange(BaseModel):
     BYBIT: Bybit | None = None
     BITGET: Bitget | None = None
     OKX: Okx | None = None
-    KIS1: KoreaInvestment | None = None
-    KIS2: KoreaInvestment | None = None
-    KIS3: KoreaInvestment | None = None
-    KIS4: KoreaInvestment | None = None
 
     class Config:
         arbitrary_types_allowed = True
 
-
 payload = {}
-
 
 def get_exchange(exchange_name: str, kis_number=None):
     global payload
