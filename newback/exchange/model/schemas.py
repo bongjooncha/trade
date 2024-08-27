@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Literal
+from typing import Literal, Union
 import os
 
 CRYPTO_LITERAL = Literal["BINANCE", "UPBIT", "BYBIT", "BITGET", "OKX"]
@@ -12,17 +12,7 @@ STOCK_LITERAL = Literal[
     "AMEX",
 ]
 
-EXCHANGE_LITERAL = Literal[
-    "BINANCE",
-    "UPBIT",
-    "BYBIT",
-    "BITGET",
-    "OKX",
-    "KRX",
-    "NASDAQ",
-    "NYSE",
-    "AMEX",
-]
+EXCHANGE_LITERAL = Union[CRYPTO_LITERAL, STOCK_LITERAL]
 
 QUOTE_LITERAL = Literal[
     "USDT", "USDT.P", "USDTPERP", "BUSD", "BUSD.P", "BUSDPERP", "KRW", "USD", "USD.P"
@@ -47,7 +37,5 @@ def find_env_file():
         current_path = parent_path
     return None
 
-
-env_path = find_env_file()
 
 env_path = find_env_file()
