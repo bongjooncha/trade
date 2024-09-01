@@ -11,3 +11,5 @@ class Bitget:
         })
         
         self.client.load_markets()
+
+    

@@ -1,24 +1,62 @@
 from dotenv import load_dotenv
 import os
+from functools import lru_cache
+
+load_dotenv()
 
 class Config:
-    def __init__(self):
-        load_dotenv()
-        self.BINANCE_KEY = os.getenv('BINANCE_KEY')
-        self.BINANCE_SECRET = os.getenv('BINANCE_SECRET')
+    @lru_cache()
+    def get(self, key, default=None):
+        return os.getenv(key, default)
 
-        self.UPBIT_KEY = os.getenv('UPBIT_KEY')
-        self.UPBIT_SECRET = os.getenv('UPBIT_SECRET')
+    @property
+    @lru_cache()
+    def DB_HOST(self):
+        return self.get('AWS_DB_HOST')
 
-        self.BYBIT_KEY = os.getenv('BYBIT_KEY')
-        self.BYBIT_SECRET = os.getenv('BYBIT_SECRET')
+    @property
+    @lru_cache()
+    def DB_USER(self):
+        return self.get('AWS_DB_USER')
 
-        self.OKX_KEY = os.getenv('OKX_KEY')
-        self.OKX_SECRET = os.getenv('OKX_SECRET')
-        self.OKX_PASSPHRASE = os.getenv('OKX_PASSPHRASE')
-        
-        self.BITGET_KEY = os.getenv('BITGET_KEY')
-        self.BITGET_SECRET = os.getenv('BITGET_SECRET')
-        self.BITGET_PASSPHRASE = os.getenv('BITGET_PASSPHRASE')
+    @property
+    @lru_cache()
+    def DB_PASSWORD(self):
+        return self.get('AWS_DB_PASSWORD')
+
+    @property
+    @lru_cache()
+    def BINANCE_KEY(self):
+        return self.get('BINANCE_KEY')
+
+    @property
+    @lru_cache()
+    def BINANCE_SECRET(self):
+        return self.get('BINANCE_SECRET')
+
+    @property
+    @lru_cache()
+    def BITGET_KEY(self):
+        return self.get('BITGET_KEY')
+
+    @property
+    @lru_cache()
+    def BITGET_SECRET(self):
+        return self.get('BITGET_SECRET')
+
+    @property
+    @lru_cache()
+    def BITGET_PASSPHRASE(self):
+        return self.get('BITGET_PASSPHRASE')
+
+    @property
+    @lru_cache()
+    def WHITELIST(self):
+        return self.get('WHITELIST', '').split(',')
+
+    @property
+    @lru_cache()
+    def PORT(self):
+        return int(self.get('PORT', 80))
 
 config = Config()
