@@ -4,6 +4,7 @@ from devtools import debug
 import exchange.error as error
 
 
+
 class Binance:
     def __init__(self, key, secret):
         self.client = ccxt.binance(

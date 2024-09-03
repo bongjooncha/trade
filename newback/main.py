@@ -1,7 +1,6 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
-import .index 
 
 app = FastAPI(default_response_class=ORJSONResponse)
 
@@ -17,6 +16,3 @@ app.add_middleware(
 @app.get("/")
 async def get_data():
     return {"message": "Hello from FastAPI"}
-
-
-app.include_router(index,prefix="/index")
