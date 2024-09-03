@@ -1,13 +1,40 @@
 from exchange.coin.bitget import Bitget
-from exchange.config import config
 import json
+import ccxt
 
-a = Bitget(config.BITGET_KEY,config.BITGET_SECRET,config.BITGET_PASSPHRASE)
-markets = a.client.load_markets()
+bitget = Bitget()
+# markets = bitget.client.load_markets()
+
+# print("USDT 마진 영구 계약:")
+# for symbol, market in markets.items():
+#     if market['swap'] and market['quote'] == 'USDT' and market['settle'] == 'USDT':
+#         print(f"ID: {market['id']}, Symbol: {symbol}")
 
 
-# JSON 파일로 저장
-with open('markets.json', 'w', encoding='utf-8') as f:
-    json.dump(markets, f, ensure_ascii=False, indent=4)
+try:
+    balance = bitget.client.fetch_balance({'type': 'swap'})
+    print(balance)
+    print("선물 잔액:")
+    for currency in balance['total']:
+        if balance['total'][currency] > 0:
+            print(f"{currency}: {balance['free'][currency]} (사용 가능), {balance['used'][currency]} (사용 중), {balance['total'][currency]} (총액)")
+except ccxt.ExchangeError as e:
+    print(f'오류 발생: {str(e)}')
 
-print("시장 데이터가 markets.json 파일로 저장되었습니다.")
+# print(bitget.client.set_leverage(10,'ETH/USD:ETH-240927'))
+
+# symbol = 'ETH/USD:ETH-240927'  # 선물 거래 심볼
+# type = 'market'  # 시장가 주문
+# side = 'buy'
+# amount = 0.01
+
+# params = {
+#     'marginMode': 'cross',  # 또는 'isolated'
+#     'holdSide': 'long',  # 'long' 또는 'short'
+# }
+
+# try:
+#     order = bitget.client.create_order(symbol, type, side, amount, None, params)
+#     print(order)
+# except ccxt.ExchangeError as e:
+#     print(e)

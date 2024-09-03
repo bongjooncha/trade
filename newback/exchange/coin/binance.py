@@ -1,6 +1,6 @@
 from exchange.pexchange import ccxt, httpx
 from devtools import debug
-from exchange.model import MarketOrder
+# from exchange.model import MarketOrder
 import exchange.error as error
 
 
