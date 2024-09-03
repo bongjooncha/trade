@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
+from routes.coin import *
+
 
 app = FastAPI(default_response_class=ORJSONResponse)
 
@@ -16,3 +18,6 @@ app.add_middleware(
 @app.get("/")
 async def get_data():
     return {"message": "Hello from FastAPI"}
+
+app.include_router(binance_router, prefix="/binance")
+app.include_router(bitget_router, prefix="/bitget")
