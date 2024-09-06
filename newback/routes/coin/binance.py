@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query, HTTPException, status
 from typing import Optional
-from ..config import Binance
+from config import Binance
 
 binance_router = APIRouter(
     tags = ["Binance"]
@@ -12,8 +12,12 @@ binance_router = APIRouter(
 '''
 # endregion
 @binance_router.post("/wallet")
-async def get_wallet_balance(type: Optional[str] = Query(None, enum=["spot","future", "margin"])):
+async def get_wallet_balance(type: Optional[str] = Query(..., enum=["spot","future", "margin"])):
     x = Binance()
     params = {'type': type}
     wallet = x.client.fetch_balance(params)
     return wallet
+
+
+# @binance_router.post("/order")
+# async def order()

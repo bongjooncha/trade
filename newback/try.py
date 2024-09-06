@@ -1,6 +1,8 @@
-from routes.config import Binance
+# from database.connections import engine
+from config import Config
 
-a = Binance()
-markets = a.client.fetch_balance()
+config = Config()
+rdb = "LOCAL"
 
-print(markets)
+def conn(db_name):
+    engin_url = getattr(config,f"{rdb}_DB_URL_NODBNAME")+db_name

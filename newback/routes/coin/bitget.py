@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query, HTTPException, status
 from typing import Optional
-from ..config import Bitget
+from config import Bitget
 
 bitget_router = APIRouter(
     tags = ["Bitget"]

@@ -19,6 +19,16 @@ class Config:
         self.BITGET_SECRET = os.getenv('BITGET_SECRET', '')
         self.BITGET_PASSPHRASE = os.getenv('BITGET_PASSPHRASE', '')
 
+        self.LOCAL_DB_HOST = os.getenv('LOCAL_DB_HOST', '')
+        self.LOCAL_DB_USER = os.getenv('LOCAL_DB_USER', '')
+        self.LOCAL_DB_PASSWORD = os.getenv('LOCAL_DB_PASSWORD', '')
+        self.LOCAL_DB_URL_NODBNAME = f"mysql+pymysql://{self.LOCAL_DB_USER}:{self.LOCAL_DB_PASSWORD}@{self.LOCAL_DB_HOST}/"
+
+        self.AWS_DB_HOST = os.getenv('AWS_DB_HOST', '')
+        self.AWS_DB_USER = os.getenv('AWS_DB_USER', '')
+        self.AWS_DB_PASSWORD = os.getenv('AWS_DB_PASSWORD', '')
+        self.AWS_DB_URL_NODBNAME = f"mysql+pymysql://{self.AWS_DB_USER}:{self.AWS_DB_PASSWORD}@{self.AWS_DB_HOST}/"
+
 config = Config()
 
 class Binance:
