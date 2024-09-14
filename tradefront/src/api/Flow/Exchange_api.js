@@ -5,9 +5,11 @@ const BASE_URL = process.env.REACT_APP_BUILD_BASE_URL;
 // 환율 가격
 export async function fetchExchangePrice(country) {
   try {
-    const response = await axios.post(`${BASE_URL}/exchange/price`, {
-      country: country,
-    });
+    const response = await axios.post(
+      `${BASE_URL}/index/exchange_rate/`,
+      { table_name: country },
+      { headers: { "Content-Type": "application/json" } }
+    );
     return response.data;
   } catch (error) {
     console.errer("Error fetching tickers:", error);
@@ -18,9 +20,11 @@ export async function fetchExchangePrice(country) {
 // 환율 평균
 export async function fetchExchangeAverage(country) {
   try {
-    const response = await axios.post(`${BASE_URL}/exchange/average`, {
-      country: country,
-    });
+    const response = await axios.post(
+      `${BASE_URL}/index/exchange_rate/avg`,
+      { table_name: country },
+      { headers: { "Content-Type": "application/json" } }
+    );
     return response.data;
   } catch (error) {
     console.errer("Error fetching tickers:", error);

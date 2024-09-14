@@ -21,6 +21,12 @@ def get_db_connection(schema_name):
     cursorclass=DictCursor
     )
 
+def get_connection(schema_name: str):
+    conn = get_db_connection(schema_name)
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 
 
