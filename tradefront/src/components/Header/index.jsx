@@ -26,13 +26,15 @@ function Headnav() {
               <NavDropdown.Divider />
             </NavDropdown>
             <NavDropdown title="COIN" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/binance">BINANCE</NavDropdown.Item>
+              <NavDropdown.Item href="/bitget">BITGET</NavDropdown.Item>
               <NavDropdown.Item href="/upbit">Upbit</NavDropdown.Item>
-              <NavDropdown.Item href="/upbit/wallet">
-                Upbit-wallet
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/upbit/trade">
-                Upbit-trade
-              </NavDropdown.Item>
+              <NavDropdown.Divider />
+            </NavDropdown>
+            <NavDropdown title="ASSET" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/upbit">TOTAL</NavDropdown.Item>
+              <NavDropdown.Item href="/upbit">STOCK</NavDropdown.Item>
+              <NavDropdown.Item href="/upbit">COIN</NavDropdown.Item>
               <NavDropdown.Divider />
             </NavDropdown>
           </Nav>

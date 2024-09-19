@@ -14,7 +14,7 @@ import {
   orderLimitSell,
   orderMarketBuy,
   orderMarketSell,
-} from "api/Upbit/Upbit_api";
+} from "api/Coin/Upbit/Upbit_api";
 
 function UpTrade() {
   const current_markets = ["KRW", "BTC", "USDT"];

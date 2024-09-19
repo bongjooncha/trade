@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import { fetchTickers, fetchPrice } from "api/Upbit/Upbit_api";
+import { fetchTickers, fetchPrice } from "api/Coin/Upbit/Upbit_api";
 import styles from "./style/currentMarket.module.css";
 
 function CurrentMarket({ current_markets, onMarketChange }) {

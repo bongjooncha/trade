@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchCandle } from "api/Upbit/Upbit_api";
+import { fetchCandle } from "api/Coin/Upbit/Upbit_api";
 import style from "./style/chart.module.css";
 import { intervals } from "./index.utils";
 import { createChart, updateChart } from "./index.chart";

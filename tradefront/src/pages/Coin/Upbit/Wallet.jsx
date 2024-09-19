@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Headnav from "components/Header/index";
 import Wallet from "components/Wallet/index";
 
-import { fetchAccount } from "api/Upbit/Upbit_api";
+import { fetchAccount } from "api/Coin/Upbit/Upbit_api";
 
 function UpWallet() {
   const { data: initialData } = useQuery({

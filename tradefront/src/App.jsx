@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "pages/Home";
 // Upbit
-import Upbit from "pages/Upbit";
-import UpWallet from "pages/Upbit/Wallet";
-import UpTrade from "pages/Upbit/Trade";
+import UpWallet from "pages/Coin/Upbit/Wallet";
+import UpTrade from "pages/Coin/Upbit/Trade";
+// Bitget
+import BitgetTrade from "pages/Coin/Bitget/Trade";
 // 키움
 import Kiwoom from "pages/Kiwoom";
 import KiWallet from "pages/Kiwoom/Wallet";
@@ -17,9 +18,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           {/* Upbit */}
-          <Route path="/upbit" element={<Upbit />} />
-          <Route path="/upbit/wallet" element={<UpWallet />} />
-          <Route path="/upbit/trade" element={<UpTrade />} />
+          <Route path="/upbit" element={<UpTrade />} />
+          {/* Bitget */}
+          <Route path="/bitget" element={<BitgetTrade />} />
+
+          {/* --------- */}
           {/* Kiwoom */}
           <Route path="/kiwoom" element={<Kiwoom />} />
           <Route path="/kiwoom/wallet" element={<KiWallet />} />
