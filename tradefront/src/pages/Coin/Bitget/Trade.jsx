@@ -11,19 +11,19 @@ function WebSocketComponent() {
 
   const socket = useWebSocket(url, handleMessage);
 
-  // useEffect(() => {
-  //   if (socket) {
-  //     console.log("WebSocket 연결 성공!");
-  //     subscribeChannel(socket, [
-  //       {
-  //         instType: "SPOT",
-  //         channel: "candle1d",
-  //         instId: "BTCUSDT",
-  //       },
-  //     ]);
-  //     console.log("구독 요청을 보냈습니다.");
-  //   }
-  // }, [socket]);
+  useEffect(() => {
+    if (socket) {
+      console.log("WebSocket 연결 성공!");
+      subscribeChannel(socket, [
+        {
+          instType: "SPOT",
+          channel: "candle1d",
+          instId: "BTCUSDT",
+        },
+      ]);
+      console.log("구독 요청을 보냈습니다.");
+    }
+  }, [socket]);
 
   return (
     <div>

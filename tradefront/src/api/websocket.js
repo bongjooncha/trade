@@ -18,26 +18,13 @@ const useWebSocket = (url, onMessage) => {
 
     socketRef.current.onopen = () => {
       console.log(`WebSocket 연결됨: ${url}`);
-      // 구독 메시지 전송
-      const subscribeMessage = {
-        op: "subscribe",
-        args: [
-          {
-            channel: "candle1m",
-            instType: "SPOT",
-            instId: "ETHUSDT",
-          },
-        ],
-      };
-      socketRef.current.send(JSON.stringify(subscribeMessage));
-      console.log("구독 요청을 보냈습니다.");
 
       pingInterval.current = setInterval(() => {
         if (
           socketRef.current &&
           socketRef.current.readyState === WebSocket.OPEN
         ) {
-          socketRef.current.send(JSON.stringify({ type: "ping" }));
+          socketRef.current.send(JSON.stringify({ ping: "ping" }));
           console.log("Ping 메시지 전송");
         }
       }, 25000); // 25초 마다 ping
