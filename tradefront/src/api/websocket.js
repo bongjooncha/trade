@@ -1,60 +1,32 @@
 import { useEffect, useRef } from "react";
 
-/**
- *@param {string} url
- *@param {function} onMessage
- */
-// tradefront/src/api/websocket.js
-const useWebSocket = (url, onMessage) => {
+const useWebSocket = (url, onMessage, onError) => {
   const socketRef = useRef(null);
-  const pingInterval = useRef(null);
 
   useEffect(() => {
-    if (socketRef.current) {
-      socketRef.current.close();
-    }
-
+    // WebSocket 인스턴스 생성
     socketRef.current = new WebSocket(url);
 
-    socketRef.current.onopen = () => {
-      console.log(`WebSocket 연결됨: ${url}`);
-
-      pingInterval.current = setInterval(() => {
-        if (
-          socketRef.current &&
-          socketRef.current.readyState === WebSocket.OPEN
-        ) {
-          socketRef.current.send(JSON.stringify({ ping: "ping" }));
-          console.log("Ping 메시지 전송");
-        }
-      }, 25000); // 25초 마다 ping
-    };
-
+    // 메시지 수신 시 처리
     socketRef.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
       onMessage(data);
     };
 
-    socketRef.current.onclose = (event) => {
-      console.log(`WebSocket 연결 종료: ${url}`, event);
-      setTimeout(() => {
-        socketRef.current = new WebSocket(url);
-      }, 5000); // 5초 후 재연결 시도
-    };
-
+    // 오류 발생 시 처리
     socketRef.current.onerror = (error) => {
-      console.error(`WebSocket 오류 (${url}):`, error);
+      onError(error);
     };
 
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.close();
-      }
-      if (pingInterval.current) {
-        clearInterval(pingInterval.current);
-      }
+    socketRef.current.open = () => {
+      return socketRef.current;
     };
-  }, [url]);
+
+    // 컴포넌트 언마운트 시 소켓 연결 종료
+    return () => {
+      if (socketRef.current) socketRef.current.close();
+    };
+  }, []);
 
   return socketRef.current;
 };
