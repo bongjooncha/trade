@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { subscribeChannel, unsubscribeChannel } from "api/Coin/Bitget/comment";
+import React, { useEffect, useRef } from "react";
+import { subscribeChannel, unSubscribeChannel } from "api/Coin/Bitget/comment";
 
 function WebSocketComponent() {
   const socketRef = useRef(null);
@@ -21,6 +21,7 @@ function WebSocketComponent() {
     socketRef.current.onerror = (error) => {
       console.error("WebSocket 오류:", error);
     };
+
     socketRef.current.onclose = (event) => {
       console.log("WebSocket 연결이 종료되었습니다.", event);
     };
@@ -50,7 +51,7 @@ function WebSocketComponent() {
       </button>
       <button
         onClick={() =>
-          unsubscribeChannel(socketRef.current, [
+          unSubscribeChannel(socketRef.current, [
             {
               instType: "SPOT",
               channel: "candle1m",

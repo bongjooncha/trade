@@ -11,7 +11,7 @@ export const subscribeChannel = (socket, channels) => {
   }
 };
 
-export const unsubscribeChannel = (socket, channels) => {
+export const unSubscribeChannel = (socket, channels) => {
   if (socket.readyState === WebSocket.OPEN) {
     const unsubscribeMessage = {
       op: "unsubscribe",

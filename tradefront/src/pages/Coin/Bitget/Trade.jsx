@@ -1,5 +1,5 @@
 import React from "react";
-import { subscribeChannel, unsubscribeChannel } from "api/Coin/Bitget/comment";
+import { subscribeChannel, unSubscribeChannel } from "api/Coin/Bitget/comment";
 import useWebSocket from "api/websocket";
 
 function WebSocketComponent() {
@@ -17,8 +17,6 @@ function WebSocketComponent() {
     handleMessage,
     handleError
   );
-
-  console.log(socket);
 
   return (
     <div>
@@ -38,7 +36,7 @@ function WebSocketComponent() {
       </button>
       <button
         onClick={() =>
-          unsubscribeChannel(socket, [
+          unSubscribeChannel(socket, [
             {
               instType: "SPOT",
               channel: "candle1m",
