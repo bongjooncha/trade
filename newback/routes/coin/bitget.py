@@ -22,8 +22,3 @@ async def get_wallet_balance(type: Optional[str] = Query(None, enum=["swap", "ma
         params = {'type': type}
     wallet = x.client.fetch_balance(params)
     return wallet
-
-@bitget_router.on_event("startup")
-def startup_event():
-    thread = threading.Thread(target=candle_price, daemon=True)
-    thread.start()
