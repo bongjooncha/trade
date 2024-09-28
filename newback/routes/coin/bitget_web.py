@@ -1,6 +1,7 @@
 import asyncio
 import websockets
 import json
+import utils.technicalindicator as ti
 
 data_store = {}
 data_lock = asyncio.Lock()
@@ -107,7 +108,7 @@ class Bitget_web():
         name = self.create_name(inst_id, channel)
 
         async with data_lock:
-            data_store[name] = data_entries
+            data_store[name] = data_entries[-230:]
     
     async def handle_update(self, arg, data_entries):
         inst_id = arg.get("instId")
@@ -119,9 +120,22 @@ class Bitget_web():
             if data_store[name][-1][0] == new_entry[0]:  
                 data_store[name][-1] = new_entry
                 print(data_store[name])
+                async with data_lock:
+                    d = ti.TechnicalIndicator(data_store[name])
+                    d.bband(5)
+                    for i in [5, 10, 20, 60, 120]:
+                        d.ma(i)
+                    print(d.data.tail())
             else:
                 data_store[name].append(new_entry)
                 data_store[name].pop(0)
+                print(data_store[name])
+                # async with data_lock:
+                #     d = ti.TechnicalIndicator(data_store[name])
+                #     d.bband(5)
+                #     for i in [5, 10, 20, 60, 120]:
+                #         d.ma(i)
+                #     print(d.data.tail())
         
     async def subscribe(self, type, coin):
         async with websockets.connect(self.url) as websocket:
