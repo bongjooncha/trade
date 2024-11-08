@@ -10,7 +10,7 @@ app = FastAPI(default_response_class=ORJSONResponse)
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React 개발 서버 주소
+    allow_origins=["http://localhost:3000","http://localhost:3001"],  # React 개발 서버 주소
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
