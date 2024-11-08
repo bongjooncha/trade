@@ -1,6 +1,7 @@
 import React from "react";
 import { subscribeChannel, unSubscribeChannel } from "api/Coin/Bitget/comment";
 import useWebSocket from "api/websocket";
+import { ChartComponent } from "components/Tchart/try";
 
 function WebSocketComponent() {
   const handleMessage = (data) => {
@@ -20,7 +21,7 @@ function WebSocketComponent() {
 
   return (
     <div>
-      <h1>WebSocket SPOT Ticker 구독</h1>
+      {/* <h1>WebSocket SPOT Ticker 구독</h1>
       <button
         onClick={() =>
           subscribeChannel(socket, [
@@ -46,7 +47,8 @@ function WebSocketComponent() {
         }
       >
         구취
-      </button>
+      </button> */}
+      <ChartComponent />
     </div>
   );
 }
