@@ -1,8 +1,8 @@
 /* main */
 .currency {
   display: flex;
-  justify-content: space-between; /* 내부 요소를 양쪽 끝으로 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: space-between;
+  align-items: center;
   width: 100%; /* 필요에 따라 조정 */
   margin-top: 50px;
 }

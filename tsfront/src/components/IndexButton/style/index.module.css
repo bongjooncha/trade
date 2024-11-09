@@ -1,0 +1,16 @@
+/* IndexButton. */
+.indexButton h5 {
+  text-align: left;
+  margin: 10px 0;
+}
+
+.indexGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3열로 설정 */
+  gap: 10px; /* 각 항목 사이의 간격 설정 */
+}
+
+.indexGrid label {
+  text-align: left;
+  min-width: 124px;
+}

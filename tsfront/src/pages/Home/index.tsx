@@ -1,16 +1,16 @@
 import React from "react";
 
 import Headnav from "components/Header";
-// import ExchangeChart from "pages/Home/ExchangeChart";
+import ExchangeChart from "pages/Home/ExchangeChart";
 // import IndexChart from "./IndexChart";
 
 function Home() {
   return (
     <div className="Home">
       <Headnav />
-      {/* 
-      <ExchangeChart /> */}
-      d
+
+      <ExchangeChart />
+
       <br />
       {/* <IndexChart /> */}
       <br />
