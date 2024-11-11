@@ -1,7 +1,0 @@
-venv
-.env
-
-#pyc 캐쉬
-upbit/__pycache__/
-__pycache__/
-*.pyc
