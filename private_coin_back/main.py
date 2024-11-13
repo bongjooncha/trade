@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
-from routes.coin import *
-from routes.index import *
+from routes import *
 
 
 app = FastAPI(default_response_class=ORJSONResponse)
@@ -22,4 +21,3 @@ async def get_data():
 
 app.include_router(binance_router, prefix="/binance")
 app.include_router(bitget_router, prefix="/bitget")
-app.include_router(index_router, prefix="/index")
