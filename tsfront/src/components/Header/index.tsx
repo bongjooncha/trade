@@ -10,6 +10,7 @@ function Headnav() {
       data-bs-theme="dark"
       expand="lg"
       className="bg-body-tertiary"
+      style={{ width: "100%", height: "100%" }}
     >
       <Container>
         <Navbar.Brand href="/">Auto Trade</Navbar.Brand>
@@ -32,9 +33,9 @@ function Headnav() {
               <NavDropdown.Divider />
             </NavDropdown>
             <NavDropdown title="ASSET" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/upbit">TOTAL</NavDropdown.Item>
-              <NavDropdown.Item href="/upbit">STOCK</NavDropdown.Item>
-              <NavDropdown.Item href="/upbit">COIN</NavDropdown.Item>
+              <NavDropdown.Item href="/wallet">TOTAL</NavDropdown.Item>
+              <NavDropdown.Item href="/wallet/stock">STOCK</NavDropdown.Item>
+              <NavDropdown.Item href="/wallet/coin">COIN</NavDropdown.Item>
               <NavDropdown.Divider />
             </NavDropdown>
           </Nav>

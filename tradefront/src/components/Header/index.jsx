@@ -33,8 +33,8 @@ function Headnav() {
             </NavDropdown>
             <NavDropdown title="ASSET" id="basic-nav-dropdown">
               <NavDropdown.Item href="/upbit">TOTAL</NavDropdown.Item>
-              <NavDropdown.Item href="/upbit">STOCK</NavDropdown.Item>
-              <NavDropdown.Item href="/upbit">COIN</NavDropdown.Item>
+              <NavDropdown.Item href="/upbit/wallet">STOCK</NavDropdown.Item>
+              <NavDropdown.Item href="/upbit/wallet">COIN</NavDropdown.Item>
               <NavDropdown.Divider />
             </NavDropdown>
           </Nav>

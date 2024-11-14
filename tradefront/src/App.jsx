@@ -19,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           {/* Upbit */}
           <Route path="/upbit" element={<UpTrade />} />
+          <Route path="/upbit/wallet" element={<UpWallet />} />
           {/* Bitget */}
           <Route path="/bitget" element={<BitgetTrade />} />
 
