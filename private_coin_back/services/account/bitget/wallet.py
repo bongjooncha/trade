@@ -3,7 +3,7 @@ from typing import Literal
 import os
 from config.settings import Bitget_Config
 
-def get_bitget_client(type: Literal['', 'spot', 'future', 'swap']):
+def get_bitget_client(type: Literal['', 'spot', 'future']):
     client_config = {
         'apiKey': Bitget_Config.BITGET_KEY,
         'secret': Bitget_Config.BITGET_SECRET,
@@ -15,11 +15,15 @@ def get_bitget_client(type: Literal['', 'spot', 'future', 'swap']):
     return ccxt.bitget(client_config)
 
 # type: str -> spot, future
-def get_balance(type: Literal['', 'spot', 'future', 'swap']):
+def get_balance(type: Literal['', 'spot', 'future']):
     client = get_bitget_client(type)
     try:
-        balance = client.fetch_balance()
-        return balance
+        if type == 'spot':
+            balance = client.fetch_balance()
+            return balance
+        elif type == 'future':
+            balance = client.fetch_balance()
+            return balance["USDT"]
     except ccxt.BaseError as e:
         return {"error": str(e)}
     
