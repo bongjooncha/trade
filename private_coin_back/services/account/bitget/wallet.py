@@ -31,12 +31,12 @@ def get_futures_positions():
             {
                 "symbol": position["info"]["symbol"],
                 "holdSide": position["info"]["holdSide"],
-                "marginSize": position["info"]["marginSize"],
-                "leverage": position["info"]["leverage"],
-                "openPriceAvg": position["info"]["openPriceAvg"],
-                "unrealizedPL": position["info"]["unrealizedPL"],
-                "achievedProfits": position["info"]["achievedProfits"],
-                "markPrice": position["info"]["markPrice"],
+                "marginSize": float(position["info"]["marginSize"]),
+                "leverage": int(position["info"]["leverage"]),
+                "openPriceAvg": float(position["info"]["openPriceAvg"]),
+                "unrealizedPL": float(position["info"]["unrealizedPL"]),
+                "achievedProfits": float(position["info"]["achievedProfits"]),
+                "markPrice": float(position["info"]["markPrice"]),
             }
             for position in positions
         ]
