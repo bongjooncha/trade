@@ -40,7 +40,7 @@ def get_futures_positions():
                 "openPriceAvg": float(position["info"]["openPriceAvg"]),
                 "unrealizedPL": float(position["info"]["unrealizedPL"]),
                 "achievedProfits": float(position["info"]["achievedProfits"]),
-                "markPrice": float(position["info"]["markPrice"]),
+                "markPrice": float(position["info"]["markPrice"])
             }
             for position in positions
         ]
