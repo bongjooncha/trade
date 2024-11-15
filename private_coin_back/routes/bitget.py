@@ -23,18 +23,7 @@ async def get_open_orders():
 
 @bitget_router.get("/test")
 async def test():
-    open_orders = get_bitget_client('future').fetch_positions()
-    all_orders = open_orders
-
-    # "BTC/USDT:USDT" 심볼의 트리거 주문 필터링
-    trigger_orders = [
-        order for order in all_orders 
-        if order['symbol'] == 'BTC/USDT:USDT'
-    ]
-
-    print(len(trigger_orders))
-    # k = get_bitget_client('future').cancelAllOrders()
-    k = get_bitget_client('future').fetch_positions()
-    return trigger_orders
+    open_orders = get_bitget_client('future').fetch_open_orders(symbol='BTC/USDT:USDT')
+    return open_orders
 
 

@@ -1,23 +1,24 @@
-from fastapi import APIRouter, Query, HTTPException, status
-from typing import Optional
-# from config import Binance
+from fastapi import APIRouter
+from services.account.binance.wallet import *
 
 binance_router = APIRouter(
     tags = ["Binance"]
 )
 
-#region binance.fetch_balance() -> 지갑 잔고 확인
-'''
-# 변수 None -> spot, {'type': 'future'} -> 선물, {'type': 'margin'} -> 마진
-'''
-# endregion
-# @binance_router.post("/wallet")
-# async def get_wallet_balance(type: Optional[str] = Query(..., enum=["spot","future", "margin"])):
-#     x = Binance()
-#     params = {'type': type}
-#     wallet = x.client.fetch_balance(params)
-#     return wallet
+@binance_router.get("/wallet/{type}")
+async def get_wallet_balance(type: str):
+    return get_balance(type)
+
+@binance_router.get("/positions")
+async def get_open_orders():
+    return get_futures_positions()
+
+@binance_router.get("/future_ts")
+async def get_open_ts():
+    return get_open_futures_ts(['ETH/USDT',"TIA/USDT"])
+
+@binance_router.get("/try")
+async def try_():
+    return get_binance_client('future').fetch_open_orders(symbol='ETH/USDT')
 
 
-# @binance_router.post("/order")
-# async def order()
