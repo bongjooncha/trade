@@ -7,24 +7,46 @@ import {
   fetchBitgetWalletBalance,
 } from "api/Coin/Bitget/Bitget_api";
 
+import {
+  fetchBinanceFuturePositions,
+  fetchBinanceWalletBalance,
+  fetchBinanceFutureTs,
+} from "api/Coin/Binance/Binance_api";
+
 import Headnav from "components/Header";
 import CoinWalletTable from "./FutureTable/index.futureTable";
 import { CoinFuturePosition } from "types/coin";
 function CoinWallet() {
-  const [positions, setPositions] = useState<CoinFuturePosition[]>([]);
-  const [openOrders, setOpenOrders] = useState([]);
-  const [walletBalance, setWalletBalance] = useState([]);
+  // BITGET
+  const [bitgetPositions, setBitgetPositions] = useState<CoinFuturePosition[]>(
+    []
+  );
+  const [walletBitgetBalance, setWalletBitgetBalance] = useState([]);
+
+  // BINANCE
+  const [binancePositions, setBinancePositions] = useState<
+    CoinFuturePosition[]
+  >([]);
+  const [walletBinanceBalance, setWalletBinanceBalance] = useState([]);
+  const [openBinanceTs, setOpenBinanceTs] = useState([]);
 
   useEffect(() => {
+    // BITGET
     fetchBitgetPositions().then((res) =>
-      setPositions(res as CoinFuturePosition[])
+      setBitgetPositions(res as CoinFuturePosition[])
     );
-    // fetchBitgetOpenOrders().then((res) => setOpenOrders(res as any));
     fetchBitgetWalletBalance("future").then((res) =>
-      setWalletBalance(res as any)
+      setWalletBitgetBalance(res as any)
+    );
+
+    // BINANCE
+    fetchBinanceFuturePositions().then((res) =>
+      setBinancePositions(res as CoinFuturePosition[])
+    );
+    fetchBinanceWalletBalance("future").then((res) =>
+      setWalletBinanceBalance(res as any)
     );
   }, []);
-  console.log(walletBalance);
 
   return (
     <div className={styles.Wallet}>
@@ -32,10 +54,21 @@ function CoinWallet() {
       <br />
       <br />
       <div className={styles.WalletBox}>
-        <h2>코인</h2>
-        <div className={styles.WalletBoxContent}>
-          <CoinWalletTable data={positions} name="BITGET" />
+        <div className={styles.Header}>
+          <h2>코인</h2>
         </div>
+        <br />
+        <div className={styles.WalletBoxContent}>
+          <CoinWalletTable data={bitgetPositions} name="BITGET" />
+        </div>
+        <br />
+        <div className={styles.line} />
+        <br />
+        <br />
+        <div className={styles.WalletBoxContent}>
+          <CoinWalletTable data={binancePositions} name="BINANCE" />
+        </div>
+        <br />
       </div>
       <br />
       <br />

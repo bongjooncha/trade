@@ -15,8 +15,7 @@ const CoinWalletTable = ({ data, name }: CoinWalletTableProps) => {
   return (
     <div>
       <h4>
-        {name}
-        <span className={styles.small}>future</span>
+        {name} <span className={styles.small}>future</span>
       </h4>
       <table className={styles.WalletTable}>
         <thead>
