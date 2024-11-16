@@ -20,7 +20,7 @@ def read_table_all(
             query = f"SELECT * FROM `{request.table_name}`"
             cursor.execute(query)
             result = cursor.fetchall()
-            return result  # FastAPI가 자동으로 JSON 응답으로 변환
+            return result 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -38,7 +38,7 @@ def read_table(
             query = "SELECT Date,Close FROM `{}`".format(request.table_name)
             cursor.execute(query)
             result = cursor.fetchall()
-            return result  # FastAPI가 자동으로 JSON 응답으로 변환
+            return result 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -58,6 +58,6 @@ def read_table_avg(
             query = "SELECT AVG(Close) FROM `{}`".format(request.table_name)
             cursor.execute(query)
             result = cursor.fetchall()
-            return result  # FastAPI가 자동으로 JSON 응답으로 변환
+            return result 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

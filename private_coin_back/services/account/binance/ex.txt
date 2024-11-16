@@ -1,0 +1,51 @@
+fetch_positions() = [
+    {
+    "info": {
+      "symbol": "ETHUSDT",
+      "positionSide": "LONG",                   // 보유 방향
+      "positionAmt": "0.280",                    // 포지션 수량
+      "entryPrice": "2413.410678571",             // 평균 매입가
+      "breakEvenPrice": "2413.893360707",        // 손익분기점
+      "markPrice": "3174.44635772",               // 현재가
+      "unRealizedProfit": "213.08999016",         // 미실현 손익
+      "liquidationPrice": "1803.77780791",       // 청산가
+      "isolatedMargin": "0",
+      "notional": "888.84498016",                 // 레버리지 고려 투입액
+      "marginAsset": "USDT",
+      "isolatedWallet": "0",
+      "initialMargin": "7.11075984",              // 실재 투입 금액
+      "maintMargin": "3.55537992",
+      "positionInitialMargin": "7.11075984",
+      "openOrderInitialMargin": "0",
+      "adl": "3",
+      "bidNotional": "0",
+      "askNotional": "0",
+      "updateTime": "1730757088162"
+    },
+    "id": null,
+    "symbol": "ETH/USDT:USDT",
+    "contracts": 0.28,
+    "contractSize": 1,
+    "unrealizedPnl": 213.08999016,
+    "leverage": null,
+    "liquidationPrice": 1803.77780791,
+    "collateral": 172.71743492,
+    "notional": 888.84498016,
+    "markPrice": 3174.44635772,
+    "entryPrice": 2413.410678571,
+    "timestamp": 1730757088162,
+    "initialMargin": 7.11075984,
+    "initialMarginPercentage": 0.00799999,
+    "maintenanceMargin": 3.55537992064,
+    "maintenanceMarginPercentage": 0.004,
+    "marginRatio": 0.0206,
+    "datetime": "2024-11-04T21:51:28.162Z",
+    "marginMode": "cross",
+    "marginType": "cross",
+    "side": "long",
+    "hedged": true,
+    "percentage": 2996.72,
+    "stopLossPrice": null,
+    "takeProfitPrice": null
+  }
+]
