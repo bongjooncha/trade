@@ -25,12 +25,47 @@ h2 {
   margin: 50px 80px 40px 50px;
 }
 
+/* Pie Chart */
+.pieChartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.toggleChartTypeBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  height: 30px;
+  cursor: pointer;
+  margin-left: 10%;
+}
+
+.toggleChartTypeBtn:hover {
+  background-color: #0056b3;
+}
+
 /* TABLE */
+.tableHead {
+  display: flex;
+  justify-content: space-between;
+}
 h4 {
   text-align: left;
   margin-left: 60px;
   margin-bottom: 30px;
   font-style: italic;
+}
+
+.viewChartBtn {
+  margin-right: 10%;
+  background-color: #200b0b75;
+  color: #d9d9d9;
+  border-radius: 10px;
+  font-size: 12px;
+  width: 80px;
+  height: 30px;
 }
 
 th {
@@ -64,13 +99,27 @@ table td {
   padding-bottom: 10px;
 }
 
-.total {
+/* 총 포지션 손익 */
+h5 {
   text-align: right;
-  margin-right: 40px;
+  margin-right: 10%;
   margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
 }
 
-/* 총 포지션 손익 */
-.total div {
-  margin-bottom: 20px;
+.total h5 div {
+  margin-bottom: 10px;
+  margin-left: 30px;
+}
+
+h6 {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-right: 10%;
+}
+.total h6 div {
+  margin-left: 30px;
 }

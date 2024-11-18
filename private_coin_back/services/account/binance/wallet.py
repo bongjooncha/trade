@@ -47,8 +47,6 @@ def get_futures_positions():
             }
             for position in positions
         ]
-        for position in filtered_positions:
-            print("openPriceAvg:", position["openPriceAvg"])
         return filtered_positions
     except ccxt.BaseError as e:
         return {"error": str(e)}

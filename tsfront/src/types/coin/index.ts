@@ -11,3 +11,9 @@ export interface CoinFuturePosition {
   TP: [number, number | null][]; //TP
   SL: [number, number | null][]; //SL
 }
+
+export interface CoinWalletBalance {
+  free: number;
+  used: number;
+  total: number;
+}
