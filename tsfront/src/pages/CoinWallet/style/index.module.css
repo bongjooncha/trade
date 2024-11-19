@@ -100,10 +100,13 @@ table td {
 }
 
 /* 총 포지션 손익 */
+.total {
+  margin-top: 30px;
+}
+
 h5 {
   text-align: right;
   margin-right: 10%;
-  margin-top: 30px;
   display: flex;
   flex-direction: row;
   justify-content: right;

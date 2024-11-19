@@ -27,9 +27,11 @@ function Headnav() {
               <NavDropdown.Divider />
             </NavDropdown>
             <NavDropdown title="COIN" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/binance">BINANCE</NavDropdown.Item>
-              <NavDropdown.Item href="/bitget">BITGET</NavDropdown.Item>
-              <NavDropdown.Item href="/upbit">Upbit</NavDropdown.Item>
+              <NavDropdown.Item href="/coin/alert">Alert</NavDropdown.Item>
+              <NavDropdown.Item href="/coin/chart">Chart</NavDropdown.Item>
+              <NavDropdown.Item href="/coin/polymarket">
+                Polymarket
+              </NavDropdown.Item>
               <NavDropdown.Divider />
             </NavDropdown>
             <NavDropdown title="ASSET" id="basic-nav-dropdown">

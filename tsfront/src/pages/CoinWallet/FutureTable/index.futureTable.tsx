@@ -7,6 +7,8 @@ import FutureTableBody from "./index.futureTableBody";
 import PieChart from "components/PieChart";
 
 import { CoinFuturePosition, CoinWalletBalance } from "types/coin";
+import { formatTPSL } from "utils/init";
+import { numberFormat } from "highcharts";
 
 interface CoinWalletTableProps {
   data: CoinFuturePosition[];
@@ -27,7 +29,7 @@ const CoinWalletTable = ({
     y:
       chartData === "margin"
         ? item.marginSize * item.leverage
-        : item.unrealizedPL,
+        : (item.openPriceAvg - Number(formatTPSL(item.SL))) * item.positionAmt,
   }));
 
   const handleToggleChartType = () => {

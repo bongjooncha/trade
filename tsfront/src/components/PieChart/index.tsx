@@ -25,6 +25,9 @@ const PieChart: React.FC<{
         },
       },
     },
+    tooltip: {
+      pointFormat: "{series.name}: <b>{point.y:.2f}$</b>",
+    },
     series: [
       {
         type: "pie",

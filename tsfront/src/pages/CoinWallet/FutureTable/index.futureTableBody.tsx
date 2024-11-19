@@ -52,7 +52,10 @@ const FutureTableBody = ({ data }: FutureTableBodyProps) => {
                 )}
 
             {formatTPSL(item.TP) !== "-" && (
-              <span className={styles.small}>
+              <span
+                className={styles.small}
+                style={{ fontWeight: item.TP.length > 1 ? "bold" : "normal" }}
+              >
                 ({formatNumber(Number(formatTPSL(item.TP)))})
               </span>
             )}
@@ -66,7 +69,10 @@ const FutureTableBody = ({ data }: FutureTableBodyProps) => {
                 )}
 
             {formatTPSL(item.SL) !== "-" && (
-              <span className={styles.small}>
+              <span
+                className={styles.small}
+                style={{ fontWeight: item.SL.length > 1 ? "bold" : "normal" }}
+              >
                 ({formatNumber(Number(formatTPSL(item.SL)))})
               </span>
             )}

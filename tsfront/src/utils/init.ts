@@ -20,7 +20,9 @@ export const formatNumber = (value: number) => {
   }).format(value);
 };
 
-export const formatTPSL = (value: [number, number | null][]) => {
+export const formatTPSL = (
+  value: [number, number | null][]
+): string | number => {
   // 설정 x
   if (!value || value.length === 0) return "-";
   // 하나만 설정
