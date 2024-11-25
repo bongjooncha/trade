@@ -1,3 +1,17 @@
+# 파일 설명
+
+trade_back: 기존 백엔드(flask). 환율 및 지표, 업비트 기본 데이터 및 거래 기능 존재<br/>
+trade_front: 기존 프론트엔드(react,js). 업비트 주기적으로 데이터 요청을 보내 그래프 형성, 환율 및 지표 그래프 완료.<br/>
+<br/>
+<br/>
+public_back: 환율 및 지표 송출 기능 완료.<br/>
+private_back: binance, bitget 잔고 확인 기능 존재.<br/>
+tsfront: 기존 프론트엔드 코드를 ts로 변경 및 기능 추가 및 리스크 관리 기능 추가.
+
+<br/>
+<br/>
+<br/>
+
 # back 시작
 
 cd tradeback</br>
