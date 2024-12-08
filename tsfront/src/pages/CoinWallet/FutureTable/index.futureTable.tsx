@@ -8,8 +8,6 @@ import PieChart from "components/PieChart";
 
 import { CoinFuturePosition, CoinWalletBalance } from "types/coin";
 import { formatTPSL } from "utils/init";
-import { numberFormat } from "highcharts";
-
 interface CoinWalletTableProps {
   data: CoinFuturePosition[];
   walletBalance: CoinWalletBalance;
@@ -65,10 +63,10 @@ const CoinWalletTable = ({
         </div>
       )}
       <br />
-      <table className={styles.WalletTable}>
+      <div className={styles.WalletTable}>
         <FutureTableHead />
         <FutureTableBody data={data} />
-      </table>
+      </div>
       <FutureTotal data={data} walletBalance={walletBalance} />
     </div>
   );

@@ -47,17 +47,17 @@ h2 {
 }
 
 /* TABLE */
-.tableHead {
-  display: flex;
-  justify-content: space-between;
-}
+/* 윗부분 */
 h4 {
   text-align: left;
   margin-left: 60px;
   margin-bottom: 30px;
   font-style: italic;
 }
-
+.tableHead {
+  display: flex;
+  justify-content: space-between;
+}
 .viewChartBtn {
   margin-right: 10%;
   background-color: #200b0b75;
@@ -78,9 +78,19 @@ th {
   display: inline;
 }
 
-table {
+.WalletTable {
   width: 90%;
   margin-left: 5%;
+  margin-bottom: 50px;
+}
+
+.headerRow {
+  display: flex;
+  font-weight: bold;
+}
+.bodyRow .row {
+  display: flex;
+  margin-top: 10px;
 }
 
 .type1 {
@@ -93,10 +103,6 @@ table {
 
 .type3 {
   width: 17%;
-}
-
-table td {
-  padding-bottom: 10px;
 }
 
 /* 총 포지션 손익 */

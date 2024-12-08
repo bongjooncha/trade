@@ -1,4 +1,5 @@
 import React from "react";
+import { Accordion } from "react-bootstrap";
 import styles from "../style/index.module.css";
 
 import { CoinFuturePosition } from "types/coin";
@@ -10,26 +11,28 @@ interface FutureTableBodyProps {
 
 const FutureTableBody = ({ data }: FutureTableBodyProps) => {
   return (
-    <tbody>
+    <div className={styles.bodyRow}>
       {data.map((item) => (
-        <tr key={item.symbol}>
-          <td>{item.symbol}</td>
-          <td
+        <div key={item.symbol} className={styles.row}>
+          <div className={styles.type1}>{item.symbol}</div>
+          <div
+            className={styles.type2}
             style={{
               color: item.holdSide === "long" ? "pink" : "skyblue",
             }}
           >
             {item.holdSide}
-          </td>
-          <td>
+          </div>
+          <div className={styles.type3}>
             {formatNumber(item.marginSize * item.leverage) + "   "}
             USDT {"   "}
             <span className={styles.small}>(x {item.leverage})</span>
-          </td>
-          <td>
+          </div>
+          <div className={styles.type3}>
             {formatNumber(item.markPrice)} /{formatNumber(item.openPriceAvg)}
-          </td>
-          <td
+          </div>
+          <div
+            className={styles.type3}
             style={{
               color:
                 item.unrealizedPL + item.achievedProfits > 0
@@ -42,8 +45,8 @@ const FutureTableBody = ({ data }: FutureTableBodyProps) => {
             <span className={styles.small}>
               ({formatNumber(item.unrealizedPL + item.achievedProfits)})
             </span>
-          </td>
-          <td>
+          </div>
+          <div className={styles.type1}>
             {formatTPSL(item.TP) === "-"
               ? "-"
               : formatNumber(
@@ -59,8 +62,8 @@ const FutureTableBody = ({ data }: FutureTableBodyProps) => {
                 ({formatNumber(Number(formatTPSL(item.TP)))})
               </span>
             )}
-          </td>
-          <td>
+          </div>
+          <div className={styles.type1}>
             {formatTPSL(item.SL) === "-"
               ? "-"
               : formatNumber(
@@ -76,10 +79,10 @@ const FutureTableBody = ({ data }: FutureTableBodyProps) => {
                 ({formatNumber(Number(formatTPSL(item.SL)))})
               </span>
             )}
-          </td>
-        </tr>
+          </div>
+        </div>
       ))}
-    </tbody>
+    </div>
   );
 };
 
