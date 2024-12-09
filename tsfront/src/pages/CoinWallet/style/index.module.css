@@ -47,6 +47,16 @@ h2 {
 }
 
 /* TABLE */
+.WalletTable {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.small {
+  font-size: 10px;
+  margin-left: 2px;
+  display: inline;
+}
+
 /* 윗부분 */
 h4 {
   text-align: left;
@@ -68,29 +78,36 @@ h4 {
   height: 30px;
 }
 
-th {
-  padding-bottom: 10px;
-}
-
-.small {
-  font-size: 10px;
-  margin-left: 2px;
-  display: inline;
-}
-
-.WalletTable {
-  width: 90%;
-  margin-left: 5%;
-  margin-bottom: 50px;
-}
-
+/* table body */
+/* thead 부분 */
 .headerRow {
   display: flex;
+  width: 90%;
+  margin-left: 3%;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+/* tbody 부분 */
+.BodyHeader {
+  margin: 0;
 }
 .bodyRow .row {
   display: flex;
-  margin-top: 10px;
+  width: 95%;
+  margin-left: 5%;
+  color: white;
+  border-radius: 10px;
+}
+
+.BodyHeader button[aria-expanded="false"] {
+  background-color: transparent !important;
+}
+.BodyHeader button[aria-expanded="true"] {
+  background-color: rgb(43, 43, 43);
+  border-radius: 10px;
+}
+.BodyBody {
+  background-color: rgb(109, 109, 109);
 }
 
 .type1 {
