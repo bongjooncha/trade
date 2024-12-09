@@ -1,5 +1,6 @@
 import React from "react";
 import { Accordion } from "react-bootstrap";
+import FutureTableAccordionBody from "./index.futureTableAccordionBody";
 import styles from "../style/index.module.css";
 
 import { CoinFuturePosition } from "types/coin";
@@ -89,7 +90,13 @@ const FutureTableBody = ({ data }: FutureTableBodyProps) => {
               </div>
             </div>
           </Accordion.Header>
-          <Accordion.Body className={styles.BodyBody}>Lore</Accordion.Body>
+          <Accordion.Body className={styles.BodyBody}>
+            <FutureTableAccordionBody
+              SL={item.SL}
+              TP={item.TP}
+              position={item.positionAmt}
+            />
+          </Accordion.Body>
         </Accordion>
       ))}
     </div>
