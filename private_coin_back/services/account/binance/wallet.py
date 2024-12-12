@@ -56,14 +56,18 @@ def get_futures_positions_ts(coin: str):
     try:    
         orders = client.fetch_open_orders(symbol=coin)
         formatted_orders = {
-            "TP": [],
-            "SL": []     
+            "TP": [0,-1,0],
+            "SL": [0,-1,0]     
         }
         for order in orders:
             if order["type"] == "take_profit_market":
-                formatted_orders["TP"].append([order["triggerPrice"], order["amount"]])
+                formatted_orders["TP"][0] = order["triggerPrice"]
+                formatted_orders["TP"][1] = order["amount"]
+                formatted_orders["TP"][2] = order["id"]
             elif order["type"] == "stop_market":
-                formatted_orders["SL"].append([order["triggerPrice"], order["amount"]])
+                formatted_orders["SL"][0] = order["triggerPrice"]
+                formatted_orders["SL"][1] = order["amount"]
+                formatted_orders["SL"][2] = order["id"]
         return formatted_orders
     except ccxt.BaseError as e:
         return {"error": str(e)}
@@ -79,6 +83,7 @@ def get_open_futures_tss(coins: list[str]):
                 "coin_name": coin,
                 "orders": [
                     {
+                        "orderId": order['orderId'],
                         "triggerPrice": order["triggerPrice"],
                         "type": order["type"],
                         "amount": order["amount"]

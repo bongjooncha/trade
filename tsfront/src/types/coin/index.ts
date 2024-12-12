@@ -8,8 +8,8 @@ export interface CoinFuturePosition {
   unrealizedPL: number; //미실현 손익
   achievedProfits: number; //실현 손익
   markPrice: number; //현재가
-  TP: [number, number | null][]; //TP
-  SL: [number, number | null][]; //SL
+  TP: [number, number, string | null][]; //TP
+  SL: [number, number, string | null][]; //SL
 }
 
 export interface CoinWalletBalance {

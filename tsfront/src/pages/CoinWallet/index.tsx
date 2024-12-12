@@ -28,7 +28,7 @@ function CoinWallet() {
           <CoinWalletTable
             data={bitgetPositions}
             walletBalance={walletBitgetBalance}
-            name="BITGET"
+            name="BITGET (main)"
           />
         </div>
         <br />

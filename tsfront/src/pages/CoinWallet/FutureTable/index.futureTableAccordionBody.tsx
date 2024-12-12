@@ -6,8 +6,8 @@ const FutureTableAccordionBody = ({
   TP,
   position,
 }: {
-  SL: [number, number | null][];
-  TP: [number, number | null][];
+  SL: [number, number, string | null][];
+  TP: [number, number, string | null][];
   position: number;
 }) => {
   return (
@@ -15,9 +15,7 @@ const FutureTableAccordionBody = ({
       {position}개
       {SL.map((item, index) => (
         <div className={styles.accordionBodyItem}>
-          <div className={styles.accordionBodyItemTitle}>
-            손절 {item[0]}:{item[1]}
-          </div>
+          <div className={styles.accordionBodyItemTitle}>손절 {item}</div>
         </div>
       ))}
       {TP.map((item, index) => (
