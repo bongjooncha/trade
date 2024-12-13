@@ -43,7 +43,7 @@ def get_futures_positions():
                 "openPriceAvg": float(position["info"]["entryPrice"]),
                 "unrealizedPL": float(position["info"]["unRealizedProfit"]),
                 "achievedProfits": float(position["info"]["entryPrice"])-float(position["info"]["breakEvenPrice"]),
-                **get_futures_positions_ts(position["info"]["symbol"])
+                "TP/SL": get_open_futures_tss(position["info"]["symbol"])
             }
             for position in positions
         ]
@@ -51,48 +51,32 @@ def get_futures_positions():
     except ccxt.BaseError as e:
         return {"error": str(e)}
     
-def get_futures_positions_ts(coin: str):
-    client = get_binance_client('future')
-    try:    
-        orders = client.fetch_open_orders(symbol=coin)
-        formatted_orders = {
-            "TP": [0,-1,0],
-            "SL": [0,-1,0]     
-        }
-        for order in orders:
-            if order["type"] == "take_profit_market":
-                formatted_orders["TP"][0] = order["triggerPrice"]
-                formatted_orders["TP"][1] = order["amount"]
-                formatted_orders["TP"][2] = order["id"]
-            elif order["type"] == "stop_market":
-                formatted_orders["SL"][0] = order["triggerPrice"]
-                formatted_orders["SL"][1] = order["amount"]
-                formatted_orders["SL"][2] = order["id"]
-        return formatted_orders
-    except ccxt.BaseError as e:
-        return {"error": str(e)}
-
 # 선물 TP/SL 주문 확인
-def get_open_futures_tss(coins: list[str]):
+def get_open_futures_tss(coin: str):
     client = get_binance_client('future')
+    orders = client.fetch_open_orders(coin)
     try:
-        all_orders = []
-        for coin in coins:
-            orders = client.fetch_open_orders(symbol=coin)
-            formatted_orders = {
-                "coin_name": coin,
-                "orders": [
-                    {
-                        "orderId": order['orderId'],
-                        "triggerPrice": order["triggerPrice"],
-                        "type": order["type"],
-                        "amount": order["amount"]
-                    }
-                    for order in orders
-                ]    
-            }
-            all_orders.append(formatted_orders)
-        return all_orders
+        SL = []
+        TP = []
+        errors = []
+        for order in orders:
+            if order["type"] == "stop_market":
+                formatted_order = {
+                    "orderId": order['id'],
+                    "triggerPrice": order["triggerPrice"],
+                    "amount": order["amount"]
+                }
+                SL.append(formatted_order)
+            elif order["type"] == "take_profit_market":
+                formatted_order = {
+                    "orderId": order['id'],
+                    "triggerPrice": order["triggerPrice"],
+                    "amount": order["amount"]
+                }
+                TP.append(formatted_order)
+            else:
+                errors.append(order)
+        return {"SL": SL, "TP": TP, "errors": errors}
     except ccxt.BaseError as e:
         return {"error": str(e)}
     
