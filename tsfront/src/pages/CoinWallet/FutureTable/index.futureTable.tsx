@@ -27,7 +27,8 @@ const CoinWalletTable = ({
     y:
       chartData === "margin"
         ? item.marginSize * item.leverage
-        : (item.openPriceAvg - Number(formatTPSL(item.SL))) * item.positionAmt,
+        : (item.openPriceAvg - Number(formatTPSL(item.TP_SL.SL))) *
+          item.positionAmt,
   }));
 
   const handleToggleChartType = () => {

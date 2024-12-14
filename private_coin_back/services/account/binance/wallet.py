@@ -43,7 +43,7 @@ def get_futures_positions():
                 "openPriceAvg": float(position["info"]["entryPrice"]),
                 "unrealizedPL": float(position["info"]["unRealizedProfit"]),
                 "achievedProfits": float(position["info"]["entryPrice"])-float(position["info"]["breakEvenPrice"]),
-                "TP/SL": get_open_futures_tss(position["info"]["symbol"])
+                "TP_SL": get_open_futures_tss(position["info"]["symbol"])
             }
             for position in positions
         ]

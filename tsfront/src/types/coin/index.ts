@@ -8,8 +8,18 @@ export interface CoinFuturePosition {
   unrealizedPL: number; //미실현 손익
   achievedProfits: number; //실현 손익
   markPrice: number; //현재가
-  TP: [number, number, string | null][]; //TP
-  SL: [number, number, string | null][]; //SL
+  TP_SL: {
+    //TP/SL 주문 정보
+    SL: TP_SL_Order[];
+    TP: TP_SL_Order[];
+    errors: TP_SL_Order[];
+  };
+}
+
+export interface TP_SL_Order {
+  orderId: string;
+  triggerPrice: number;
+  amount: number | null;
 }
 
 export interface CoinWalletBalance {

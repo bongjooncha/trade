@@ -1,6 +1,6 @@
 import React from "react";
 import { Accordion } from "react-bootstrap";
-import FutureTableAccordionBody from "./index.futureTableAccordionBody";
+import FutureTableAccordionBody from "./Accordion/index.futureTableAccordionBody";
 import styles from "../style/index.module.css";
 
 import { CoinFuturePosition } from "types/coin";
@@ -13,9 +13,10 @@ interface FutureTableBodyProps {
 const FutureTableBody = ({ data }: FutureTableBodyProps) => {
   return (
     <div className={styles.bodyRow}>
-      {data.map((item) => (
+      {data.map((item, index) => (
         <Accordion flush>
           <Accordion.Header className={styles.BodyHeader}>
+            <div>{index + 1}</div>
             <div key={item.symbol} className={styles.row}>
               <div className={styles.type1}>{item.symbol}</div>
               <div
@@ -51,40 +52,40 @@ const FutureTableBody = ({ data }: FutureTableBodyProps) => {
                 </span>
               </div>
               <div className={styles.type1}>
-                {formatTPSL(item.TP) === "-"
+                {formatTPSL(item.TP_SL.TP) === "-"
                   ? "-"
                   : formatNumber(
-                      (Number(formatTPSL(item.TP)) - item.openPriceAvg) *
+                      (Number(formatTPSL(item.TP_SL.TP)) - item.openPriceAvg) *
                         item.positionAmt
                     )}
 
-                {formatTPSL(item.TP) !== "-" && (
+                {formatTPSL(item.TP_SL.TP) !== "-" && (
                   <span
                     className={styles.small}
                     style={{
-                      fontWeight: item.TP.length > 1 ? "bold" : "normal",
+                      fontWeight: item.TP_SL.TP.length > 1 ? "bold" : "normal",
                     }}
                   >
-                    ({formatNumber(Number(formatTPSL(item.TP)))})
+                    ({formatNumber(Number(formatTPSL(item.TP_SL.TP)))})
                   </span>
                 )}
               </div>
               <div className={styles.type1}>
-                {formatTPSL(item.SL) === "-"
+                {formatTPSL(item.TP_SL.SL) === "-"
                   ? "-"
                   : formatNumber(
-                      (Number(formatTPSL(item.SL)) - item.openPriceAvg) *
+                      (Number(formatTPSL(item.TP_SL.SL)) - item.openPriceAvg) *
                         item.positionAmt
                     )}
 
-                {formatTPSL(item.SL) !== "-" && (
+                {formatTPSL(item.TP_SL.SL) !== "-" && (
                   <span
                     className={styles.small}
                     style={{
-                      fontWeight: item.SL.length > 1 ? "bold" : "normal",
+                      fontWeight: item.TP_SL.SL.length > 1 ? "bold" : "normal",
                     }}
                   >
-                    ({formatNumber(Number(formatTPSL(item.SL)))})
+                    ({formatNumber(Number(formatTPSL(item.TP_SL.SL)))})
                   </span>
                 )}
               </div>
@@ -92,9 +93,11 @@ const FutureTableBody = ({ data }: FutureTableBodyProps) => {
           </Accordion.Header>
           <Accordion.Body className={styles.BodyBody}>
             <FutureTableAccordionBody
-              SL={item.SL}
-              TP={item.TP}
-              position={item.positionAmt}
+              coin={item.symbol}
+              openPrice={item.openPriceAvg}
+              SL={item.TP_SL.SL}
+              TP={item.TP_SL.TP}
+              amount={item.positionAmt}
             />
           </Accordion.Body>
         </Accordion>

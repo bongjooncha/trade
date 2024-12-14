@@ -18,13 +18,15 @@ const FutureTotal = ({ data, walletBalance }: FutureTableTotalProps) => {
   const totalTP = data.reduce(
     (acc, item) =>
       acc +
-      (Number(formatTPSL(item.TP)) - item.openPriceAvg) * item.positionAmt,
+      (Number(formatTPSL(item.TP_SL.TP)) - item.openPriceAvg) *
+        item.positionAmt,
     0
   );
   const totalSL = data.reduce(
     (acc, item) =>
       acc +
-      (item.openPriceAvg - Number(formatTPSL(item.SL))) * item.positionAmt,
+      (item.openPriceAvg - Number(formatTPSL(item.TP_SL.SL))) *
+        item.positionAmt,
     0
   );
 
