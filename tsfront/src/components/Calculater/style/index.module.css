@@ -1,0 +1,29 @@
+.percentCalculator {
+  z-index: 1000;
+  width: 25%;
+  padding: 20px;
+  height: max-content;
+
+  background-color: #83e4c7;
+  border-radius: 10px;
+  border: 4px solid #000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  position: fixed;
+  top: 10%;
+  right: 5%;
+}
+
+.percentCalculator input {
+  width: 120px;
+}
+
+.percentCalculator .basePrice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}

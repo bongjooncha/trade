@@ -54,6 +54,10 @@ const FutureTotal = ({ data, walletBalance }: FutureTableTotalProps) => {
       </h5>
       <h6>
         <div>계좌 내 현금 : {formatNumber(walletBalance.free)} USDT</div>
+        <div>
+          전체 손절시 :{" "}
+          {formatNumber(walletBalance.total - (totalProfit + totalSL))} USDT
+        </div>
         <div>사용 자산 : {formatNumber(walletBalance.used)} USDT</div>
         <div>총액 : {formatNumber(walletBalance.total)} USDT</div>
       </h6>

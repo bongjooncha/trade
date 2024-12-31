@@ -1,29 +1,14 @@
 import React from "react";
 import styles from "./style/index.module.css";
+import { IndexButtonProps } from "types/index/indexButton";
 
-const IndexButton = ({
-  title,
+const IndexButton: React.FC<IndexButtonProps> = ({
   elements,
   selected,
-  setSelected,
-}: {
-  title: string;
-  elements: any[];
-  selected: string[];
-  setSelected: (value: string[]) => void;
+  handleCheckboxChange,
 }) => {
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setSelected([...selected, value]);
-    } else {
-      setSelected(selected.filter((index) => index !== value));
-    }
-  };
-
   return (
     <div className={styles.indexButton}>
-      <h5>{title}</h5>
       <div className={styles.indexGrid}>
         {elements.map((item) => (
           <div key={item.ticker} className={styles.indexItem}>
@@ -32,7 +17,7 @@ const IndexButton = ({
                 type="checkbox"
                 value={item.ticker}
                 checked={selected.includes(item.ticker)}
-                onChange={handleCheckboxChange}
+                onChange={(e) => handleCheckboxChange(e)}
               />
               {` ${item.name}`}
             </label>

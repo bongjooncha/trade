@@ -1,9 +1,15 @@
+import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import PercentCalculator from "components/Calculater/percentCalculator";
 
 function Headnav() {
+  const [showCalculator, setShowCalculator] = useState(false);
+  const handleShowCalculator = () => {
+    setShowCalculator(!showCalculator);
+  };
   return (
     <Navbar
       bg="dark"
@@ -43,6 +49,10 @@ function Headnav() {
           </Nav>
         </Navbar.Collapse>
       </Container>
+      <button style={{ marginRight: "5%" }} onClick={handleShowCalculator}>
+        퍼센트 계산기
+      </button>
+      {showCalculator && <PercentCalculator />}
     </Navbar>
   );
 }

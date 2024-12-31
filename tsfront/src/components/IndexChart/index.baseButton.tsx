@@ -1,12 +1,10 @@
 import React from "react";
 import styles from "./style/index.module.css";
+import { BaseButtonProps } from "types/index/indexButton";
 
-const BaseButton = ({
+const BaseButton: React.FC<BaseButtonProps> = ({
   baseCurrency,
   handleChange,
-}: {
-  baseCurrency: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
     <div className={styles.base}>
