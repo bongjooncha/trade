@@ -1,63 +1,31 @@
-/* main */
-.currency {
+/* indexButton */
+.indexButton {
   display: flex;
-  justify-content: space-between; /* 내부 요소를 양쪽 끝으로 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  width: 100%; /* 필요에 따라 조정 */
-  margin-top: 50px;
-}
-
-.currencyButton {
-  border: solid black 2px;
-  border-radius: 1%;
-  padding: 1%;
-  font-size: 14px;
-}
-
-/* currencyChart */
-.currencyChart {
-  margin: 0 5vw;
-  width: 50vw;
-}
-.chart {
-  height: 100vh;
-}
-
-/* ExchangeButton. */
-.currencyButton {
-  width: 29vw;
-  margin: 0 5vw;
-}
-
-.currencyGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3열로 설정 */
-  gap: 10px; /* 각 항목 사이의 간격 설정 */
-}
-
-.currencyItem {
-  display: flex;
-  align-items: center; /* 체크박스와 레이블을 세로 중앙 정렬 */
-}
-
-.dataControll {
-  float: right;
-}
-
-/* IndexButton. */
-/* IndexButton. */
-.indexButton h5 {
-  text-align: left;
-  margin: 10px 0;
+  flex-direction: column;
 }
 
 .indexGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3열로 설정 */
-  gap: 10px; /* 각 항목 사이의 간격 설정 */
+  gap: 10px 0;
 }
 
-.indexGrid label {
+.indexGrid div {
   text-align: left;
   min-width: 124px;
+  margin-right: 5px;
+}
+
+.indexGrid div:hover {
+  background-color: #f0f0f0;
+}
+
+/* baseButton */
+.baseLabel {
+  display: flex;
+  flex-direction: row;
+}
+
+.baseLabel label {
+  margin-right: 20px;
 }

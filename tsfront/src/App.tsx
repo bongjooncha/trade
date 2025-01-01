@@ -1,11 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
+import queryClient from "./queryClient";
 
 import Home from "./pages/Home";
 import CoinWallet from "./pages/CoinWallet";
-
-const queryClient = new QueryClient();
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 export interface IndexButtonProps {
-  elements: any[];
+  elements: { ticker: string; name: string }[];
   selected: string[];
   handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

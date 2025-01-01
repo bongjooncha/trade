@@ -2,17 +2,20 @@ import React from "react";
 
 import Headnav from "components/Header";
 import ExchangeChart from "pages/Home/ExchangeChart";
-// import IndexChart from "./IndexChart";
+import IndexChart from "pages/Home/IndexChart";
 
 function Home() {
   return (
     <div className="Home">
       <Headnav />
-
-      <ExchangeChart />
-
       <br />
-      {/* <IndexChart /> */}
+      <br />
+      <br />
+      <ExchangeChart />
+      <br />
+      <br />
+      <br />
+      <IndexChart />
       <br />
       <br />
       <br />
