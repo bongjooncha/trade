@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BUILD_BASE_URL;
+const BASE_URL = process.env.REACT_APP_PUBLIC_BACK_URL;
 
 // Index 가격
 export async function fetchIndexPrice(index: string) {

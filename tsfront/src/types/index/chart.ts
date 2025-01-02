@@ -1,5 +1,8 @@
 export interface ChartProps {
-  baseCurrency: string;
-  data: any;
   options: any;
+}
+
+export interface ChartData {
+  name: string;
+  data: any;
 }
