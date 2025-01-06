@@ -1,16 +1,16 @@
 import React from "react";
 import { Accordion } from "react-bootstrap";
 import FutureTableAccordionBody from "./Accordion/index.futureTableAccordionBody";
-import styles from "../style/index.module.css";
+import styles from "./style/index.module.css";
 
-import { CoinFuturePosition } from "types/coin";
+import { CoinFuturePositionProps } from "types/coin";
 import { formatNumber, formatTPSL } from "utils/init";
 
 interface FutureTableBodyProps {
-  data: CoinFuturePosition[];
+  data: CoinFuturePositionProps[];
 }
 
-const FutureTableBody = ({ data }: FutureTableBodyProps) => {
+const FutureTableBody: React.FC<FutureTableBodyProps> = ({ data }) => {
   return (
     <div className={styles.bodyRow}>
       {data.map((item, index) => (

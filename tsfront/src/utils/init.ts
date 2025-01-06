@@ -1,4 +1,4 @@
-import { TP_SL_Order } from "@/types/coin";
+import { TP_SL_Order } from "types/coin";
 
 export const formatNumber = (value: number) => {
   let minimumFractionDigits: number;

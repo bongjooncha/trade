@@ -1,29 +1,18 @@
-import { useState } from "react";
 import styles from "./style/index.module.css";
+import { useCalculater } from "hooks/calculaterHooks";
 
 const PercentCalculator = () => {
-  const [basePrice, setBasePrice] = useState<number | null>(null);
-  const [basePriceInput, setBasePriceInput] = useState<number | 100>(100);
-  const [values, setValues] = useState<number[]>([0]);
-
-  const addValueInput = () => {
-    setValues([...values, 0]);
-  };
-  const deleteValueInput = (index: number) => {
-    const newValues = [...values];
-    newValues.splice(index, 1);
-    setValues(newValues);
-  };
-
-  const deleteAllValueInput = () => {
-    setValues([0]);
-  };
-
-  const updateValueInput = (index: number, value: number) => {
-    const newValues = [...values];
-    newValues[index] = value;
-    setValues(newValues);
-  };
+  const {
+    basePrice,
+    setBasePrice,
+    basePriceInput,
+    setBasePriceInput,
+    values,
+    addValueInput,
+    deleteValueInput,
+    deleteAllValueInput,
+    updateValueInput,
+  } = useCalculater();
 
   return (
     <div className={styles.percentCalculator}>

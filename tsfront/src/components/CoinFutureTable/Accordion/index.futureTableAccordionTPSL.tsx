@@ -1,19 +1,12 @@
-import React from "react";
 import styles from "./style/index.module.css";
-
-import { TP_SL_Order } from "types/coin";
+import { FutureTableAccordionTPSLProps } from "types/coin";
 import { formatNumber } from "utils/init";
 
-const FutureTableAccordionTPSL = ({
+const FutureTableAccordionTPSL: React.FC<FutureTableAccordionTPSLProps> = ({
   openPrice,
   orders,
   type,
   amount,
-}: {
-  openPrice: number;
-  orders: TP_SL_Order[];
-  amount: number;
-  type: "익절" | "손절";
 }) => {
   if (orders.length === 0) return null;
   return (

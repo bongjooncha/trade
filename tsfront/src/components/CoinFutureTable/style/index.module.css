@@ -1,0 +1,151 @@
+/* 전체 */
+.Wallet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.WalletBox {
+  width: 80%;
+  background-color: #494949;
+  border-radius: 38px;
+  color: #ffffff;
+}
+
+.WalletBox .line {
+  border: 1.5px solid #ffffff;
+  width: 80%;
+  margin-left: 10%;
+}
+
+h2 {
+  text-align: left;
+  margin: 50px 80px 40px 50px;
+}
+
+/* Pie Chart */
+.pieChartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.toggleChartTypeBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  height: 30px;
+  cursor: pointer;
+  margin-left: 10%;
+}
+
+.toggleChartTypeBtn:hover {
+  background-color: #0056b3;
+}
+
+/* TABLE */
+.WalletTable {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.small {
+  font-size: 10px;
+  margin-left: 2px;
+  display: inline;
+}
+
+/* 윗부분 */
+h4 {
+  text-align: left;
+  margin-left: 60px;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+.tableHead {
+  display: flex;
+  justify-content: space-between;
+}
+.viewChartBtn {
+  margin-right: 10%;
+  background-color: #200b0b75;
+  color: #d9d9d9;
+  border-radius: 10px;
+  font-size: 12px;
+  width: 80px;
+  height: 30px;
+}
+
+/* table body */
+/* thead 부분 */
+.headerRow {
+  display: flex;
+  width: 90%;
+  margin-left: 3%;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+/* tbody 부분 */
+.BodyHeader {
+  margin: 0;
+}
+.bodyRow .row {
+  display: flex;
+  width: 95%;
+  margin-left: 5%;
+  color: white;
+  border-radius: 10px;
+}
+
+.BodyHeader button[aria-expanded="false"] {
+  background-color: transparent !important;
+}
+.BodyHeader button[aria-expanded="true"] {
+  background-color: rgb(43, 43, 43);
+  border-radius: 10px;
+}
+.BodyBody {
+  background-color: rgb(109, 109, 109);
+}
+
+.type1 {
+  width: 13%;
+}
+
+.type2 {
+  width: 10%;
+}
+
+.type3 {
+  width: 17%;
+}
+
+/* 총 포지션 손익 */
+.total {
+  margin-top: 30px;
+}
+
+h5 {
+  text-align: right;
+  margin-right: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.total h5 div {
+  margin-bottom: 10px;
+  margin-left: 30px;
+}
+
+h6 {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-right: 10%;
+}
+.total h6 div {
+  margin-left: 30px;
+}

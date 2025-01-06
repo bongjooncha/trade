@@ -1,5 +1,4 @@
-import React from "react";
-import styles from "../style/index.module.css";
+import styles from "./style/index.module.css";
 
 export default function FutureTableHead() {
   return (

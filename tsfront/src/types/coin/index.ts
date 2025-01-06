@@ -1,4 +1,15 @@
-export interface CoinFuturePosition {
+export interface CoinProps {
+  symbol: string;
+  price: number;
+}
+
+export interface TP_SL_Order {
+  orderId: string;
+  triggerPrice: number;
+  amount: number | null;
+}
+
+export interface CoinFuturePositionProps {
   symbol: string; //코인명
   holdSide: string; //보유 방향
   positionAmt: number; //코인 수량
@@ -16,14 +27,29 @@ export interface CoinFuturePosition {
   };
 }
 
-export interface TP_SL_Order {
-  orderId: string;
-  triggerPrice: number;
-  amount: number | null;
-}
-
-export interface CoinWalletBalance {
+export interface CoinWalletBalanceProps {
   free: number;
   used: number;
   total: number;
+}
+
+export interface FutureTableProps {
+  data: CoinFuturePositionProps[];
+  walletBalance: CoinWalletBalanceProps;
+}
+
+// FutureTableAccordion types
+export interface FutureTableAccordionBodyProps {
+  SL: TP_SL_Order[];
+  TP: TP_SL_Order[];
+  amount: number;
+  coin: string;
+  openPrice: number;
+}
+
+export interface FutureTableAccordionTPSLProps {
+  openPrice: number;
+  orders: TP_SL_Order[];
+  type: "익절" | "손절";
+  amount: number;
 }

@@ -1,42 +1,14 @@
 import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { chartOptions } from "./index.options";
 
 const PieChart: React.FC<{
   data: { name: string; y: number }[];
 }> = ({ data }) => {
-  const chartOptions: Highcharts.Options = {
-    chart: {
-      type: "pie",
-      backgroundColor: "transparent",
-    },
-    title: {
-      text: "",
-    },
-    plotOptions: {
-      pie: {
-        dataLabels: {
-          enabled: true,
-          format: "{point.name}: {point.percentage:.1f} %",
-          style: {
-            fontSize: "14px",
-            color: "white",
-          },
-        },
-      },
-    },
-    tooltip: {
-      pointFormat: "{series.name}: <b>{point.y:.2f}$</b>",
-    },
-    series: [
-      {
-        type: "pie",
-        data: data,
-      },
-    ],
-  };
+  const options = chartOptions(data);
 
-  return <HighchartsReact highcharts={Highcharts} options={chartOptions} />;
+  return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
 export default PieChart;

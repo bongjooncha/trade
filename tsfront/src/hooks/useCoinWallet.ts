@@ -7,38 +7,31 @@ import {
   fetchBinanceFuturePositions,
   fetchBinanceWalletBalance,
 } from "api/Coin/Binance/Binance_api";
-import { CoinFuturePosition } from "types/coin";
-
-interface WalletBalance {
-  free: number;
-  used: number;
-  total: number;
-}
+import { CoinFuturePositionProps, CoinWalletBalanceProps } from "types/coin";
 
 interface UseCoinWallet {
-  bitgetPositions: CoinFuturePosition[];
-  walletBitgetBalance: WalletBalance;
-  binancePositions: CoinFuturePosition[];
-  walletBinanceBalance: WalletBalance;
+  bitgetPositions: CoinFuturePositionProps[];
+  walletBitgetBalance: CoinWalletBalanceProps;
+  binancePositions: CoinFuturePositionProps[];
+  walletBinanceBalance: CoinWalletBalanceProps;
 }
 
 function useCoinWallet(): UseCoinWallet {
-  const [bitgetPositions, setBitgetPositions] = useState<CoinFuturePosition[]>(
-    []
-  );
-  const [walletBitgetBalance, setWalletBitgetBalance] = useState<WalletBalance>(
-    {
+  const [bitgetPositions, setBitgetPositions] = useState<
+    CoinFuturePositionProps[]
+  >([]);
+  const [walletBitgetBalance, setWalletBitgetBalance] =
+    useState<CoinWalletBalanceProps>({
       free: 0,
       used: 0,
       total: 0,
-    }
-  );
+    });
 
   const [binancePositions, setBinancePositions] = useState<
-    CoinFuturePosition[]
+    CoinFuturePositionProps[]
   >([]);
   const [walletBinanceBalance, setWalletBinanceBalance] =
-    useState<WalletBalance>({
+    useState<CoinWalletBalanceProps>({
       free: 0,
       used: 0,
       total: 0,
@@ -47,18 +40,18 @@ function useCoinWallet(): UseCoinWallet {
   useEffect(() => {
     // BITGET 데이터 fetching
     fetchBitgetPositions().then((res) =>
-      setBitgetPositions(res as CoinFuturePosition[])
+      setBitgetPositions(res as CoinFuturePositionProps[])
     );
     fetchBitgetWalletBalance("future").then((res) =>
-      setWalletBitgetBalance(res as WalletBalance)
+      setWalletBitgetBalance(res as CoinWalletBalanceProps)
     );
 
     // BINANCE 데이터 fetching
     fetchBinanceFuturePositions().then((res) =>
-      setBinancePositions(res as CoinFuturePosition[])
+      setBinancePositions(res as CoinFuturePositionProps[])
     );
     fetchBinanceWalletBalance("future").then((res) =>
-      setWalletBinanceBalance(res as WalletBalance)
+      setWalletBinanceBalance(res as CoinWalletBalanceProps)
     );
   }, []);
 

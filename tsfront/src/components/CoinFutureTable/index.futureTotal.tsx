@@ -1,15 +1,18 @@
 import React from "react";
-import styles from "../style/index.module.css";
+import styles from "./style/index.module.css";
 
-import { CoinFuturePosition, CoinWalletBalance } from "types/coin";
+import { CoinFuturePositionProps, CoinWalletBalanceProps } from "types/coin";
 import { formatNumber, formatTPSL } from "utils/init";
 
 interface FutureTableTotalProps {
-  data: CoinFuturePosition[];
-  walletBalance: CoinWalletBalance;
+  data: CoinFuturePositionProps[];
+  walletBalance: CoinWalletBalanceProps;
 }
 
-const FutureTotal = ({ data, walletBalance }: FutureTableTotalProps) => {
+const FutureTotal: React.FC<FutureTableTotalProps> = ({
+  data,
+  walletBalance,
+}) => {
   const totalProfit = data.reduce((acc, item) => acc + item.unrealizedPL, 0);
   const totalMargin = data.reduce(
     (acc, item) => acc + item.marginSize * item.leverage,

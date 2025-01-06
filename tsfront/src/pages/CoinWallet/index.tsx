@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./style/index.module.css";
 
 import Headnav from "components/Header";
-import CoinWalletTable from "./FutureTable/index.futureTable";
+import BitgetFuture from "./index.bitget";
+import BinanceFuture from "./index.binance";
 
 import useCoinWallet from "hooks/useCoinWallet";
 
@@ -25,10 +26,9 @@ function CoinWallet() {
         </div>
         <br />
         <div className={styles.WalletBoxContent}>
-          <CoinWalletTable
+          <BitgetFuture
             data={bitgetPositions}
             walletBalance={walletBitgetBalance}
-            name="BITGET (main)"
           />
         </div>
         <br />
@@ -36,11 +36,7 @@ function CoinWallet() {
         <br />
         <br />
         <div className={styles.WalletBoxContent}>
-          <CoinWalletTable
-            data={binancePositions}
-            walletBalance={walletBinanceBalance}
-            name="BINANCE"
-          />
+          <BinanceFuture />
         </div>
         <br />
       </div>

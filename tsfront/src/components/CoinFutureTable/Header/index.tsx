@@ -1,24 +1,16 @@
 import React, { useState } from "react";
 import styles from "../style/index.module.css";
 
-import FutureTableHead from "./index.futureTableHead";
-import FutureTotal from "./index.futureTotal";
-import FutureTableBody from "./index.futureTableBody";
 import PieChart from "components/PieChart";
-
-import { CoinFuturePosition, CoinWalletBalance } from "types/coin";
+import { CoinFuturePositionProps } from "types/coin";
 import { formatTPSL } from "utils/init";
-interface CoinWalletTableProps {
-  data: CoinFuturePosition[];
-  walletBalance: CoinWalletBalance;
+
+interface HeaderProps {
   name: string;
+  data: CoinFuturePositionProps[];
 }
 
-const CoinWalletTable = ({
-  data,
-  walletBalance,
-  name,
-}: CoinWalletTableProps) => {
+const Header: React.FC<HeaderProps> = ({ name, data }) => {
   const [showChart, setShowChart] = useState(false);
   const [chartData, setChartData] = useState<"margin" | "ts">("margin");
 
@@ -36,7 +28,7 @@ const CoinWalletTable = ({
   };
 
   return (
-    <div>
+    <>
       <div className={styles.tableHead}>
         <h4>
           {name} <span className={styles.small}>future</span>
@@ -63,14 +55,8 @@ const CoinWalletTable = ({
           </button>
         </div>
       )}
-      <br />
-      <div className={styles.WalletTable}>
-        <FutureTableHead />
-        <FutureTableBody data={data} />
-      </div>
-      <FutureTotal data={data} walletBalance={walletBalance} />
-    </div>
+    </>
   );
 };
 
-export default CoinWalletTable;
+export default Header;

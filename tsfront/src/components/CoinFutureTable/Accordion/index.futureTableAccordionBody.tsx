@@ -1,21 +1,14 @@
-import React from "react";
 import styles from "./style/index.module.css";
+import { FutureTableAccordionBodyProps } from "types/coin";
 
-import { TP_SL_Order } from "types/coin";
 import FutureTableAccordionTPSL from "./index.futureTableAccordionTPSL";
 
-const FutureTableAccordionBody = ({
+const FutureTableAccordionBody: React.FC<FutureTableAccordionBodyProps> = ({
   SL,
   TP,
   amount,
   coin,
   openPrice,
-}: {
-  SL: TP_SL_Order[];
-  TP: TP_SL_Order[];
-  amount: number;
-  coin: string;
-  openPrice: number;
 }) => {
   return (
     <div className={styles.accordionBody}>
