@@ -7,6 +7,7 @@ const FutureTableAccordionTPSL: React.FC<FutureTableAccordionTPSLProps> = ({
   orders,
   type,
   amount,
+  currentPrice,
 }) => {
   if (orders.length === 0) return null;
   return (
@@ -23,7 +24,12 @@ const FutureTableAccordionTPSL: React.FC<FutureTableAccordionTPSLProps> = ({
           <div className={styles.accordionBodyItem} key={item.orderId}>
             <div className={styles.index}>{index + 1}</div>
             <div className={styles.price}>
-              {type}가: {formatNumber(item.triggerPrice)}$
+              {type}가: {formatNumber(item.triggerPrice)}$ (
+              {(
+                ((item.triggerPrice - currentPrice) / currentPrice) *
+                100
+              ).toFixed(1)}
+              %)
             </div>
             <div className={styles.amount}>
               {type} 물량:{" "}

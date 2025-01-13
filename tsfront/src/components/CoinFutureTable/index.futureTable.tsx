@@ -3,7 +3,7 @@ import styles from "./style/index.module.css";
 import Header from "./Header/index";
 import FutureTableHead from "./index.futureTableHead";
 import FutureTotal from "./index.futureTotal";
-import FutureTableBody from "./index.futureTableBody";
+import FutureTableBody from "./FutuareTableBody";
 
 import { CoinFuturePositionProps, CoinWalletBalanceProps } from "types/coin";
 

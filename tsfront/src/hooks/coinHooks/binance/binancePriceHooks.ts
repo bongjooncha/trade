@@ -26,10 +26,10 @@ export const useBinanceWalletBalance = () => {
 
   const [coins, setCoins] = useState<string[]>([]);
   useEffect(() => {
-    if (positionsData) {
+    if (positionsData && coins.length === 0) {
       setCoins(positionsData.map((position) => position.symbol.toLowerCase()));
     }
-  }, []);
+  }, [positionsData]);
 
   useEffect(() => {
     if (coins.length === 0) return;

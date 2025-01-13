@@ -51,6 +51,10 @@ h2 {
   width: 100%;
   margin-bottom: 50px;
 }
+.index {
+  width: 3px;
+  margin-right: -2px;
+}
 .middle {
   font-size: 16px;
   display: inline;

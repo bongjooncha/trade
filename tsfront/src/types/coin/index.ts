@@ -52,4 +52,5 @@ export interface FutureTableAccordionTPSLProps {
   orders: TP_SL_Order[];
   type: "익절" | "손절";
   amount: number;
+  currentPrice: number;
 }

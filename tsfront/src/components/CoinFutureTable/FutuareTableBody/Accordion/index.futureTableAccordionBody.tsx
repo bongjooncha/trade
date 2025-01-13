@@ -1,7 +1,16 @@
 import styles from "./style/index.module.css";
-import { FutureTableAccordionBodyProps } from "types/coin";
+import { TP_SL_Order } from "types/coin";
 
 import FutureTableAccordionTPSL from "./index.futureTableAccordionTPSL";
+
+interface FutureTableAccordionBodyProps {
+  SL: TP_SL_Order[];
+  TP: TP_SL_Order[];
+  amount: number;
+  coin: string;
+  openPrice: number;
+  currentPrice: number;
+}
 
 const FutureTableAccordionBody: React.FC<FutureTableAccordionBodyProps> = ({
   SL,
@@ -9,6 +18,7 @@ const FutureTableAccordionBody: React.FC<FutureTableAccordionBodyProps> = ({
   amount,
   coin,
   openPrice,
+  currentPrice,
 }) => {
   return (
     <div className={styles.accordionBody}>
@@ -17,12 +27,14 @@ const FutureTableAccordionBody: React.FC<FutureTableAccordionBodyProps> = ({
         orders={TP}
         type="익절"
         amount={amount}
+        currentPrice={currentPrice}
       />
       <FutureTableAccordionTPSL
         openPrice={openPrice}
         orders={SL}
         type="손절"
         amount={amount}
+        currentPrice={currentPrice}
       />
       <div className={styles.addOrder}>
         <input type="number" placeholder="Trigger Price" />
