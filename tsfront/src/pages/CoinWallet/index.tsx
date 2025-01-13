@@ -5,16 +5,7 @@ import Headnav from "components/Header";
 import BitgetFuture from "./index.bitget";
 import BinanceFuture from "./index.binance";
 
-import useCoinWallet from "hooks/useCoinWallet";
-
 function CoinWallet() {
-  const {
-    bitgetPositions,
-    walletBitgetBalance,
-    binancePositions,
-    walletBinanceBalance,
-  } = useCoinWallet();
-
   return (
     <div className={styles.Wallet}>
       <Headnav />
@@ -25,12 +16,7 @@ function CoinWallet() {
           <h2>코인</h2>
         </div>
         <br />
-        <div className={styles.WalletBoxContent}>
-          <BitgetFuture
-            data={bitgetPositions}
-            walletBalance={walletBitgetBalance}
-          />
-        </div>
+        <div className={styles.WalletBoxContent}>{/* <BitgetFuture /> */}</div>
         <br />
         <div className={styles.line} />
         <br />

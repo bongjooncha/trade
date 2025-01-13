@@ -14,7 +14,7 @@ const FutureTableBody: React.FC<FutureTableBodyProps> = ({ data }) => {
   return (
     <div className={styles.bodyRow}>
       {data.map((item, index) => (
-        <Accordion flush>
+        <Accordion flush key={item.symbol}>
           <Accordion.Header className={styles.BodyHeader}>
             <div>{index + 1}</div>
             <div key={item.symbol} className={styles.row}>
@@ -32,8 +32,8 @@ const FutureTableBody: React.FC<FutureTableBodyProps> = ({ data }) => {
                 USDT {"   "}
                 <span className={styles.small}>(x {item.leverage})</span>
               </div>
-              <div className={styles.type3}>
-                {formatNumber(item.markPrice)} /
+              <div className={styles.type4}>{formatNumber(item.markPrice)}</div>
+              <div className={styles.type4}>
                 {formatNumber(item.openPriceAvg)}
               </div>
               <div
@@ -48,7 +48,12 @@ const FutureTableBody: React.FC<FutureTableBodyProps> = ({ data }) => {
                 {formatNumber(item.unrealizedPL)}
                 USDT
                 <span className={styles.small}>
-                  ({formatNumber(item.unrealizedPL + item.achievedProfits)})
+                  (
+                  {formatNumber(
+                    ((item.markPrice - item.openPriceAvg) * 100) /
+                      item.openPriceAvg
+                  )}
+                  %)
                 </span>
               </div>
               <div className={styles.type1}>

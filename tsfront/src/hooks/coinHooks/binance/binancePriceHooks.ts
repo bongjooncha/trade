@@ -8,11 +8,7 @@ import {
 import { connectWebSocket, disconnectWebSocket } from "api/websocket";
 
 import { BiMarketDataProps } from "types/coin/binance/tickerProp";
-import {
-  CoinFuturePositionProps,
-  CoinProps,
-  CoinWalletBalanceProps,
-} from "types/coin";
+import { CoinFuturePositionProps, CoinWalletBalanceProps } from "types/coin";
 
 export const useBinanceWalletBalance = () => {
   const { data: positionsData, error: positionsError } = useQuery<
@@ -29,13 +25,11 @@ export const useBinanceWalletBalance = () => {
     });
 
   const [coins, setCoins] = useState<string[]>([]);
-  const [prices, setPrices] = useState<CoinProps[]>([]);
-
   useEffect(() => {
     if (positionsData) {
       setCoins(positionsData.map((position) => position.symbol.toLowerCase()));
     }
-  }, [positionsData]);
+  }, []);
 
   useEffect(() => {
     if (coins.length === 0) return;
@@ -44,6 +38,7 @@ export const useBinanceWalletBalance = () => {
       "binancewebsocket",
       queryClient
     );
+
     const params = coins.map((coin) => `${coin}@markPrice`);
     if (ws) {
       ws.onopen = () => {
@@ -58,12 +53,18 @@ export const useBinanceWalletBalance = () => {
         try {
           const dataText = await event.data;
           const parsedData: BiMarketDataProps = JSON.parse(dataText);
-
-          if (parsedData.s !== undefined) {
-            setPrices((prevData) => ({
-              ...prevData,
-              [parsedData.s]: [parsedData.p],
-            }));
+          if (parsedData !== undefined) {
+            queryClient.setQueryData<CoinFuturePositionProps[]>(
+              ["binanceFuturePositions"],
+              (oldData) => {
+                if (!oldData) return oldData;
+                return oldData.map((position) =>
+                  position.symbol.toLowerCase() === parsedData.s.toLowerCase()
+                    ? { ...position, markPrice: parseFloat(parsedData.p) }
+                    : position
+                );
+              }
+            );
           }
         } catch (error) {
           console.error("데이터 파싱 오류:", error);
@@ -79,7 +80,6 @@ export const useBinanceWalletBalance = () => {
   return {
     walletBalance: walletBalanceData,
     positions: positionsData,
-    prices,
     positionsError,
     walletBalanceError,
   };

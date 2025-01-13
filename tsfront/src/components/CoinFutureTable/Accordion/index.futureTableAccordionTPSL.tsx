@@ -20,7 +20,7 @@ const FutureTableAccordionTPSL: React.FC<FutureTableAccordionTPSLProps> = ({
       {orders
         .sort((a, b) => a.triggerPrice - b.triggerPrice)
         .map((item, index) => (
-          <div className={styles.accordionBodyItem}>
+          <div className={styles.accordionBodyItem} key={item.orderId}>
             <div className={styles.index}>{index + 1}</div>
             <div className={styles.price}>
               {type}가: {formatNumber(item.triggerPrice)}$

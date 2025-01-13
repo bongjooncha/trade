@@ -7,19 +7,19 @@ bitget_router = APIRouter(
 )
 
 # 지갑 잔액
-@bitget_router.get("/wallet/{type}")
-async def get_wallet_balance(type: str):
-    return get_balance(type)
+@bitget_router.get("/wallet/{account}/{type}")
+async def get_wallet_balance(account: str, type: str):
+    return get_balance(account, type)
 
 # 선물 포지션
-@bitget_router.get("/positions")
-async def get_positions():
-    return get_futures_positions()
+@bitget_router.get("/positions/{account}")
+async def get_positions(account: str):
+    return get_futures_positions(account)
 
 # 선물 오픈 주문
-@bitget_router.get("/futures_orders")
-async def get_open_orders():
-    return get_open_futures_orders()
+@bitget_router.get("/futures_orders/{account}")
+async def get_open_orders(account: str):
+    return get_open_futures_orders(account)
 
 @bitget_router.get("/test")
 async def test():

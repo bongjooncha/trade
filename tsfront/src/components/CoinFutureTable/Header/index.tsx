@@ -8,9 +8,10 @@ import { formatTPSL } from "utils/init";
 interface HeaderProps {
   name: string;
   data: CoinFuturePositionProps[];
+  subname?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ name, data }) => {
+const Header: React.FC<HeaderProps> = ({ name, subname, data }) => {
   const [showChart, setShowChart] = useState(false);
   const [chartData, setChartData] = useState<"margin" | "ts">("margin");
 
@@ -31,7 +32,9 @@ const Header: React.FC<HeaderProps> = ({ name, data }) => {
     <>
       <div className={styles.tableHead}>
         <h4>
-          {name} <span className={styles.small}>future</span>
+          {name}
+          {subname && <span className={styles.middle}>_{subname}</span>}
+          <span className={styles.small}>future</span>
         </h4>
         <button
           className={styles.viewChartBtn}

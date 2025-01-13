@@ -11,16 +11,18 @@ interface CoinWalletTableProps {
   data: CoinFuturePositionProps[];
   walletBalance: CoinWalletBalanceProps;
   name: string;
+  subname?: string;
 }
 
 const CoinWalletTable: React.FC<CoinWalletTableProps> = ({
   data,
   walletBalance,
   name,
+  subname,
 }) => {
   return (
     <div>
-      <Header name={name} data={data} />
+      <Header name={name} subname={subname} data={data} />
       <br />
       <div className={styles.WalletTable}>
         <FutureTableHead />

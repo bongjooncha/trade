@@ -8,6 +8,9 @@ export const formatNumber = (value: number) => {
   if (absValue >= 1000) {
     minimumFractionDigits = 0;
     maximumFractionDigits = 0;
+  } else if (absValue >= 10) {
+    minimumFractionDigits = 1;
+    maximumFractionDigits = 1;
   } else if (absValue >= 1) {
     minimumFractionDigits = 1;
     maximumFractionDigits = 2;

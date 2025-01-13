@@ -5,9 +5,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Bitget_Config:
-    BITGET_KEY = os.getenv("BITGET_KEY")
-    BITGET_SECRET = os.getenv("BITGET_SECRET")
-    BITGET_PASSPHRASE = os.getenv("BITGET_PASSPHRASE")
+    BITGET_API_KEY_MAIN = os.getenv("BITGET_API_KEY_MAIN")
+    BITGET_SECRET_KEY_MAIN = os.getenv("BITGET_SECRET_KEY_MAIN")
+    BITGET_PASSPHRASE_MAIN = os.getenv("BITGET_PASSPHRASE_MAIN")
+
+    BITGET_API_KEY_SHORT = os.getenv("BITGET_API_KEY_SHORT")
+    BITGET_SECRET_KEY_SHORT = os.getenv("BITGET_SECRET_KEY_SHORT")
+    BITGET_PASSPHRASE_SHORT = os.getenv("BITGET_PASSPHRASE_SHORT")
 
 class Binance_Config:
     BINANCE_API_KEY = os.getenv("BINANCE_API_KEY")

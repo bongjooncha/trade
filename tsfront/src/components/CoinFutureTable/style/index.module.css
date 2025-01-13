@@ -51,10 +51,13 @@ h2 {
   width: 100%;
   margin-bottom: 50px;
 }
+.middle {
+  font-size: 16px;
+  display: inline;
+}
 .small {
   font-size: 10px;
-  margin-left: 2px;
-  display: inline;
+  margin-left: 10px;
 }
 
 /* 윗부분 */
@@ -83,9 +86,10 @@ h4 {
 .headerRow {
   display: flex;
   width: 90%;
-  margin-left: 3%;
+  margin-left: 5%;
   font-weight: bold;
   margin-bottom: 10px;
+  justify-content: center;
 }
 /* tbody 부분 */
 .BodyHeader {
@@ -94,9 +98,14 @@ h4 {
 .bodyRow .row {
   display: flex;
   width: 95%;
-  margin-left: 5%;
+  margin-left: -1.5%;
   color: white;
   border-radius: 10px;
+  justify-content: right;
+}
+
+.bodyRow .row div {
+  text-align: right;
 }
 
 .BodyHeader button[aria-expanded="false"] {
@@ -120,6 +129,10 @@ h4 {
 
 .type3 {
   width: 17%;
+}
+
+.type4 {
+  width: 8%;
 }
 
 /* 총 포지션 손익 */
