@@ -25,8 +25,8 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ item }) => {
         USDT {"   "}
         <span className={styles.small}>(x {item.leverage})</span>
       </div>
-      <div className={styles.type4}>{formatNumber(item.markPrice)}</div>
-      <div className={styles.type4}>{formatNumber(item.openPriceAvg)}</div>
+      <div className={styles.type4}>{formatNumber(item.markPrice)}$</div>
+      <div className={styles.type4}>{formatNumber(item.openPriceAvg)}$</div>
       <CurrentProffit item={item} />
     </>
   );

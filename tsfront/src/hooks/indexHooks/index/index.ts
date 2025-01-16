@@ -1,12 +1,20 @@
-import { useState, useEffect } from "react";
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useMemo, useState } from "react";
+import { useQueries } from "@tanstack/react-query";
 import { fetchIndexPrice, fetchIndexAverage } from "api/Flow/Index_api";
-import { ChartData } from "types/index/chart";
+import { ChartData, PriceData, AverageData } from "types/index/chart";
+
+interface CombinedData {
+  priceData: PriceData;
+  averageData: AverageData;
+  processedData: number[];
+}
 
 export const useIndex = () => {
-  const [selectedIndex, setSelectedIndex] = useState<string[]>([]);
-  const [indexData, setIndexData] = useState<ChartData[]>([]);
-  const queryClient = useQueryClient();
+  const [selectedIndex, setSelectedIndex] = useState<string[]>([
+    "^GSPC",
+    "^NDX",
+  ]);
+
   const handleSelectedIndex = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSelectedIndex((prev) => {
@@ -18,25 +26,35 @@ export const useIndex = () => {
     });
   };
 
-  useEffect(() => {
-    const previousSelectedIndex =
-      queryClient.getQueryData<string[]>(["selectedIndex"]) || [];
-    const existingNames = new Set(indexData.map((item) => item.name));
-    const addedIndices = selectedIndex.filter(
-      (index) =>
-        !previousSelectedIndex.includes(index) && !existingNames.has(index)
-    );
-    addedIndices.forEach(async (index) => {
-      if (index.length > 0) {
-        try {
-          const data = await fetchIndexPrice(index);
-          setIndexData((prev) => [...prev, { name: index, data: data }]);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    });
-  }, [selectedIndex, queryClient]);
+  const queries = useQueries({
+    queries: selectedIndex.map((index) => ({
+      queryKey: ["indexData", index],
+      queryFn: async () => {
+        const [priceData, averageData] = await Promise.all([
+          fetchIndexPrice(index),
+          fetchIndexAverage(index),
+        ]);
+
+        const average = averageData[0]["AVG(Close)"];
+        const processedData = priceData.map((item) => [
+          Date.parse(item.Date),
+          ((item.Close - average) / average) * 100,
+        ]);
+        return processedData;
+      },
+      enabled: selectedIndex.includes(index),
+      staleTime: 12 * 60 * 60 * 1000, // 분 * 초 * 밀리초
+    })),
+  });
+
+  const indexData: ChartData[] = useMemo(() => {
+    return queries
+      .filter((query) => query.status === "success" && query.data)
+      .map((query, idx) => ({
+        name: selectedIndex[idx],
+        data: query.data,
+      }));
+  }, [selectedIndex]);
 
   return { indexData, selectedIndex, handleSelectedIndex };
 };

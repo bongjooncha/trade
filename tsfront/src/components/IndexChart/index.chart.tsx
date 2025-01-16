@@ -5,6 +5,7 @@ import styles from "./style/index.module.css";
 import { ChartProps } from "types/index/chart";
 
 const Chart: React.FC<ChartProps> = ({ options }) => {
+  console.log(options.series);
   return (
     <div className={styles.currencyChart}>
       <HighchartsReact highcharts={Highcharts} options={options} />
